@@ -20,7 +20,7 @@
 
     </div>
 
-    @include('layouts.partials._javascript')
+    @include('layouts.partials._jslogin')
 
 </body>
 
