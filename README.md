@@ -8,4 +8,6 @@ XAMPP, username: root, password: (kosongkan)).
 7. php artisan migrate
 8. php artisan db:seed
 9. php artisan serve
-10. Buka Browser, ketik localhost:8000
+10. npm install
+11. npm run dev
+12. Buka Browser, ketik localhost:8000
