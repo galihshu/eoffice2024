@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr" data-nav-layout="vertical" class="light" data-header-styles="light" data-menu-styles="dark">
 <head>
     @include('layouts.partials._headdashboard')
+    @stack('styles')
 </head>
 <body>
     <!-- Loader -->
@@ -37,6 +38,6 @@
     
     @include('layouts.partials._javascript')
 
-    @stack('script')
+    @stack('scripts')
 </body>
 </html>
