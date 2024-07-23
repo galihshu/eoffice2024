@@ -1,0 +1,1 @@
+Copyright &copy; 2018 - {{ DATE('Y') }} All Rights Reserved by ZonaKlub
