@@ -1,17 +1,55 @@
-<!-- All Jquery -->
-<script src="{{ asset('zonaadmin/assets/libs/jquery/dist/jquery.min.js') }}"></script>
-<!-- Bootstrap tether Core JavaScript -->
-<script src="{{ asset('zonaadmin/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
-<script src="{{ asset('zonaadmin/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<!-- Back To Top -->
+<div class="scrollToTop">
+    <span class="arrow"><i class="ri-arrow-up-s-fill text-xl"></i></span>
+</div>
 
-<!-- Swiper JS -->
-<script src="{{ asset('eofficeadmin/libs/swiper/swiper-bundle.min.js') }}"></script>
+<div id="responsive-overlay"></div>
 
-<!-- Internal Sing-Up JS -->
-<script src="{{ asset('eofficeadmin/js/authentication.js') }}"></script>
+<!-- Preline JS -->
+<script src="{{ asset('eofficeadmin/libs/preline/preline.js') }}"></script>
 
-<!-- Show Password JS -->
-<script src="{{ asset('eofficeadmin/js/show-password.js') }}"></script>
+<!-- popperjs -->
+<script src="{{ asset('eofficeadmin/libs/@popperjs/core/umd/popper.min.js') }}"></script>
 
-<!-- Auth Custom JS -->
-<script src="{{ asset('eofficeadmin/js/auth-custom.js') }}"></script>
+<!-- Color Picker JS -->
+<script src="{{ asset('eofficeadmin/libs/@simonwep/pickr/pickr.es5.min.js') }}"></script>
+
+<!-- sidebar JS -->
+<script src="{{ asset('eofficeadmin/js/defaultmenu.js') }}"></script>
+
+<!-- sticky JS -->
+<script src="{{ asset('eofficeadmin/js/sticky.js') }}"></script>
+
+<!-- Switch JS -->
+<script src="{{ asset('eofficeadmin/js/switch.js') }}"></script>
+
+<!-- Simplebar JS -->
+<script src="{{ asset('eofficeadmin/libs/simplebar/simplebar.min.js') }}"></script>
+
+<!-- Apex Charts JS -->
+<script src="{{ asset('eofficeadmin/libs/apexcharts/apexcharts.min.js') }}"></script>
+
+<!-- Jobs-Dashboard -->
+<script src="{{ asset('eofficeadmin/js/jobs-dashboard.js') }}"></script>
+
+
+<!-- Custom-Switcher JS -->
+<script src="{{ asset('eofficeadmin/js/custom-switcher.js') }}"></script>
+
+<!-- Tabulator JS -->
+<script src="{{ asset('eofficeadmin/libs/tabulator-tables/js/tabulator.min.js') }}"></script>
+
+<!-- Tabulator Custom JS -->
+<script src="{{ asset('eofficeadmin/js/datatable.js') }}"></script>
+
+<!-- Grid JS -->
+<script src="{{ asset('eofficeadmin/libs/gridjs/gridjs.umd.js') }}"></script>
+
+<!-- Internal Grid JS -->
+<script src="{{ asset('eofficeadmin/js/grid.js') }}"></script>
+
+<!-- Custom JS -->
+<script src="{{ asset('eofficeadmin/js/custom.js') }}"></script>
+
+<!-- Tabulator Custom JS -->
+<script src="{{ asset('eofficeadmin/js/datatable.js') }}"></script>

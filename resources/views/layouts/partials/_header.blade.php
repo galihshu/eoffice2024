@@ -1,234 +1,79 @@
-<nav class="navbar top-navbar navbar-expand-md navbar-dark">
-    <div class="navbar-header">
-        <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
-            <i class="ti-menu ti-close"></i>
-        </a>
+<nav class="main-header !h-[3.75rem]" aria-label="Global">
+    <div class="main-header-container ps-[0.725rem] pe-[1rem] ">
 
-        <a class="navbar-brand" href="{{ url('/home') }}">
-            <b class="logo-icon">
-                <img src="{{ asset('zonaadmin/assets/images/logo-icon.png') }}" alt="homepage" class="dark-logo" />
-                <img src="{{ asset('zonaadmin/assets/images/logo-light-icon.png') }}" alt="homepage" class="light-logo" />
-            </b>
-            <span class="logo-text">
-                <img src="{{ asset('zonaadmin/assets/images/logo-text.png') }}" alt="homepage" class="dark-logo" />
-                <img src="{{ asset('zonaadmin/assets/images/logo-light-text.png') }}" class="light-logo" alt="homepage" />
-            </span>
-        </a>
-        
-        <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="ti-more"></i>
-        </a>
+      <div class="header-content-left">
+        <!-- Start::header-element -->
+        <div class="header-element">
+          <div class="horizontal-logo">
+            <a href="index.html" class="header-logo">
+              <img src="{{ asset('eofficeadmin/images/brand-logos/desktop-logo.png') }}" alt="logo" class="desktop-logo">
+              <img src="{{ asset('eofficeadmin/images/brand-logos/toggle-logo.png') }}" alt="logo" class="toggle-logo">
+              <img src="{{ asset('eofficeadmin/images/brand-logos/desktop-dark.png') }}" alt="logo" class="desktop-dark">
+              <img src="{{ asset('eofficeadmin/images/brand-logos/toggle-dark.png') }}" alt="logo" class="toggle-dark">
+              <img src="{{ asset('eofficeadmin/images/brand-logos/desktop-white.png') }}" alt="logo" class="desktop-white">
+              <img src="{{ asset('eofficeadmin/images/brand-logos/toggle-white.png') }}" alt="logo" class="toggle-white">
+            </a>
+          </div>
+        </div>
+        <!-- End::header-element -->
+        <!-- Start::header-element -->
+        <div class="header-element md:px-[0.325rem] !items-center">
+          <!-- Start::header-link -->
+          <a aria-label="Hide Sidebar"
+            class="sidemenu-toggle animated-arrow  hor-toggle horizontal-navtoggle inline-flex items-center" href="javascript:void(0);"><span></span></a>
+          <!-- End::header-link -->
+        </div>
+        <!-- End::header-element -->
+      </div>
+
+
+
+      <div class="header-content-right">
+        <!-- light and dark theme -->
+        <div class="header-element header-theme-mode hidden !items-center sm:block !py-[1rem] md:!px-[0.65rem] px-2">
+          <a aria-label="anchor"
+            class="hs-dark-mode-active:hidden flex hs-dark-mode group flex-shrink-0 justify-center items-center gap-2  rounded-full font-medium transition-all text-xs dark:bg-bgdark dark:hover:bg-black/20 dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
+            href="javascript:void(0);" data-hs-theme-click-value="dark">
+            <i class="bx bx-moon header-link-icon"></i>
+          </a>
+          <a aria-label="anchor"
+            class="hs-dark-mode-active:flex hidden hs-dark-mode group flex-shrink-0 justify-center items-center gap-2  rounded-full font-medium text-defaulttextcolor  transition-all text-xs dark:bg-bodybg dark:bg-bgdark dark:hover:bg-black/20 dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
+            href="javascript:void(0);" data-hs-theme-click-value="light">
+            <i class="bx bx-sun header-link-icon"></i>
+          </a>
+        </div>
+        <!-- End light and dark theme -->
+
+        <!-- Header Profile -->
+        <div class="header-element md:!px-[0.65rem] px-2 hs-dropdown !items-center ti-dropdown [--placement:bottom-left]">
+
+          <button id="dropdown-profile" type="button"
+            class="hs-dropdown-toggle ti-dropdown-toggle !gap-2 !p-0 flex-shrink-0 sm:me-2 me-0 !rounded-full !shadow-none text-xs align-middle !border-0 !shadow-transparent ">
+            <img class="inline-block rounded-full " src="{{ asset('eofficeadmin/images/authentication/admin.png') }}"  width="32" height="32" alt="Image Description">
+          </button>
+          <div class="md:block hidden dropdown-profile">
+            <p class="font-semibold mb-0 leading-none text-[#536485] text-[0.813rem] ">{{ Auth::user()->name }}</p>
+            <!-- <span class="opacity-[0.7] font-normal text-[#536485] block text-[0.6875rem] ">Web Designer</span> -->
+          </div>
+          <div
+            class="hs-dropdown-menu ti-dropdown-menu !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder hidden main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
+            aria-labelledby="dropdown-profile">
+
+            <ul class="text-defaulttextcolor font-medium dark:text-[#8c9097] dark:text-white/50">
+              <li>
+                <a class="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex" href="profile.html">
+                  <i class="ti ti-user-circle text-[1.125rem] me-2 opacity-[0.7]"></i>Profile
+                </a>
+              <li><a class="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex" href="href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logoutform').submit();"><i
+                    class="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>Log Out</a><form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form></li>
+            </ul>
+          </div>
+        </div>
+        <!-- End Header Profile -->
+
+        <!-- End::header-element -->
+      </div>
     </div>
-
-    <div class="navbar-collapse collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav float-left mr-auto">
-            <li class="nav-item d-none d-md-block">
-                <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar">
-                    <i class="sl-icon-menu font-20"></i>
-                </a>
-            </li>
-
-            <!-- Comment -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="ti-bell font-20"></i>
-
-                </a>
-                <div class="dropdown-menu mailbox animated bounceInDown">
-                    <span class="with-arrow">
-                        <span class="bg-primary"></span>
-                    </span>
-                    <ul class="list-style-none">
-                        <li>
-                            <div class="drop-title bg-primary text-white">
-                                <h4 class="m-b-0 m-t-5">4 New</h4>
-                                <span class="font-light">Notifications</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="message-center notifications">
-                                <!-- Message -->
-                                <a href="javascript:void(0)" class="message-item">
-                                    <span class="btn btn-danger btn-circle">
-                                        <i class="fa fa-link"></i>
-                                    </span>
-                                    <div class="mail-contnet">
-                                        <h5 class="message-title">Launch Admin</h5>
-                                        <span class="mail-desc">Just see the my new admin!</span>
-                                        <span class="time">9:30 AM</span>
-                                    </div>
-                                </a>
-                                <!-- Message -->
-                                <a href="javascript:void(0)" class="message-item">
-                                    <span class="btn btn-success btn-circle">
-                                        <i class="ti-calendar"></i>
-                                    </span>
-                                    <div class="mail-contnet">
-                                        <h5 class="message-title">Event today</h5>
-                                        <span class="mail-desc">Just a reminder that you have event</span>
-                                        <span class="time">9:10 AM</span>
-                                    </div>
-                                </a>
-                                <!-- Message -->
-                                <a href="javascript:void(0)" class="message-item">
-                                    <span class="btn btn-info btn-circle">
-                                        <i class="ti-settings"></i>
-                                    </span>
-                                    <div class="mail-contnet">
-                                        <h5 class="message-title">Settings</h5>
-                                        <span class="mail-desc">You can customize this template as you want</span>
-                                        <span class="time">9:08 AM</span>
-                                    </div>
-                                </a>
-                                <!-- Message -->
-                                <a href="javascript:void(0)" class="message-item">
-                                    <span class="btn btn-primary btn-circle">
-                                        <i class="ti-user"></i>
-                                    </span>
-                                    <div class="mail-contnet">
-                                        <h5 class="message-title">Indosmart</h5>
-                                        <span class="mail-desc">Just see the my admin!</span>
-                                        <span class="time">9:02 AM</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <a class="nav-link text-center m-b-5" href="javascript:void(0);">
-                                <strong>Check all notifications</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <!-- End Comment -->
-            
-            <!-- Messages -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="font-20 ti-email"></i>
-
-                </a>
-                <div class="dropdown-menu mailbox animated bounceInDown" aria-labelledby="2">
-                    <span class="with-arrow">
-                        <span class="bg-danger"></span>
-                    </span>
-                    <ul class="list-style-none">
-                        <li>
-                            <div class="drop-title bg-danger text-white">
-                                <h4 class="m-b-0 m-t-5">5 New</h4>
-                                <span class="font-light">Messages</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="message-center message-body">
-                                <!-- Message -->
-                                <a href="javascript:void(0)" class="message-item">
-                                    <span class="user-img">
-                                        <img src="{{ asset('zonaadmin/assets/images/users/galih.png') }}" alt="user" class="rounded-circle">
-                                        <span class="profile-status online pull-right"></span>
-                                    </span>
-                                    <div class="mail-contnet">
-                                        <h5 class="message-title">{{ Auth::user()->name }}</h5>
-                                        <span class="mail-desc">Just see the my admin!</span>
-                                        <span class="time">9:30 AM</span>
-                                    </div>
-                                </a>
-                                <!-- Message -->
-                                <a href="javascript:void(0)" class="message-item">
-                                    <span class="user-img">
-                                        <img src="{{ asset('zonaadmin/assets/images/users/2.jpg') }}" alt="user" class="rounded-circle">
-                                        <span class="profile-status busy pull-right"></span>
-                                    </span>
-                                    <div class="mail-contnet">
-                                        <h5 class="message-title">Indosmart</h5>
-                                        <span class="mail-desc">I've sung a song! See you at</span>
-                                        <span class="time">9:10 AM</span>
-                                    </div>
-                                </a>
-                                <!-- Message -->
-                                <a href="javascript:void(0)" class="message-item">
-                                    <span class="user-img">
-                                        <img src="{{ asset('zonaadmin/assets/images/users/3.jpg') }}" alt="user" class="rounded-circle">
-                                        <span class="profile-status away pull-right"></span>
-                                    </span>
-                                    <div class="mail-contnet">
-                                        <h5 class="message-title">dkonten</h5>
-                                        <span class="mail-desc">I am a singer!</span>
-                                        <span class="time">9:08 AM</span>
-                                    </div>
-                                </a>
-                                <!-- Message -->
-                                <a href="javascript:void(0)" class="message-item">
-                                    <span class="user-img">
-                                        <img src="{{ asset('zonaadmin/assets/images/users/4.jpg') }}" alt="user" class="rounded-circle">
-                                        <span class="profile-status offline pull-right"></span>
-                                    </span>
-                                    <div class="mail-contnet">
-                                        <h5 class="message-title">zonaklub</h5>
-                                        <span class="mail-desc">Just see the my admin!</span>
-                                        <span class="time">9:02 AM</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <a class="nav-link text-center link" href="javascript:void(0);">
-                                <b>See all e-Mails</b>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <!-- End Messages -->
-
-
-        </ul>
-        <!-- Right side toggle and nav items -->
-        <ul class="navbar-nav float-right">
-            
-            <!-- User profile and search -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <img src="{{ asset('zonaadmin/assets/images/users/galih.png') }}" alt="user" class="rounded-circle" width="31">
-                </a>
-                <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                    <span class="with-arrow">
-                        <span class="bg-primary"></span>
-                    </span>
-                    <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
-                        <div class="">
-                            <img src="{{ asset('zonaadmin/assets/images/users/galih.png') }}" alt="user" class="img-circle" width="60">
-                        </div>
-                        <div class="m-l-10">
-                            <h4 class="m-b-0">{{ Auth::user()->name }}</h4>
-                            <p class=" m-b-0">{{ Auth::user()->email }}</p>
-                        </div>
-                    </div>
-                    <a class="dropdown-item" href="javascript:void(0)">
-                        <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                    <a class="dropdown-item" href="javascript:void(0)">
-                        <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="javascript:void(0)">
-                        <i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
-                        <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                        <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                    <div class="dropdown-divider"></div>
-                    <div class="p-l-30 p-10">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a>
-                    </div>
-                </div>
-            </li>
-            <!-- User profile and search -->
-        </ul>
-    </div>
-</nav>
+  </nav>
