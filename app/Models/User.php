@@ -45,4 +45,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function SuratMasuk()
+    {
+        return $this->hasMany(SuratMasuk::class, 'user_id');
+    }
+
+    public function SuratKeluar()
+    {
+        return $this->hasMany(SuratKeluar::class, 'user_id');
+    }
+    
 }
