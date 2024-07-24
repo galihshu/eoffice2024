@@ -40,7 +40,7 @@
 <script src="{{ asset('eofficeadmin/libs/tabulator-tables/js/tabulator.min.js') }}"></script>
 
 <!-- Tabulator Custom JS -->
-<script src="{{ asset('eofficeadmin/js/datatable.js') }}"></script>
+{{-- <script src="{{ asset('eofficeadmin/js/datatable.js') }}"></script> --}}
 
 <!-- Grid JS -->
 <script src="{{ asset('eofficeadmin/libs/gridjs/gridjs.umd.js') }}"></script>
@@ -51,5 +51,14 @@
 <!-- Custom JS -->
 <script src="{{ asset('eofficeadmin/js/custom.js') }}"></script>
 
+<script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+{{-- <script src="{{ asset('eofficeadmin/js/datatablestailwindcss.js') }}"></script> --}}
+
+<script src="https://cdn.datatables.net/2.1.0/js/dataTables.js"></script>
+
 <!-- Tabulator Custom JS -->
-<script src="{{ asset('eofficeadmin/js/datatable.js') }}"></script>
+{{-- <script src="{{ asset('eofficeadmin/js/datatable.js') }}"></script> --}}
+
+{{-- <script src="{{ asset('eofficeadmin/js/datatablestailwindcss.js') }}"></script> --}}
+

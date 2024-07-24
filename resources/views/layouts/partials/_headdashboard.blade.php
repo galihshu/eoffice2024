@@ -29,3 +29,7 @@
 
 <!-- Choices Css -->
 <link rel="stylesheet" href="{{ asset('eofficeadmin/libs/choices.js/public/assets/styles/choices.min.css') }}">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.0/css/dataTables.dataTables.css" />
+
+{{-- <link rel="stylesheet" href="{{ asset('eofficeadmin/css/datatablestailwindcss.css') }}"> --}}
