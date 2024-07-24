@@ -42,12 +42,12 @@ class SuratMasuk extends Model
 
     public function SubLevelAsal()
     {
-        return $this->belongsTo(JenisSurat::class, 'sub_level_asal_id');
+        return $this->belongsTo(SubLevel::class, 'sub_level_asal_id');
     }
 
     public function SubLevelTujuan()
     {
-        return $this->belongsTo(JenisSurat::class, 'sub_level_tujuan_id');
+        return $this->belongsTo(SubLevel::class, 'sub_level_tujuan_id');
     }
 
     /**
