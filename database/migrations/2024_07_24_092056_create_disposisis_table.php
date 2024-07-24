@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('disposisi', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('suratmasuk_id')->constrained('suratmasuk');
+            $table->date('tgl_disposisi')->nullable();
+            $table->foreignId('sub_level_asal_id')->constrained('sublevel');
+            $table->foreigniId('sub_level_tujuan_id')->constrained('sublevel');
+            $table->varchar('foto_disposisi')->nullable();
+            $table->text('keterangan_disposisi')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('disposisi');
+    }
+};
