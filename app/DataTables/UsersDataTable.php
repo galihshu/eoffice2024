@@ -25,29 +25,23 @@ class UsersDataTable extends DataTable
     {
         return $this->builder()
                     ->setTableId('users-table')
+                    ->addTableClass('table whitespace-nowrap ti-striped-table table-bordered table-hover min-w-full ti-custom-table-hover')
+                    ->setTableHeadClass('bg-primary/10')
+                    // ->setrowClass('border-b border-defaultborder')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('add'),
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload'),
-                    ]);
+                    ->selectStyleSingle();
     }
  
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
-            Column::make('name'),
-            Column::make('email'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('id')->orderable(false)->addClass('border-b border-defaultborder'),
+            Column::make('name')->orderable(false)->addClass('border-b border-defaultborder'),
+            Column::make('email')->orderable(false)->addClass('border-b border-defaultborder'),
+            Column::make('created_at')->orderable(false)->addClass('border-b border-defaultborder'),
+            Column::make('updated_at')->orderable(false)->addClass('border-b border-defaultborder'),
         ];
     }
  

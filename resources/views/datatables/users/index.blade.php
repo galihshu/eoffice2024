@@ -1,4 +1,12 @@
 @extends('layouts.app')
+
+@push('styles')
+    <style>
+    .dt-length {
+        display: none;
+    }
+    </style>
+@endpush
  
 @section('content')
     <div class="block justify-between page-header md:flex">
@@ -37,7 +45,9 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    {{ $dataTable->table() }}
+                    <div class="table-responsive">
+                        {{ $dataTable->table() }}
+                    </div>
                 </div>
             </div>
         </div>

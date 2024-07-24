@@ -10,4 +10,4 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/users', [UserDataTableController::class, 'index'])->name('users-datatable');
+Route::get('/datauser', [UserDataTableController::class, 'index'])->name('users-datatable');
