@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserFactorySeeder::class,
             JenissuratSeeder::class,
             LevelSeeder::class,
+            SubLevelSeeder::class,
         ]);
     }
 }
