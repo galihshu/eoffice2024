@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('sub_level_asal_id')->constrained('sublevel');
             $table->foreigniId('sub_level_tujuan_id')->constrained('sublevel');
             $table->string('foto_disposisi')->nullable();
+            $table->string('file_upload')->nullable();
             $table->text('keterangan_disposisi')->nullable();
             $table->timestamps();
         });
