@@ -37,15 +37,10 @@ class RoleSeeder extends Seeder
         $updateJenisSurat = Permission::create(['name' => 'update-jenis-surat', 'guard_name' => 'web']);
         $deleteJenisSurat = Permission::create(['name' => 'delete-jenis-surat', 'guard_name' => 'web']);
 
-        $readLevel   = Permission::create(['name' => 'read-level', 'guard_name' => 'web']);
-        $addLevel    = Permission::create(['name' => 'add-level', 'guard_name' => 'web']);
-        $updateLevel = Permission::create(['name' => 'update-level', 'guard_name' => 'web']);
-        $deleteLevel = Permission::create(['name' => 'delete-level', 'guard_name' => 'web']);
-
-        $readSubLevel   = Permission::create(['name' => 'read-sub-level', 'guard_name' => 'web']);
-        $addSubLevel    = Permission::create(['name' => 'add-sub-level', 'guard_name' => 'web']);
-        $updateSubLevel = Permission::create(['name' => 'update-sub-level', 'guard_name' => 'web']);
-        $deleteSubLevel = Permission::create(['name' => 'delete-sub-level', 'guard_name' => 'web']);
+        $readJabatan   = Permission::create(['name' => 'read-jabatan', 'guard_name' => 'web']);
+        $addJabatan    = Permission::create(['name' => 'add-jabatan', 'guard_name' => 'web']);
+        $updateJabatan = Permission::create(['name' => 'update-jabatan', 'guard_name' => 'web']);
+        $deleteJabatan = Permission::create(['name' => 'delete-jabatan', 'guard_name' => 'web']);
 
         $readSuratMasuk   = Permission::create(['name' => 'read-surat-masuk', 'guard_name' => 'web']);
         $addSuratMasuk    = Permission::create(['name' => 'add-surat-masuk', 'guard_name' => 'web']);
