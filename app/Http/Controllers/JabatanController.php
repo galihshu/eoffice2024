@@ -6,6 +6,7 @@ use App\DataTables\JabatanDataTable;
 use App\Http\Requests\JabatanRequest;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class JabatanController extends Controller
 {
@@ -16,37 +17,29 @@ class JabatanController extends Controller
 
     public function index(JabatanDataTable $dataTable)
     {
-        return $dataTable->render('jabatan.index');
+        $title = "Yakin ingin menghapus data ini?";
+        $text = "Setelah dihapus, data tidak dapat dikembalikan";
+        confirmDelete($title, $text);
+        return $dataTable->render('modules.jabatan.index');
     }
 
     public function create()
     {
-        return view('jabatan.form', [
-            'jabatan' => new Jabatan(),
-            'data' => [
-                'title' => 'Tambah jabatan baru',
-                'btn_submit' => 'SIMPAN',
-            ]
-        ]);
+        return view('modules.jabatan.create');
     }
 
     public function store(JabatanRequest $request)
     {
         $validated = $request->validated();
         Jabatan::create($validated);
-        return redirect('/jabatan');
+        return redirect()->route('jabatan.index')
+            ->withToastSuccess(__('Data Jabatan Berhasil Disimpan'));
     }
 
     public function edit(string $id)
     {
         $jabatan = Jabatan::findOrFail($id);
-        return view('jabatan.form', [
-            'jabatan' => $jabatan,
-            'data' => [
-                'title' => 'Edit jabatan',
-                'btn_submit' => 'UPDATE',
-            ]
-        ]);
+        return view('modules.jabatan.edit', ['jabatan' => $jabatan]);
     }
 
     public function update(JabatanRequest $request, string $id)
@@ -54,13 +47,15 @@ class JabatanController extends Controller
         $validated = $request->validated();
         $jabatan = Jabatan::findOrFail($id);
         $jabatan->update($validated);
-        return redirect('/jabatan');
+        return redirect()->route('jabatan.index')
+            ->withToastSuccess(__('Data Jabatan Berhasil Diupdate'));
     }
 
     public function destroy(string $id)
     {
         $jabatan = Jabatan::findOrFail($id);
         $jabatan->delete();
-        return redirect('/jabatan');
+        return redirect()->route('jabatan.index')
+            ->withToastSuccess(__('Data Jabatan Berhasil Dihapus'));
     }
 }
