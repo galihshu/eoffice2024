@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('jenissurat_id')->constrained('jenissurat');
-            $table->foreignId('sub_level_asal_id')->constrained('jenissurat');
-            $table->foreignId('sub_level_tujuan_id')->constrained('jenissurat');
+            $table->foreignId('sub_level_asal_id')->constrained('sublevel');
+            $table->foreignId('sub_level_tujuan_id')->constrained('sublevel');
             $table->string('kode_surat');
             $table->string('perihal_masuk');
             $table->date('tgl_surat')->nullable();
