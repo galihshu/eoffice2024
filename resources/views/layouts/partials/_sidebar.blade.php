@@ -54,6 +54,15 @@
                 </a>
             </li>
             <!-- End::slide -->
+
+            <!-- Start::slide -->
+            <li class="slide">
+                <a href="#" class="side-menu__item">
+                <i class="bx bx-desktop side-menu__icon"></i>
+                    <span class="side-menu__label">Monitoring Disposisi</span>
+                </a>
+            </li>
+            <!-- End::slide -->
             
             <!-- Start::slide__category -->
             <li class="slide__category"><span class="category-name">Master</span></li>
@@ -61,7 +70,7 @@
 
             <!-- Start::slide -->
             <li class="slide">
-                <a href="#" class="side-menu__item">
+                <a href="{{ route('jenissurat.index') }}" class="side-menu__item">
                 <i class="bx bx-notepad side-menu__icon"></i>
                     <span class="side-menu__label">Jenis Surat</span>
                 </a>
@@ -70,7 +79,7 @@
 
             <!-- Start::slide -->
             <li class="slide">
-                <a href="#" class="side-menu__item">
+                <a href="{{ route('jabatan.index') }}" class="side-menu__item">
                 <i class="bx bx-user-circle side-menu__icon"></i>
                     <span class="side-menu__label">Jabatan</span>
                 </a>
@@ -95,15 +104,6 @@
                 <a href="#" class="side-menu__item">
                 <i class="bx bx-printer side-menu__icon"></i>
                     <span class="side-menu__label">Laporan Surat Keluar</span>
-                </a>
-            </li>
-            <!-- End::slide -->
-
-            <!-- Start::slide -->
-            <li class="slide">
-                <a href="#" class="side-menu__item">
-                <i class="bx bx-desktop side-menu__icon"></i>
-                    <span class="side-menu__label">Monitoring Disposisi</span>
                 </a>
             </li>
             <!-- End::slide -->
