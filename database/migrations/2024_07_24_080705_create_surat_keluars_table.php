@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('foto_surat_keluar3')->nullable();
             $table->string('foto_surat_keluar4')->nullable();
             $table->string('foto_surat_keluar5')->nullable();
+            $table->string('file_upload')->nullable();
             $table->timestamps();
         });
     }
