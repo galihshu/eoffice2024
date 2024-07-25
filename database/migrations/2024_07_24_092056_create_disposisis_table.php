@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('tgl_disposisi')->nullable();
             $table->foreignId('sub_level_asal_id')->constrained('sublevel');
             $table->foreigniId('sub_level_tujuan_id')->constrained('sublevel');
-            $table->varchar('foto_disposisi')->nullable();
+            $table->string('foto_disposisi')->nullable();
             $table->text('keterangan_disposisi')->nullable();
             $table->timestamps();
         });
