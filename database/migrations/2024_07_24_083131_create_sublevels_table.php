@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sublevel', function (Blueprint $table) {
+        Schema::create('jabatan', function (Blueprint $table) {
             $table->id();
-            $table ->foreignId('level_id')->constrained('level');
-            $table->string('sublevel');
+            $table->string('nama_jabatan');
             $table->timestamps();
         });
     }
