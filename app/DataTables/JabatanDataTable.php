@@ -25,13 +25,8 @@ class JabatanDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('action', function ($jabatan) {
-                $ops = '<a href="' . route('jabatan.edit', $jabatan->id) . '" class="btn btn-primary btn-sm">Edit</a>';
-                $ops .= '
-                <form action="' . route('jabatan.destroy', $jabatan->id) . '" method="POST" style="display:inline;">
-                    ' . csrf_field() . '
-                    ' . method_field('DELETE') . '
-                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure?\')">Delete</button>
-                </form>';
+                $ops = '<a href="' . route('jabatan.edit', $jabatan->id) . '" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-info"><i class="ri-edit-line"></i></a>';
+                $ops .= '<a href="' . route('jabatan.destroy', $jabatan->id) . '" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-danger" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a>';
 
                 return $ops;
             })
@@ -58,8 +53,8 @@ class JabatanDataTable extends DataTable
     {
         return $this->builder()
             ->setTableId('jabatan-table')
-            ->addTableClass('table whitespace-nowrap ti-striped-table table-bordered table-hover min-w-full ti-custom-table-hover')
-            ->setTableHeadClass('bg-primary/10')
+            ->addTableClass('table whitespace-nowrap ti-striped-table table-hover min-w-full ti-custom-table-hover')
+            ->setTableHeadClass('bg-primary text-white')
             // ->setrowClass('border-b border-defaultborder')
             ->columns($this->getColumns())
             ->minifiedAjax()
@@ -74,11 +69,11 @@ class JabatanDataTable extends DataTable
     {
 
         return [
-            Column::make('id'),
-            Column::make('nama_jabatan')->title('Nama Jabatan'),
-            Column::make('created_at')->title('Dibuat Pada'),
-            Column::make('updated_at')->title('Diubah Pada'),
-            Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center')
+            Column::make('id')->addClass('border-b border-defaultborder'),
+            Column::make('nama_jabatan')->title('Nama Jabatan')->addClass('border-b border-defaultborder'),
+            Column::make('created_at')->title('Dibuat Pada')->addClass('border-b border-defaultborder'),
+            Column::make('updated_at')->title('Diubah Pada')->addClass('border-b border-defaultborder'),
+            Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center border-b border-defaultborder')
         ];
     }
 

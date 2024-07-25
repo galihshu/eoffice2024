@@ -13,6 +13,8 @@
 <!-- Main JS -->
 <script src="{{ asset('eofficeadmin/js/main.js') }}"></script>
 
+{{-- @vite('resources/css/app.css') --}}
+
 <!-- Style Css -->
 <link rel="stylesheet" href="{{ asset('eofficeadmin/css/style.css') }}">
 

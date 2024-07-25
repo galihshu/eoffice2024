@@ -62,3 +62,6 @@
 
 {{-- <script src="{{ asset('eofficeadmin/js/datatablestailwindcss.js') }}"></script> --}}
 
+{{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+
+

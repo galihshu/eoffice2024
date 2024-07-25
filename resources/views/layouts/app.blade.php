@@ -39,5 +39,6 @@
     @include('layouts.partials._javascript')
 
     @stack('scripts')
+    @include('sweetalert::alert')
 </body>
 </html>

@@ -27,3 +27,5 @@
 
 <!-- Swiper Css -->
 <link rel="stylesheet" href="{{ asset('eofficeadmin/libs/swiper/swiper-bundle.min.css') }}">
+
+{{-- @vite('resources/css/app.css') --}}

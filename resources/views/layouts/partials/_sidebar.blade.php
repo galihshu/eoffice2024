@@ -39,6 +39,15 @@
 
             <!-- Start::slide -->
             <li class="slide">
+                <a href="{{ route('jenissurat.index') }}" class="side-menu__item">
+                <i class="bx bx-notepad side-menu__icon"></i>
+                    <span class="side-menu__label">Jenis Surat</span>
+                </a>
+            </li>
+            <!-- End::slide -->
+
+            <!-- Start::slide -->
+            <li class="slide">
                 <a href="#" class="side-menu__item">
                     <i class="bx bx-archive-in side-menu__icon"></i>
                     <span class="side-menu__label">Surat Masuk</span>
@@ -60,28 +69,6 @@
                 <a href="#" class="side-menu__item">
                 <i class="bx bx-desktop side-menu__icon"></i>
                     <span class="side-menu__label">Monitoring Disposisi</span>
-                </a>
-            </li>
-            <!-- End::slide -->
-            
-            <!-- Start::slide__category -->
-            <li class="slide__category"><span class="category-name">Master</span></li>
-            <!-- End::slide__category -->
-
-            <!-- Start::slide -->
-            <li class="slide">
-                <a href="{{ route('jenissurat.index') }}" class="side-menu__item">
-                <i class="bx bx-notepad side-menu__icon"></i>
-                    <span class="side-menu__label">Jenis Surat</span>
-                </a>
-            </li>
-            <!-- End::slide -->
-
-            <!-- Start::slide -->
-            <li class="slide">
-                <a href="{{ route('jabatan.index') }}" class="side-menu__item">
-                <i class="bx bx-user-circle side-menu__icon"></i>
-                    <span class="side-menu__label">Jabatan</span>
                 </a>
             </li>
             <!-- End::slide -->
@@ -144,10 +131,13 @@
                 </a>
                 <ul class="slide-menu child1">
                     <li class="slide">
-                        <a href="#" class="side-menu__item">User</a>
+                        <a href="{{ route('jabatan.index') }}" class="side-menu__item">Jabatan Pengguna</a>
                     </li>
                     <li class="slide">
-                        <a href="#" class="side-menu__item">Role</a>
+                        <a href="#" class="side-menu__item">Pengguna</a>
+                    </li>
+                    <li class="slide">
+                        <a href="#" class="side-menu__item">Peran</a>
                     </li>
                 </ul>
             </li>

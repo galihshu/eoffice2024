@@ -16,14 +16,14 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('jenissurat_id')->constrained('jenissurat');
             $table->string('no_surat')->nullable();
+            $table->string('perihal')->nullable();
             // 1 = Baru, 2 = Proses, 3 = Selesai
             $table->enum('status_surat', [1,2,3])->default(1);
-            $table->string('perihal_masuk');
             $table->date('tgl_surat')->nullable();
             $table->date('tgl_masuk')->nullable();
             $table->date('tgl_selesai')->nullable();
-            $table->string('file_upload')->nullable();
             $table->text('asal_surat')->nullable();
+            $table->string('file_upload')->nullable();
             $table->timestamps();
         });
     }
