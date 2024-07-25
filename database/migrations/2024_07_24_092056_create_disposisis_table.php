@@ -16,9 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('suratmasuk_id')->constrained('suratmasuk');
             $table->date('tgl_disposisi')->nullable();
-            $table->foreignId('sub_level_asal_id')->constrained('sublevel');
-            $table->foreigniId('sub_level_tujuan_id')->constrained('sublevel');
-            $table->string('foto_disposisi')->nullable();
+            $table->foreignId('jabatan_asal_id')->constrained('jabatan');
+            $table->foreignId('jabatan_tujuan_id')->constrained('jabatan');
             $table->string('file_upload')->nullable();
             $table->text('keterangan_disposisi')->nullable();
             $table->timestamps();
