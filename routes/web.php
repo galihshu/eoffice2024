@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\DataTables\UserDataTableController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,3 +15,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/datauser', [UserDataTableController::class, 'index'])->name('users-datatable');
 Route::resource('jabatan', JabatanController::class);
 Route::resource('jenissurat', JabatanController::class);
+Route::resource('user', UserController::class);
