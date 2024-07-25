@@ -12,4 +12,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/datauser', [UserDataTableController::class, 'index'])->name('users-datatable');
-Route::resource('/jabatan', JabatanController::class);
+Route::resource('jabatan', JabatanController::class);
+Route::resource('jenissurat', JabatanController::class);
