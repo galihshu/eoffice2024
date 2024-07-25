@@ -40,8 +40,8 @@
             <!-- Start::slide -->
             <li class="slide">
                 <a href="#" class="side-menu__item">
-                    <i class="bx bx-receipt side-menu__icon"></i>
-                    <span class="side-menu__label">Menu 1</span>
+                    <i class="bx bx-archive-in side-menu__icon"></i>
+                    <span class="side-menu__label">Surat Masuk</span>
                 </a>
             </li>
             <!-- End::slide -->
@@ -49,26 +49,8 @@
             <!-- Start::slide -->
             <li class="slide">
                 <a href="#" class="side-menu__item">
-                <i class="bx bx-check-shield side-menu__icon"></i>
-                    <span class="side-menu__label">Menu 2</span>
-                </a>
-            </li>
-            <!-- End::slide -->
-
-            <!-- Start::slide -->
-            <li class="slide">
-                <a href="#" class="side-menu__item">
-                <i class="bx bx-git-repo-forked side-menu__icon"></i>
-                    <span class="side-menu__label">Menu 3</span>
-                </a>
-            </li>
-            <!-- End::slide -->
-
-            <!-- Start::slide -->
-            <li class="slide">
-                <a href="#" class="side-menu__item">
-                <i class="bx bx-book side-menu__icon"></i>
-                    <span class="side-menu__label">Menu 4</span>
+                <i class="bx bx-archive-out side-menu__icon"></i>
+                    <span class="side-menu__label">Surat Keluar</span>
                 </a>
             </li>
             <!-- End::slide -->
@@ -81,7 +63,7 @@
             <li class="slide">
                 <a href="#" class="side-menu__item">
                 <i class="bx bx-notepad side-menu__icon"></i>
-                    <span class="side-menu__label">Menu 1</span>
+                    <span class="side-menu__label">Jenis Surat</span>
                 </a>
             </li>
             <!-- End::slide -->
@@ -89,21 +71,21 @@
             <!-- Start::slide -->
             <li class="slide">
                 <a href="#" class="side-menu__item">
-                <i class="bx bxs-institution side-menu__icon"></i>
-                    <span class="side-menu__label">Menu 2</span>
+                <i class="bx bx-user-circle side-menu__icon"></i>
+                    <span class="side-menu__label">Jabatan</span>
                 </a>
             </li>
             <!-- End::slide -->
 
             <!-- Start::slide__category -->
-            <li class="slide__category"><span class="category-name">Report</span></li>
+            <li class="slide__category"><span class="category-name">Laporan</span></li>
             <!-- End::slide__category -->
 
             <!-- Start::slide -->
             <li class="slide">
                 <a href="#" class="side-menu__item">
                 <i class="bx bx-printer side-menu__icon"></i>
-                    <span class="side-menu__label">Menu 1</span>
+                    <span class="side-menu__label">Laporan Surat Masuk</span>
                 </a>
             </li>
             <!-- End::slide -->
@@ -112,10 +94,41 @@
             <li class="slide">
                 <a href="#" class="side-menu__item">
                 <i class="bx bx-printer side-menu__icon"></i>
-                    <span class="side-menu__label">Menu 2</span>
+                    <span class="side-menu__label">Laporan Surat Keluar</span>
                 </a>
             </li>
             <!-- End::slide -->
+
+            <!-- Start::slide -->
+            <li class="slide">
+                <a href="#" class="side-menu__item">
+                <i class="bx bx-desktop side-menu__icon"></i>
+                    <span class="side-menu__label">Monitoring Disposisi</span>
+                </a>
+            </li>
+            <!-- End::slide -->
+           
+            <!-- Start::slide__category -->
+           <li class="slide__category"><span class="category-name">Pengaturan Akun</span></li>
+           <!-- End::slide__category -->
+
+           <!-- Start::slide -->
+           <li class="slide">
+               <a href="#" class="side-menu__item">
+               <i class="bx bx-user side-menu__icon"></i>
+                   <span class="side-menu__label">Profil</span>
+               </a>
+           </li>
+           <!-- End::slide -->
+
+           <!-- Start::slide -->
+           <li class="slide">
+               <a href="#" class="side-menu__item">
+               <i class="bx bx-lock-alt side-menu__icon"></i>
+                   <span class="side-menu__label">Ganti Password</span>
+               </a>
+           </li>
+           <!-- End::slide -->
 
             <!-- Start::slide__category -->
             <li class="slide__category"><span class="category-name">Users</span></li>
@@ -139,6 +152,7 @@
                 </ul>
             </li>
             <!-- End::slide -->
+
         <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24"
                 height="24" viewBox="0 0 24 24">
                 <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
