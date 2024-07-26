@@ -34,7 +34,9 @@
                             </div>
                             <div class="flex-grow">
                                 <div class="flex mb-1 items-start justify-between">
-                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">10</h5>
+                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">
+                                    {{ $totalSuratMasukBaru }}
+                                    </h5>
                                     <!-- <div class="text-danger font-semibold"><i
                                         class="ri-arrow-down-s-fill me-1 align-middle"></i>-1.05%</div> -->
                                 </div>
@@ -55,7 +57,9 @@
                             </div>
                             <div class="flex-grow">
                                 <div class="flex mb-1 items-start justify-between">
-                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">15</h5>
+                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">
+                                    {{ $totalSuratMasukDiproses }}
+                                    </h5>
                                     <!-- <div class="text-success font-semibold"><i
                                         class="ri-arrow-up-s-fill me-1 align-middle"></i>+0.40%</div> -->
                                 </div>
@@ -77,7 +81,9 @@
                             </div>
                             <div class="flex-grow">
                                 <div class="flex mb-1 items-start justify-between">
-                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">10</h5>
+                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">
+                                    {{ $totalSuratMasukSelesai }}
+                                    </h5>
                                     <!-- <div class="text-success font-semibold"><i
                                         class="ri-arrow-up-s-fill me-1 align-middle"></i>+0.82%</div> -->
                                 </div>
@@ -99,7 +105,9 @@
                             </div>
                             <div class="flex-grow">
                                 <div class="flex mb-1 items-start justify-between">
-                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">13</h5>
+                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">
+                                    {{ $totalSuratKeluar }}
+                                    </h5>
                                     <!-- <div class="text-success font-semibold"><i
                                         class="ri-arrow-up-s-fill me-1 align-middle"></i>+0.21%</div> -->
                                 </div>
@@ -120,7 +128,9 @@
                             </div>
                             <div class="flex-grow">
                                 <div class="flex mb-1 items-start justify-between">
-                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">08</h5>
+                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">
+                                    {{ $totalDisposisi }}
+                                    </h5>
                                     <!-- <div class="text-danger font-semibold"><i
                                         class="ri-arrow-down-s-fill me-1 align-middle"></i>-0.153%</div> -->
                                 </div>
@@ -142,7 +152,9 @@
                             </div>
                             <div class="flex-grow">
                                 <div class="flex mb-1 items-start justify-between">
-                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">20</h5>
+                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">
+                                    {{ $totalUser }}
+                                    </h5>
                                     <!-- <div class="text-success font-semibold"><i
                                         class="ri-arrow-up-s-fill me-1 align-middle"></i>+0.165%</div> -->
                                 </div>
