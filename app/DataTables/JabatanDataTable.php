@@ -26,7 +26,7 @@ class JabatanDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function ($jabatan) {
                 $ops = '<a href="' . route('jabatan.edit', $jabatan->id) . '" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-info"><i class="ri-edit-line"></i></a>';
-                $ops .= '<a href="' . route('jabatan.destroy', $jabatan->id) . '" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-danger" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a>';
+                // $ops .= '<a href="' . route('jabatan.destroy', $jabatan->id) . '" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-danger" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a>';
 
                 return $ops;
             })
