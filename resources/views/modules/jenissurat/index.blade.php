@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Jenis Surat')
+
 @push('styles')
 @endpush
  
