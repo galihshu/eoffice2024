@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\JenissuratDataTable;
 use App\Http\Requests\JenisSurat\StoreRequest;
 use App\Http\Requests\JenisSurat\UpdateRequest;
 use App\Models\JenisSurat;
+use App\Models\Jenissurat as ModelsJenissurat;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
-class JenisSuratController extends Controller
+class JenissuratController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(JenissuratDataTable $dataTable)
     {
-        $data = JenisSurat::all();
-        return $data;
+        $title = "Yakin ingin menghapus data ini?";
+        $text = "Setelah dihapus, data tidak dapat dikembalikan";
+        confirmDelete($title, $text);
+        return $dataTable->render('modules.jenissurat.index');
+
     }
 
     /**
@@ -23,7 +29,7 @@ class JenisSuratController extends Controller
      */
     public function create()
     {
-        //
+        return view('modules.jenissurat.create');
     }
 
     /**
@@ -31,9 +37,10 @@ class JenisSuratController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        JenisSurat::create([
-            'jenis_surat' => $request->safe()->jenis_surat,
-        ]);
+        $validated = $request->validated();
+        Jenissurat::create($validated);
+        return redirect()->route('jenissurat.index')
+            ->withToastSuccess(__('Data Jenis Surat Berhasil Disimpan'));
     }
 
     /**
@@ -50,7 +57,8 @@ class JenisSuratController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $jenissurat = Jenissurat::findOrFail($id);
+        return view('modules.jenissurat.edit', ['jenissurat' => $jenissurat]);
     }
 
     /**
@@ -58,10 +66,11 @@ class JenisSuratController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $data = JenisSurat::firstOrFail($id);
-        $data->update([
-            'jenis_surat' => $request->safe()->jenis_surat,
-        ]);
+        $validated = $request->validated();
+        $jabatan = Jenissurat::findOrFail($id);
+        $jabatan->update($validated);
+        return redirect()->route('jenissurat.index')
+            ->withToastSuccess(__('Data Jenis Surat Berhasil Diupdate'));
     }
 
     /**
@@ -69,7 +78,9 @@ class JenisSuratController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = JenisSurat::firstOrFail($id);
-        $data->delete();
+        $jenissurat = Jenissurat::findOrFail($id);
+        $jenissurat->delete();
+        return redirect()->route('jenissurat.index')
+            ->withToastSuccess(__('Data Jenis Surat Berhasil Dihapus'));
     }
 }
