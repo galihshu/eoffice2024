@@ -26,7 +26,7 @@ class JabatanDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function ($jabatan) {
                 $ops = '<a href="' . route('jabatan.edit', $jabatan->id) . '" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-info"><i class="ri-edit-line"></i></a>';
-                $ops .= '<a href="' . route('jabatan.destroy', $jabatan->id) . '" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-danger" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a>';
+                // $ops .= '<a href="' . route('jabatan.destroy', $jabatan->id) . '" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-danger" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a>';
 
                 return $ops;
             })
@@ -69,10 +69,10 @@ class JabatanDataTable extends DataTable
     {
 
         return [
-            Column::make('id')->addClass('border-b border-defaultborder'),
-            Column::make('nama_jabatan')->title('Nama Jabatan')->addClass('border-b border-defaultborder'),
-            Column::make('created_at')->title('Dibuat Pada')->addClass('border-b border-defaultborder'),
-            Column::make('updated_at')->title('Diubah Pada')->addClass('border-b border-defaultborder'),
+            Column::make('id')->orderable(false)->addClass('border-b border-defaultborder'),
+            Column::make('nama_jabatan')->orderable(false)->title('Nama Jabatan')->addClass('border-b border-defaultborder'),
+            Column::make('created_at')->orderable(false)->title('Dibuat Pada')->addClass('border-b border-defaultborder'),
+            Column::make('updated_at')->orderable(false)->title('Diubah Pada')->addClass('border-b border-defaultborder'),
             Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center border-b border-defaultborder')
         ];
     }

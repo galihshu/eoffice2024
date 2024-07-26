@@ -21,13 +21,20 @@ class UserSeeder extends Seeder
             'password'   => bcrypt('admin123'),
         ])->assignRole('admin');
 
-        // Jacob Thornton
-
         User::create([
             'name'       => 'Operator',
             'username'   => 'operator',
             'email'      => 'operator@email.com',
             'password'   => bcrypt('operator123'),
+            'jabatan_id' => 1
         ])->assignRole('operator');
+
+        User::create([
+            'name'       => 'Pemberi Disposisi',
+            'username'   => 'pemberidisposisi',
+            'email'      => 'pemberidisposisi@email.com',
+            'password'   => bcrypt('pemberidisposisi123'),
+            'jabatan_id' => 2
+        ])->assignRole('pemberidisposisi');
     }
 }
