@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Edit Jabatan')
+
 @push('styles')
     <style>
         .dt-length {
@@ -14,7 +16,7 @@
     <div>
         <h3
             class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">
-            Tambah Jabatan Baru</h3>
+            Edit Jabatan</h3>
     </div>
     <ol class="flex items-center whitespace-nowrap min-w-0">
         <li class="text-[0.813rem] ps-[0.5rem]">

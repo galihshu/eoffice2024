@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Edit Jenis Surat')
+
 @push('styles')
     <style>
         .dt-length {
