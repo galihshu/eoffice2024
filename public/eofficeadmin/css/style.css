@@ -64798,6 +64798,10 @@ select.dt-input option:checked {
   color:color: rgb(var(--default-text-color)) !important;
 }
 
+.swal2-title {
+  color:color: rgb(var(--default-text-color)) !important;
+}
+
 
 /*!
  * Tabler Icons 1.68.0 by tabler - https://tabler.io
