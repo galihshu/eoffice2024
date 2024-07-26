@@ -69,10 +69,10 @@ class JabatanDataTable extends DataTable
     {
 
         return [
-            Column::make('id')->addClass('border-b border-defaultborder'),
-            Column::make('nama_jabatan')->title('Nama Jabatan')->addClass('border-b border-defaultborder'),
-            Column::make('created_at')->title('Dibuat Pada')->addClass('border-b border-defaultborder'),
-            Column::make('updated_at')->title('Diubah Pada')->addClass('border-b border-defaultborder'),
+            Column::make('id')->orderable(false)->addClass('border-b border-defaultborder'),
+            Column::make('nama_jabatan')->orderable(false)->title('Nama Jabatan')->addClass('border-b border-defaultborder'),
+            Column::make('created_at')->orderable(false)->title('Dibuat Pada')->addClass('border-b border-defaultborder'),
+            Column::make('updated_at')->orderable(false)->title('Diubah Pada')->addClass('border-b border-defaultborder'),
             Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center border-b border-defaultborder')
         ];
     }
