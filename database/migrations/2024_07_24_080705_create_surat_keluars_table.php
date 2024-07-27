@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('surat_keluar', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->text('nama_penerima')->nullable();
+            $table->string('nama_penerima')->nullable();
             $table->string('kode_surat');
             $table->string('no_surat');
             $table->string('perihal')->nullable();
