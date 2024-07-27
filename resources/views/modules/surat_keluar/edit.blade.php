@@ -93,7 +93,7 @@
                         </div>
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('tgl_keluar') ? ' !border-red' : '' }}">
                             <label class="form-label" for="tgl_keluar">Tanggal Keluar</label>
-                            <input type="date" name="tgl_keluar" id="tgl_keluar" placeholder="Masukan tanggal keluar" class="form-control" value="{{ $suratKeluar->tgl_keluar->format('Y-m-d') }}">
+                            <input type="date" name="tgl_keluar" id="tgl_keluar" placeholder="Masukan tanggal keluar" class="form-control" value="{{ $suratKeluar->tgl_keluar ? $suratKeluar->tgl_keluar->format('Y-m-d') : '' }}"">
                             @error('tgl_keluar')
                             <span class="text-red-500 text-xs hidden" style="display: block;">
                                 {{ $message }}
@@ -102,7 +102,7 @@
                         </div>
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('tgl_diterima') ? ' !border-red' : '' }}">
                             <label class="form-label" for="tgl_keluar">Tanggal Diterima</label>
-                            <input type="date" name="tgl_diterima" id="tgl_diterima" placeholder="Masukan tanggal diterima" class="form-control" value="{{ $suratKeluar->tgl_diterima->format('Y-m-d') }}">
+                            <input type="date" name="tgl_diterima" id="tgl_diterima" placeholder="Masukan tanggal diterima" class="form-control" value="{{ $suratKeluar->tgl_diterima ? $suratKeluar->tgl_diterima->format('Y-m-d') : '' }}">
                             @error('tgl_diterima')
                             <span class="text-red-500 text-xs hidden" style="display: block;">
                                 {{ $message }}
