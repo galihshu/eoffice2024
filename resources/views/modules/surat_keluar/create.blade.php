@@ -140,6 +140,10 @@
                            file:bg-light file:me-4
                            file:py-3 file:px-4
                            dark:file:bg-black/20 dark:file:text-white/50">
+                           <small class="form-text text-muted">
+                            * Hanya format PDF yang diperbolehkan. 
+                            Maksimum ukuran file: 2MB.
+                            </small>
                         </div>
 
                         <div class="col-span-12">

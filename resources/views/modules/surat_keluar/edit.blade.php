@@ -141,6 +141,10 @@
                            file:bg-light file:me-4
                            file:py-3 file:px-4
                            dark:file:bg-black/20 dark:file:text-white/50">
+                           <small class="form-text text-muted">
+                            * Hanya format PDF yang diperbolehkan. 
+                            Maksimum ukuran file: 2MB.
+                            </small>
                            @if ($suratKeluar->file_upload)
                                 <p class="mt-2">File saat ini: <a class="ti-btn ti-btn-success-full !py-1 !px-2 shadow-sm ti-btn-wave" href="{{ asset('storage/' . $suratKeluar->file_upload) }}" target="_blank"><i class="bx bx-folder-open"></i>Lihat PDF</a></p>
                             @endif
