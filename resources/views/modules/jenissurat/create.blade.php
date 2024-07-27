@@ -55,7 +55,7 @@
                     <form action="{{ route('jenissurat.store') }}" method="POST" class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4">
                         @csrf
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('jenis_surat') ? ' !border-red' : '' }}">
-                            <label class="hidden" for="autoSizingInput">Jenis Surat</label>
+                            <label class="form-label" for="autoSizingInput">Jenis Surat</label>
                             <input type="text" name="jenis_surat" id="nama_jabatan" placeholder="Masukan jenis surat" class="form-control">
                             @error('jenis_surat')
                             <span class="text-red-500 text-xs hidden" style="display: block;">

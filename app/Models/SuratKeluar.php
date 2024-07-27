@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,20 +10,24 @@ class SuratKeluar extends Model
 {
     use HasFactory;
     protected $table = 'surat_keluar';
+
     protected $fillable = [
         'user_id',
         'nama_penerima',
+        'kode_surat',
+        'no_surat',
+        'perihal',
         'tgl_keluar',
         'tgl_diterima',
-        'nosuratkeluar',
-        'perihalkeluar',
-        'tujuansuratkeluar',
-        'foto_surat_keluar1',
-        'foto_surat_keluar2',
-        'foto_surat_keluar3',
-        'foto_surat_keluar4',
-        'foto_surat_keluar5',
+        'status_surat',
+        'tujuan_surat',
+        'file_upload',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -37,8 +42,8 @@ class SuratKeluar extends Model
         ];
     }
 
-    public function User()
-    {
-        $this->belongsTo(User::class, 'user_id');
-    }
+    // public function User()
+    // {
+    //     $this->belongsTo(User::class, 'user_id');
+    // }
 }

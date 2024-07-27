@@ -56,7 +56,7 @@
                         @csrf
                         @method('PUT')
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('nama_jabatan') ? ' !border-red' : '' }}">
-                            <label class="hidden" for="autoSizingInput">Nama Jabatan</label>
+                            <label class="form-label" for="autoSizingInput">Nama Jabatan</label>
                             <input type="text" name="nama_jabatan" id="nama_jabatan" placeholder="Masukan nama jabatan" value="{{ old('nama_jabatan', $jabatan->nama_jabatan) }}" class="form-control">
                             @error('nama_jabatan')
                             <span class="text-red-500 text-xs hidden" style="display: block;">

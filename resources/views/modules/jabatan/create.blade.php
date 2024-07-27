@@ -55,7 +55,7 @@
                     <form action="{{ route('jabatan.store') }}" method="POST" class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4">
                         @csrf
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('nama_jabatan') ? ' !border-red' : '' }}">
-                            <label class="hidden" for="autoSizingInput">Nama Jabatan</label>
+                            <label class="form-label" for="autoSizingInput">Nama Jabatan</label>
                             <input type="text" name="nama_jabatan" id="nama_jabatan" placeholder="Masukan nama jabatan" class="form-control">
                             @error('nama_jabatan')
                             <span class="text-red-500 text-xs hidden" style="display: block;">
