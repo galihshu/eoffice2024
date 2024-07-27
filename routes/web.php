@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\JenisSuratController;
+use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\DataTables\UserDataTableController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/datauser', [UserDataTableController::class, 'index'])->name('users-datatable');
 Route::resource('jabatan', JabatanController::class);
 Route::resource('jenissurat', JenissuratController::class);
+Route::resource('surat_keluar', SuratKeluarController::class);

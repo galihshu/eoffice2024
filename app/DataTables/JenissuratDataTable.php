@@ -25,7 +25,7 @@ class JenissuratDataTable extends DataTable
         return datatables()
         ->eloquent($query)
         ->addColumn('action', function ($jenissurat) {
-            $ops = '<a href="' . route('jenissurat.edit', $jenissurat->id) . '" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-info"><i class="ri-edit-line"></i></a>';
+            $ops = '<a href="' . route('jenissurat.edit', $jenissurat->id) . '" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-info"><i class="ri-edit-line"></i></a> ';
             $ops .= '<a href="' . route('jenissurat.destroy', $jenissurat->id) . '" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-danger" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a>';
 
             return $ops;
@@ -35,7 +35,7 @@ class JenissuratDataTable extends DataTable
         })
         ->editColumn('updated_at', function ($jabatan) {
             return Carbon::parse($jabatan->updated_at)->format('d-m-Y H:i:s');
-        });;
+        });
     }
 
     /**
