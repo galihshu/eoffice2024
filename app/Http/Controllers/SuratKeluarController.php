@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DataTables\SuratKeluarDataTable;
 use App\Models\SuratKeluar;
+use App\Exports\SuratKeluarExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -27,6 +29,11 @@ class SuratKeluarController extends Controller
     public function create()
     {
         return view('modules.surat_keluar.create');
+    }
+
+    public function laporan()
+    {
+        return view('modules.surat_keluar.laporan');
     }
 
     /**
@@ -125,5 +132,18 @@ class SuratKeluarController extends Controller
         $suratKeluar->delete();
 
         return redirect()->route('surat_keluar.index')->withToastSuccess('Data Surat keluar berhasil dihapus.');
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+
+        return Excel::download(new SuratKeluarExport($startDate, $endDate), 'surat_keluar.xlsx');
     }
 }

@@ -48,7 +48,7 @@
 
             <!-- Start::slide -->
             <li class="slide">
-                <a href="#" class="side-menu__item">
+                <a href="{{ route('surat_masuk.index') }}" class="side-menu__item">
                     <i class="bx bx-archive-in side-menu__icon"></i>
                     <span class="side-menu__label">Surat Masuk</span>
                 </a>
@@ -79,7 +79,7 @@
 
             <!-- Start::slide -->
             <li class="slide">
-                <a href="#" class="side-menu__item">
+                <a href="{{ route('surat_masuk.laporan') }}" class="side-menu__item">
                 <i class="bx bx-printer side-menu__icon"></i>
                     <span class="side-menu__label">Laporan Surat Masuk</span>
                 </a>
@@ -88,7 +88,7 @@
 
             <!-- Start::slide -->
             <li class="slide">
-                <a href="#" class="side-menu__item">
+                <a href="{{ route('surat_keluar.laporan') }}" class="side-menu__item">
                 <i class="bx bx-printer side-menu__icon"></i>
                     <span class="side-menu__label">Laporan Surat Keluar</span>
                 </a>
