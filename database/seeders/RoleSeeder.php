@@ -101,10 +101,18 @@ class RoleSeeder extends Seeder
         ]);
 
         Role::create(['name' => 'pemberidisposisi', 'guard_name' => 'web'])->givePermissionTo([
-            $readSuratMasuk, $addSuratMasuk, $updateSuratMasuk, $deleteSuratMasuk,
-            $readSuratKeluar, $addSuratKeluar, $updateSuratKeluar, $deleteSuratKeluar,
+            $readSuratMasuk,
+            $readSuratKeluar,
             $readDisposisi, $addDisposisi, $updateDisposisi, $deleteDisposisi,
             $readLaporanSuratMasuk, $readLaporanSuratKeluar, $readMonitoringDisposisi,
+            $updateUsers,
+            $readProfile, $updateProfile,
+        ]);
+
+        Role::create(['name' => 'pelaksana', 'guard_name' => 'web'])->givePermissionTo([
+            $readSuratMasuk,
+            $readDisposisi,
+            $readLaporanSuratMasuk, $readMonitoringDisposisi,
             $updateUsers,
             $readProfile, $updateProfile,
         ]);
