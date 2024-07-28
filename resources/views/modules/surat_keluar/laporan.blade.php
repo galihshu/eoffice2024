@@ -55,7 +55,7 @@
                                 <input type="date" class="form-control" id="end_date" name="end_date" required>
                             </div>
                             <div class="col-span-12">
-                                <button type="submit" class="ti-btn ti-btn-success-full ti-btn-lg ti-btn-wave"><i class="bx bx-printer side-menu__icon"></i>Export Excel</button>
+                                <button type="submit" class="ti-btn ti-btn-success-full ti-btn-lg ti-btn-wave"><i class='bx bx-spreadsheet'></i></i>Export Excel</button>
                             </div>
                         </form>
                         {{-- <div class="table-responsive">
