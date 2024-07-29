@@ -9,26 +9,28 @@ class SuratMasuk extends Model
 {
     use HasFactory;
 
+   
+    use HasFactory;
+
+    // Menetapkan nama tabel jika bukan nama konvensi
     protected $table = 'suratmasuk';
+
+    // Atribut yang dapat diisi secara massal
     protected $fillable = [
         'user_id',
         'jenissurat_id',
-        'sub_level_asal_id',
-        'sub_level_tujuan_id',
-        'kode_surat',
+        'no_surat',
+        'status_surat',
         'perihal_masuk',
         'tgl_surat',
-        'no_surat',
         'tgl_masuk',
         'tgl_selesai',
-        'fotosuratmasuk1',
-        'fotosuratmasuk2',
-        'fotosuratmasuk3',
-        'fotosuratmasuk4',
-        'fotosuratmasuk5',
-        'status_surat',
+        'file_upload',  // Menyimpan path file yang diupload
         'asal_surat',
     ];
+
+    // Jika Anda ingin menggunakan timestamp, aktifkan ini
+    public $timestamps = true;
 
     public function User()
     {
