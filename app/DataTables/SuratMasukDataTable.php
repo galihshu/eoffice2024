@@ -25,41 +25,31 @@ class SuratMasukDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('name_user', function (SuratMasuk $suratMasuk) {
-                return $suratMasuk->user ? $suratMasuk->user->name : 'Unknown';
-            })
-            ->addColumn('jenis_surat', function (SuratMasuk $suratMasuk) {
-                return $suratMasuk->jenis ? $suratMasuk->jenis->jenis_surat : 'Unknown';
-            })
-            ->addColumn('action', function ($suratmasuk) {
-                $ops = '<a href="' . route('surat_masuk.edit', $suratmasuk->id) . '" class="btn btn-primary btn-sm">Edit</a>';
-                $ops .= '
-            <form action="' . route('surat_masuk.destroy', $suratmasuk->id) . '" method="POST" style="display:inline;">
-                ' . csrf_field() . '
-                ' . method_field('DELETE') . '
-                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure?\')">Delete</button>
-            </form>';
+            ->addColumn('action', function($row){
+                $btn = '<a href="' . route('surat_masuk.edit', $row->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
+                $btn .= '<a href="' . route('surat_masuk.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
 
-                return $ops;
-            })->editColumn('file_upload', function ($suratmasuk) {
-                // Generate the URL for the file
-                $fileUrl = Storage::url($suratmasuk->file_upload);
-                // Return the HTML for the link
-                return "<a href='{$fileUrl}' target='_blank'>View Uploaded File</a>";
+                if ($row->file_upload) {
+                    $btn .= '<a href="' . asset('storage/' . $row->file_upload) . '" class="ti-btn ti-btn-success-full !py-1 !px-2 ti-btn-wave" target="_blank"><i class="bx bx-folder-open"></i>Lihat File</a>';
+                }
+                return $btn;
             })
-            ->rawColumns(['file_upload','action'])
-            ->editColumn('status_surat', function ($suratmasuk) {
-                return $suratmasuk->status = 1 ? 'Baru' : ($suratmasuk->status == 2 ? 'Proses' : 'Selesai');
+            ->editColumn('status_surat', function ($row) {
+                return $this->getStatusLabel($row->status_surat);
             })
-            ->editColumn('tgl_surat', function ($suratmasuk) {
-                return Carbon::parse($suratmasuk->tgl_surat)->format('d-m-Y H:i:s');
+            ->editColumn('tgl_masuk', function ($data) {
+                return Carbon::parse($data->tgl_masuk)->format('d-m-Y');
             })
-            ->editColumn('tgl_masuk', function ($suratmasuk) {
-                return Carbon::parse($suratmasuk->tgl_masuk)->format('d-m-Y H:i:s');
+            ->editColumn('tgl_surat', function ($data) {
+                return Carbon::parse($data->tgl_surat)->format('d-m-Y');
             })
-            ->editColumn('tgl_selesai', function ($suratmasuk) {
-                return $suratmasuk->tgl_selesai ? Carbon::parse($suratmasuk->tgl_selesai)->format('d-m-Y H:i:s') : '';
+            ->editColumn('tgl_selesai', function ($data) {
+                if($data->tgl_selesai !== null){
+                    return Carbon::parse($data->tgl_selesai)->format('d-m-Y');
+                }
+                return '---';
             });
+            // ->rawColumns(['action']);
     }
 
     /**
@@ -67,7 +57,7 @@ class SuratMasukDataTable extends DataTable
      */
     public function query(SuratMasuk $model): QueryBuilder
     {
-        return $model->orderBy('id')->newQuery();
+        return $model->newQuery()->with('user');
     }
 
     /**
@@ -76,14 +66,22 @@ class SuratMasukDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('suratmasuk-table')
-            ->addTableClass('table whitespace-nowrap ti-striped-table table-bordered table-hover min-w-full ti-custom-table-hover')
-            ->setTableHeadClass('bg-primary/10')
-            // ->setrowClass('border-b border-defaultborder')
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->orderBy(1)
-            ->selectStyleSingle();
+                    ->setTableId('suratkeluar-table')
+                    ->addTableClass('table whitespace-nowrap ti-striped-table table-hover min-w-full ti-custom-table-hover')
+                    ->setTableHeadClass('bg-primary text-white')
+                    ->columns($this->getColumns())
+                    ->minifiedAjax()
+                    //->dom('Bfrtip')
+                    ->orderBy(1)
+                    ->selectStyleSingle()
+                    ->buttons([
+                        Button::make('excel'),
+                        Button::make('csv'),
+                        Button::make('pdf'),
+                        Button::make('print'),
+                        Button::make('reset'),
+                        Button::make('reload')
+                    ]);
     }
 
     /**
@@ -92,24 +90,29 @@ class SuratMasukDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->title('ID'),
-            Column::make('name_user')->title('Nama'),
-            Column::make('jenis_surat')->title('Jenis Surat'),
-            Column::make('no_surat')->title('No Surat'),
-            Column::make('status_surat')->title('Status Surat'),
-            Column::make('perihal_masuk')->title('Perihal Masuk'),
-            Column::make('tgl_surat')->title('Tanggal Surat'),
-            Column::make('tgl_masuk')->title('Tanggal Masuk'),
-            Column::make('tgl_selesai')->title('Tanggal Selesai'),
-            Column::make('file_upload')->title('File Upload'),
-            Column::make('asal_surat')->title('Asal Surat'),
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center')
-                ->title('Aksi'),
+            Column::make('id')->orderable(false)->addClass('border-b border-defaultborder'),
+            Column::make('no_surat')->orderable(false)->title('No. Surat')->addClass('border-b border-defaultborder'),
+            Column::make('asal_surat')->orderable(false)->title('Asal Surat')->addClass('border-b border-defaultborder'),
+            Column::make('status_surat')
+                  ->title('Status')
+                  ->orderable(false)
+                  ->addClass('border-b border-defaultborder'),
+            Column::make('tgl_masuk')->orderable(false)->title('Tgl Masuk')->addClass('border-b border-defaultborder'),
+            Column::make('tgl_surat')->orderable(false)->title('Tgl Surat')->addClass('border-b border-defaultborder'),
+            Column::make('tgl_selesai')->orderable(false)->title('Tgl Selesai')->addClass('border-b border-defaultborder'),
+            Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center border-b border-defaultborder')
         ];
+    }
+
+    private function getStatusLabel($status)
+    {
+        $statusLabels = [
+            1 => 'Baru',
+            2 => 'Diproses',
+            3 => 'Selesai',
+        ];
+
+        return $statusLabels[$status] ?? 'Unknown';
     }
 
     /**
@@ -117,6 +120,6 @@ class SuratMasukDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'SuratMasuk_' . date('YmdHis');
+        return 'SuratKeluar_' . date('YmdHis');
     }
 }
