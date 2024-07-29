@@ -28,7 +28,7 @@ class SuratMasukDataTable extends DataTable
             ->addColumn('action', function($row){
                 $btn = '<a href="' . route('surat_masuk.edit', $row->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
                 $btn .= '<a href="' . route('surat_masuk.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
-                $btn .= '<a href="' . route('surat_masuk.disposisi', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i></a> ';
+                $btn .= '<a href="' . route('surat_masuk.disposisi', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Disposisi</a> ';
                 if ($row->file_upload) {
                     $btn .= '<a href="' . asset('storage/' . $row->file_upload) . '" class="ti-btn ti-btn-success-full !py-1 !px-2 ti-btn-wave" target="_blank"><i class="bx bx-folder-open"></i>Lihat File</a>';
                 }
@@ -37,6 +37,7 @@ class SuratMasukDataTable extends DataTable
             ->editColumn('status_surat', function ($row) {
                 return $this->getStatusLabel($row->status_surat);
             })
+            ->rawColumns(['status_surat','action'])
             ->editColumn('tgl_masuk', function ($data) {
                 return Carbon::parse($data->tgl_masuk)->format('d-m-Y');
             });
@@ -57,7 +58,7 @@ class SuratMasukDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('suratkeluar-table')
+                    ->setTableId('suratmasuk-table')
                     ->addTableClass('table whitespace-nowrap ti-striped-table table-hover min-w-full ti-custom-table-hover')
                     ->setTableHeadClass('bg-primary text-white')
                     ->columns($this->getColumns())
@@ -85,10 +86,11 @@ class SuratMasukDataTable extends DataTable
             Column::make('no_surat')->orderable(false)->title('No. Surat')->addClass('border-b border-defaultborder'),
             Column::make('asal_surat')->orderable(false)->title('Asal Surat')->addClass('border-b border-defaultborder'),
             Column::make('jenis.jenis_surat', )->orderable(false)->title('Jenis Surat')->addClass('border-b border-defaultborder'),
-            Column::make('status_surat')
-                  ->title('Status')
-                  ->orderable(false)
-                  ->addClass('border-b border-defaultborder'),
+            // Column::make('status_surat')
+            //       ->title('Status')
+            //       ->orderable(false)
+            //       ->addClass('border-b border-defaultborder'),
+            Column::make('status_surat')->orderable(false)->title('Status')->addClass('border-b border-defaultborder'),
             Column::make('tgl_masuk')->orderable(false)->title('Tgl Masuk')->addClass('border-b border-defaultborder'),
             Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center border-b border-defaultborder'),
         ];
@@ -97,9 +99,9 @@ class SuratMasukDataTable extends DataTable
     private function getStatusLabel($status)
     {
         $statusLabels = [
-            1 => 'Baru',
-            2 => 'Diproses',
-            3 => 'Selesai',
+            1 => '<span class="badge bg-success text-white">Baru</span>',
+            2 => '<span class="badge bg-warning text-dark">Diproses</span>',
+            3 => '<span class="badge bg-primary text-white">Selesai</span>',
         ];
 
         return $statusLabels[$status] ?? 'Unknown';

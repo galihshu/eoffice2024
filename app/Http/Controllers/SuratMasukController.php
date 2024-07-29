@@ -53,7 +53,7 @@ class SuratMasukController extends Controller
             'keterangan' => $request->keterangan_disposisi
         ]);
 
-        return redirect()->route('disposisi.index')->withToastSuccess('Data Surat keluar berhasil diupdate.');
+        return redirect()->route('disposisi.index')->withToastSuccess('Data Masuk keluar berhasil diupdate.');
     }
 
     public function create()
@@ -131,7 +131,7 @@ class SuratMasukController extends Controller
             'file_upload' => $filePath == null ? $suratMasuk->file_upload : $filePath
         ]);
 
-        return redirect()->route('surat_masuk.index')->withToastSuccess('Data Surat keluar berhasil diupdate.');
+        return redirect()->route('surat_masuk.index')->withToastSuccess('Data Surat Masuk berhasil diupdate.');
     }
 
     /**
@@ -145,6 +145,6 @@ class SuratMasukController extends Controller
 
         $suratMasuk->delete();
 
-        return redirect()->route('surat_keluar.index')->withToastSuccess('Data Surat keluar berhasil dihapus.');
+        return redirect()->route('surat_keluar.index')->withToastSuccess('Data Surat Masuk berhasil dihapus.');
     }
 }

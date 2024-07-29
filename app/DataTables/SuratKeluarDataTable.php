@@ -36,6 +36,7 @@ class SuratKeluarDataTable extends DataTable
             ->editColumn('status_surat', function ($row) {
                 return $this->getStatusLabel($row->status_surat);
             })
+            ->rawColumns(['status_surat','action'])
             ->editColumn('tgl_keluar', function ($data) {
                 return Carbon::parse($data->tgl_keluar)->format('d-m-Y');
             })
@@ -87,11 +88,11 @@ class SuratKeluarDataTable extends DataTable
             Column::make('kode_surat')->orderable(false)->title('Kode Surat')->addClass('border-b border-defaultborder'),
             Column::make('no_surat')->orderable(false)->title('No. Surat')->addClass('border-b border-defaultborder'),
             Column::make('nama_penerima')->orderable(false)->title('Nama Penerima')->addClass('border-b border-defaultborder'),
-            Column::make('status_surat')
-                  ->title('Status')
-                  ->orderable(false)
-                  ->addClass('border-b border-defaultborder'),
-            // Column::make('status_surat')->orderable(false)->title('Status')->addClass('border-b border-defaultborder'),
+            // Column::make('status_surat')
+            //       ->title('Status')
+            //       ->orderable(false)
+            //       ->addClass('border-b border-defaultborder'),
+            Column::make('status_surat')->orderable(false)->title('Status')->addClass('border-b border-defaultborder'),
             Column::make('tgl_keluar')->orderable(false)->title('Tgl Keluar')->addClass('border-b border-defaultborder'),
             Column::make('tgl_diterima')->orderable(false)->title('Tgl Diterima')->addClass('border-b border-defaultborder'),
             Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center border-b border-defaultborder')
@@ -101,9 +102,9 @@ class SuratKeluarDataTable extends DataTable
     private function getStatusLabel($status)
     {
         $statusLabels = [
-            1 => 'Draft',
-            2 => 'Terkirim',
-            3 => 'Selesai',
+            1 => '<span class="badge bg-success text-white">Draft</span>',
+            2 => '<span class="badge bg-info text-white">Terkirim</span>',
+            3 => '<span class="badge bg-primary text-white">Selesai</span>',
         ];
 
         return $statusLabels[$status] ?? 'Unknown';
