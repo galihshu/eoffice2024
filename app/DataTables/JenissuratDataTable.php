@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Jenissurat;
+use App\Models\JenisSurat;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -52,7 +52,7 @@ class JenissuratDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('jenissurat-table')
+                    ->setTableId('jenis_surat-table')
                     ->addTableClass('table whitespace-nowrap ti-striped-table table-hover min-w-full ti-custom-table-hover')
                     ->setTableHeadClass('bg-primary text-white')
                     ->columns($this->getColumns())

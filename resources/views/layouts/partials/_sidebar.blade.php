@@ -66,6 +66,15 @@
 
             <!-- Start::slide -->
             <li class="slide">
+                <a href="{{ route('disposisi.index') }}" class="side-menu__item">
+                <i class="bx bx-archive side-menu__icon"></i>
+                    <span class="side-menu__label">Disposisi</span>
+                </a>
+            </li>
+            <!-- End::slide -->
+
+            <!-- Start::slide -->
+            <li class="slide">
                 <a href="#" class="side-menu__item">
                 <i class="bx bx-desktop side-menu__icon"></i>
                     <span class="side-menu__label">Monitoring Disposisi</span>
@@ -134,7 +143,7 @@
                         <a href="{{ route('jabatan.index') }}" class="side-menu__item">Jabatan Pengguna</a>
                     </li>
                     <li class="slide">
-                        <a href="#" class="side-menu__item">Pengguna</a>
+                        <a href="{{ route('user.index') }}" class="side-menu__item">Pengguna</a>
                     </li>
                     <li class="slide">
                         <a href="#" class="side-menu__item">Peran</a>
