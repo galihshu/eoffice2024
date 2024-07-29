@@ -134,7 +134,7 @@
                         <a href="{{ route('jabatan.index') }}" class="side-menu__item">Jabatan Pengguna</a>
                     </li>
                     <li class="slide">
-                        <a href="#" class="side-menu__item">Pengguna</a>
+                        <a href="{{ route('user.index') }}" class="side-menu__item">Pengguna</a>
                     </li>
                     <li class="slide">
                         <a href="#" class="side-menu__item">Peran</a>
