@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Level extends Model
+class JenisSurat extends Model
 {
     use HasFactory;
-
-    protected $table = 'level';
+    protected $table = 'jenis_surat';
     protected $fillable = [
-        'level'
+        'jenis_surat',
     ];
 }

@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\DisposisiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\JenisSuratController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DataTables\UserDataTableController;
+use App\Http\Controllers\SuratMasukController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,5 +24,8 @@ Route::get('surat_keluar/export', [SuratKeluarController::class, 'exportExcel'])
 Route::resource('surat_keluar', SuratKeluarController::class);
 Route::get('surat_masuk/laporan', [SuratKeluarController::class, 'laporan'])->name('surat_masuk.laporan');
 Route::get('surat_masuk/export', [SuratKeluarController::class, 'exportExcel'])->name('surat_masuk.export');
-Route::resource('surat_masuk', SuratKeluarController::class);
 Route::resource('user', UserController::class);
+Route::resource('surat_masuk', SuratMasukController::class);
+Route::get('surat_masuk/{surat_masuk}/disposisi', [SuratMasukController::class, 'disposisi'])->name('surat_masuk.disposisi');
+Route::post('surat_masuk/{surat_masuk}/disposisi', [SuratMasukController::class, 'store_disposisi'])->name('surat_masuk.disposisi.store');
+Route::resource('disposisi', DisposisiController::class);

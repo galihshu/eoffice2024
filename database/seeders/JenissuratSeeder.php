@@ -7,7 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class JenissuratSeeder extends Seeder
+class JenisSuratSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -22,6 +22,6 @@ class JenissuratSeeder extends Seeder
             ['jenis_surat' => 'Nota Dinas']
         ];
         
-        DB::table('jenissurat')->insert($data);
+        DB::table('jenis_surat')->insert($data);
     }
 }

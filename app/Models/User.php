@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'jabatan_id',
         'password',
+        'jabatan_id',
     ];
 
     /**
@@ -45,6 +46,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function Jabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'jabatan_id');
     }
 
     public function SuratMasuk()

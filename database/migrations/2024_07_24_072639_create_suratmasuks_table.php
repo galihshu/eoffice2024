@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('suratmasuk', function (Blueprint $table) {
+        Schema::create('surat_masuk', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('jenissurat_id')->constrained('jenissurat');
+            $table->foreignId('jenis_surat_id')->constrained('jenis_surat');
             $table->string('no_surat')->nullable();
             $table->string('perihal')->nullable();
-            // 1 = Baru, 2 = Proses, 3 = Selesai
+            // 1 = Baru, 2 = Diproses, 3 = Selesai
             $table->enum('status_surat', [1,2,3])->default(1);
             $table->date('tgl_surat')->nullable();
             $table->date('tgl_masuk')->nullable();
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suratmasuks');
+        Schema::dropIfExists('surat_masuk');
     }
 };
