@@ -25,6 +25,10 @@ class SuratMasukController extends Controller
         return $dataTable->render('modules.surat_masuk.index');
     }
 
+    public function disposisi(SuratMasuk $suratMasuk){
+        return view('modules.surat_masuk.disposisi', compact(['suratMasuk']));
+    }
+
     public function create()
     {
         $jenis_surat = JenisSurat::all()->toArray();
@@ -89,21 +93,6 @@ class SuratMasukController extends Controller
             }
             $filePath = $request->file('file_upload')->store('uploads', 'public');
         }
-
-        // $suratMasuk = new SuratMasuk();
-        // $suratMasuk->user_id = Auth::id();
-        // $suratMasuk->jenis_surat_id = $request->jenis_surat;
-        // $suratMasuk->no_surat = $request->no_surat;
-        // $suratMasuk->perihal = $request->perihal;
-        // $suratMasuk->tgl_surat = $request->tgl_surat;
-        // $suratMasuk->tgl_masuk = $request->tgl_masuk;
-
-        // if ($request->hasFile('file_upload')) {
-        //     $filePath = $request->file('file_upload')->store('uploads', 'public');
-        //     $suratMasuk->file_upload = $filePath;
-        // }
-
-        // $suratMasuk->asal_surat = $request->asal_surat;
 
         $suratMasuk->update([
             'no_surat' => $request->no_surat,

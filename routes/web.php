@@ -23,3 +23,5 @@ Route::resource('surat_keluar', SuratKeluarController::class);
 Route::get('surat_masuk/laporan', [SuratKeluarController::class, 'laporan'])->name('surat_masuk.laporan');
 Route::get('surat_masuk/export', [SuratKeluarController::class, 'exportExcel'])->name('surat_masuk.export');
 Route::resource('surat_masuk', SuratMasukController::class);
+Route::get('surat_masuk/disposisi', [SuratMasukController::class, 'disposisi'])->name('surat_masuk.disposisi');
+
