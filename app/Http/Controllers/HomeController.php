@@ -60,8 +60,8 @@ class HomeController extends Controller
 
     private function getSuratMasukPerQuarter($year)
     {
-        return SuratMasuk::selectRaw('QUARTER(tgl_surat) as quarter, COUNT(*) as total')
-            ->whereYear('tgl_surat', $year)
+        return SuratMasuk::selectRaw('QUARTER(tgl_masuk) as quarter, COUNT(*) as total')
+            ->whereYear('tgl_masuk', $year)
             ->groupBy('quarter')
             ->orderBy('quarter')
             ->pluck('total', 'quarter')
