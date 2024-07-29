@@ -24,11 +24,6 @@ class SuratKeluar extends Model
         'file_upload',
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     /**
      * Get the attributes that should be cast.
      *
@@ -42,8 +37,8 @@ class SuratKeluar extends Model
         ];
     }
 
-    // public function User()
-    // {
-    //     $this->belongsTo(User::class, 'user_id');
-    // }
+    public function User()
+    {
+        $this->belongsTo(User::class, 'user_id');
+    }
 }

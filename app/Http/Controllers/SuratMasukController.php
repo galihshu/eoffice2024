@@ -8,6 +8,7 @@ use App\Models\JenisSurat;
 use App\Models\SuratMasuk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class SuratMasukController extends Controller
 {
@@ -18,22 +19,20 @@ class SuratMasukController extends Controller
 
     public function index(SuratMasukDataTable $dataTable)
     {
-        return $dataTable->render('suratmasuk.index');
+        $title = "Yakin ingin menghapus data ini?";
+        $text = "Setelah dihapus, data tidak dapat dikembalikan";
+        confirmDelete($title, $text);
+        return $dataTable->render('modules.surat_masuk.index');
+    }
+
+    public function disposisi(SuratMasuk $suratMasuk){
+        return view('modules.surat_masuk.disposisi', compact(['suratMasuk']));
     }
 
     public function create()
     {
-
-        $jenisSurat = JenisSurat::all();
-        return view('suratmasuk.form', [
-            'suratmasuk' => new SuratMasuk(),
-            'jenis_surat' => $jenisSurat,
-            'data' => [
-                'title' => 'Tambah Surat Masuk baru',
-                'btn_submit' => 'Simpan',
-                'type' => 'Tambah',
-            ]
-        ]);
+        $jenis_surat = JenisSurat::all()->toArray();
+        return view('modules.surat_masuk.create', compact(['jenis_surat']));
     }
 
     /**
@@ -45,27 +44,22 @@ class SuratMasukController extends Controller
 
         $suratMasuk = new SuratMasuk();
         $suratMasuk->user_id = Auth::id();
-        $suratMasuk->jenissurat_id = $request->jenissurat_id;
-        $suratMasuk->perihal_masuk = $request->perihal_masuk;
+        $suratMasuk->jenis_surat_id = $request->jenis_surat;
+        $suratMasuk->no_surat = $request->no_surat;
+        $suratMasuk->perihal = $request->perihal;
         $suratMasuk->tgl_surat = $request->tgl_surat;
-        $suratMasuk->tgl_masuk = date('Y-m-d H:i:s');
+        $suratMasuk->tgl_masuk = $request->tgl_masuk;
 
         if ($request->hasFile('file_upload')) {
-            $file = $request->file('file_upload');
-            $fileName = 'suratmasuk_' . time() . '.' . $file->getClientOriginalExtension(); // Mengubah nama file
-            $path = $file->storeAs('uploads', $fileName, 'public'); // Menyimpan file dengan nama baru
-            $suratMasuk->file_upload = $path; // Simpan path file
+            $filePath = $request->file('file_upload')->store('uploads', 'public');
+            $suratMasuk->file_upload = $filePath;
         }
 
         $suratMasuk->asal_surat = $request->asal_surat;
 
         $suratMasuk->save();
 
-        // Generate no_surat
-        $suratMasuk->no_surat = '900/' . $request->jenissurat_id . '/' . str_pad($suratMasuk->id, 4, '0', STR_PAD_LEFT) . '/' . date('Y');
-        $suratMasuk->save();
-
-        return redirect()->route('suratmasuk.index')->with('success', 'Surat Masuk berhasil ditambahkan.');
+        return redirect()->route('surat_masuk.index')->with('success', 'Surat Masuk berhasil ditambahkan.');
     }
 
     /**
@@ -79,24 +73,50 @@ class SuratMasukController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(SuratMasuk $suratMasuk)
     {
-        //
+        $jenis_surat = JenisSurat::all()->toArray();
+        return view('modules.surat_masuk.edit', compact(['suratMasuk', 'jenis_surat']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SuratMasukRequest $request, SuratMasuk $suratMasuk)
     {
-        //
+        $request->validated();
+        
+        $filePath = $suratMasuk->file_upload;
+        if ($request->hasFile('file_upload')) {
+            if ($filePath) {
+                Storage::disk('public')->delete($filePath);
+            }
+            $filePath = $request->file('file_upload')->store('uploads', 'public');
+        }
+
+        $suratMasuk->update([
+            'no_surat' => $request->no_surat,
+            'perihal' => $request->perihal,
+            'tgl_surat' => $request->tgl_surat,
+            'tgl_masuk' => $request->tgl_masuk,
+            'asal_surat' => $request->asal_surat,
+            'file_upload' => $filePath == null ? $suratMasuk->file_upload : $filePath
+        ]);
+
+        return redirect()->route('surat_masuk.index')->withToastSuccess('Data Surat keluar berhasil diupdate.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(SuratMasuk $suratMasuk)
     {
-        //
+        if ($suratMasuk->file_upload) {
+            Storage::disk('public')->delete($suratMasuk->file_upload);
+        }
+
+        $suratMasuk->delete();
+
+        return redirect()->route('surat_keluar.index')->withToastSuccess('Data Surat keluar berhasil dihapus.');
     }
 }

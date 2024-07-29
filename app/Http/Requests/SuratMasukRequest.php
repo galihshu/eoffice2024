@@ -22,8 +22,8 @@ class SuratMasukRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'jenissurat_id' => 'required|exists:jenis_surat,id',
-            'perihal_masuk' => 'required|string|max:255',
+            'jenis_surat' => 'required|exists:jenis_surat,id',
+            'perihal' => 'required|string|max:255',
             'tgl_surat' => 'nullable|date',
             'tgl_masuk' => 'nullable|date',
             'asal_surat' => 'required|string',
@@ -39,13 +39,28 @@ class SuratMasukRequest extends FormRequest
         return $rules;
     }
 
+    public function attributes(): array
+    {
+        return [
+            'jenis_surat' => 'Jenis Surat',
+            'perihal' => 'Perihal',
+            'file_upload' => 'File',
+            'tgl_surat' => 'Tanggal Surat',
+            'tgl_masuk' => 'Tanggal Masuk',
+            'asal_surat' => 'Asal Surat',
+        ];
+    }
+
     public function messages(): array
     {
         return [
-            'file_upload.required' => 'File upload diperlukan.',
-            'file_upload.file' => 'File upload harus berupa file.',
-            'file_upload.mimes' => 'File upload harus berupa file dengan format: pdf.',
-            'file_upload.max' => 'File upload tidak boleh lebih dari 5MB.',
+            'required' => ':attribute diperlukan.',
+            'string' => ':attribute harus berupa string.',
+            'date' => ':attribute harus berupa tanggal.',
+            'exists' => ':attribute tidak ditemukan.',
+            'max' => ':attribute tidak boleh lebih dari :max',
+            'mimes' => ':attribute harus berupa file dengan format: pdf.',
+            'file' => ':attribute harus berupa file.',
         ];
     }
 }

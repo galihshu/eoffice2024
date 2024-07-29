@@ -13,20 +13,20 @@ class SuratMasuk extends Model
     use HasFactory;
 
     // Menetapkan nama tabel jika bukan nama konvensi
-    protected $table = 'suratmasuk';
+    protected $table = 'surat_masuk';
 
     // Atribut yang dapat diisi secara massal
     protected $fillable = [
         'user_id',
-        'jenissurat_id',
+        'jenis_surat_id',
         'no_surat',
         'status_surat',
-        'perihal_masuk',
+        'perihal',
         'tgl_surat',
         'tgl_masuk',
         'tgl_selesai',
-        'file_upload',  // Menyimpan path file yang diupload
         'asal_surat',
+        'file_upload',  // Menyimpan path file yang diupload
     ];
 
     // Jika Anda ingin menggunakan timestamp, aktifkan ini
@@ -39,17 +39,7 @@ class SuratMasuk extends Model
 
     public function Jenis()
     {
-        return $this->belongsTo(JenisSurat::class, 'jenissurat_id');
-    }
-
-    public function SubLevelAsal()
-    {
-        return $this->belongsTo(SubLevel::class, 'sub_level_asal_id');
-    }
-
-    public function SubLevelTujuan()
-    {
-        return $this->belongsTo(SubLevel::class, 'sub_level_tujuan_id');
+        return $this->belongsTo(JenisSurat::class, 'jenis_surat_id');
     }
 
     /**
