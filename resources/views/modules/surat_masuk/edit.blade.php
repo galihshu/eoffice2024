@@ -49,19 +49,32 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <form action="{{ route('surat_masuk.update', $suratMasuk) }}" method="POST" enctype="multipart/form-data"
-                        class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4">
+                    <form action="{{ route('surat_masuk.update', $suratMasuk->id) }}" method="POST"
+                        enctype="multipart/form-data" class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4">
                         @csrf
                         @method('PUT')
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('jenis_surat') ? ' !border-red' : '' }}">
                             <label class="form-label" for="jenis_surat">Jenis Surat</label>
-                            <select class="ti-form-select rounded-sm !py-2 !px-3" id="jenis_surat" name="jenis_surat" value="{{ $suratMasuk->jenis_surat_id }}"
-                                required>
+                            <select class="ti-form-select rounded-sm !py-2 !px-3" id="jenis_surat" name="jenis_surat"
+                                value="{{ $suratMasuk->jenis_surat_id }}" required>
                                 @foreach ($jenis_surat as $item)
                                     <option value={{ $item['id'] }}>{{ $item['jenis_surat'] }}</option>
                                 @endforeach
                             </select>
                             @error('jenis_surat')
+                                <span class="text-red-500 text-xs hidden" style="display: block;">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('status') ? ' !border-red' : '' }}">
+                            <label class="form-label" for="status">Status Surat</label>
+                            <select class="ti-form-select rounded-sm !py-2 !px-3" id="status" name="status"
+                                value="{{ $suratMasuk->status_id }}" required>
+                                <option value=2 >Diproses</option>
+                                <option value=3 >Selesai</option>
+                            </select>
+                            @error('status')
                                 <span class="text-red-500 text-xs hidden" style="display: block;">
                                     {{ $message }}
                                 </span>
@@ -89,8 +102,9 @@
                         </div>
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('tgl_diterima') ? ' !border-red' : '' }}">
                             <label class="form-label" for="tgl_masuk">Tanggal Masuk</label>
-                            <input type="date" name="tgl_masuk" id="tgl_masuk"
-                                placeholder="Masukan tanggal diterima" value="{{ $suratMasuk->tgl_masuk ? $suratMasuk->tgl_masuk->format('Y-m-d') : '' }}" class="form-control">
+                            <input type="date" name="tgl_masuk" id="tgl_masuk" placeholder="Masukan tanggal diterima"
+                                value="{{ $suratMasuk->tgl_masuk ? $suratMasuk->tgl_masuk->format('Y-m-d') : '' }}"
+                                class="form-control">
                             @error('tgl_masuk')
                                 <span class="text-red-500 text-xs hidden" style="display: block;">
                                     {{ $message }}
@@ -99,7 +113,8 @@
                         </div>
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('tgl_surat') ? ' !border-red' : '' }}">
                             <label class="form-label" for="tgl_surat">Tanggal Surat</label>
-                            <input type="date" name="tgl_surat" id="tgl_surat" placeholder="Masukan tanggal keluar" value="{{ $suratMasuk->tgl_surat ? $suratMasuk->tgl_surat->format('Y-m-d') : '' }}"
+                            <input type="date" name="tgl_surat" id="tgl_surat" placeholder="Masukan tanggal keluar"
+                                value="{{ $suratMasuk->tgl_surat ? $suratMasuk->tgl_surat->format('Y-m-d') : '' }}"
                                 class="form-control">
                             @error('tgl_surat')
                                 <span class="text-red-500 text-xs hidden" style="display: block;">
@@ -109,8 +124,8 @@
                         </div>
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('asal_surat') ? ' !border-red' : '' }}">
                             <label class="form-label" for="asal_surat">Asal Surat</label>
-                            <input type="text" name="asal_surat" id="asal_surat" placeholder="Masukan tujuan surat" value="{{ $suratMasuk->asal_surat }}"
-                                class="form-control">
+                            <input type="text" name="asal_surat" id="asal_surat" placeholder="Masukan tujuan surat"
+                                value="{{ $suratMasuk->asal_surat }}" class="form-control">
                             @error('asal_surat')
                                 <span class="text-red-500 text-xs hidden" style="display: block;">
                                     {{ $message }}
@@ -133,7 +148,7 @@
 
                         <div class="col-span-12">
                             <button type="submit" class="ti-btn ti-btn-primary-full !mb-0 mt-4">Simpan</button>
-                            <a href="{{ route('surat_keluar.index') }}"
+                            <a href="{{ route('surat_masuk.index') }}"
                                 class="hs-dropdown-toggle ti-btn ti-btn-secondary-full align-middle">Kembali</a>
                         </div>
                     </form>

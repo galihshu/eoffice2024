@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Disposisi Surat Baru')
+@section('title', 'Disposisi Surat Masuk')
 
 @push('styles')
     <style>
@@ -36,7 +36,7 @@
             </li>
             <li class="text-[0.813rem] text-defaulttextcolor font-semibold hover:text-primary dark:text-[#8c9097] dark:text-white/50 "
                 aria-current="page">
-                Tambah Surat Masuk Baru
+                Disposisi Surat Masuk
             </li>
         </ol>
     </div>
@@ -45,72 +45,37 @@
             <div class="box custom-box">
                 <div class="box-header justify-between">
                     <div class="box-title">
-                        Form Tambah Surat Masuk Baru
+                        Form Disposisi Surat Masuk
                     </div>
                 </div>
                 <div class="box-body">
-                    <form action="{{ route('surat_masuk.store') }}" method="POST" enctype="multipart/form-data"
+                    <form action="{{ route('surat_masuk.disposisi.store', $suratMasuk->id)}}" method="POST" enctype="multipart/form-data"
                         class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4">
+                        @method('POST')
                         @csrf
-                        <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('jenis_surat') ? ' !border-red' : '' }}">
-                            <label class="form-label" for="jenis_surat">Jenis Surat</label>
-                            <select class="ti-form-select rounded-sm !py-2 !px-3" id="jenis_surat" name="jenis_surat"
+                        <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('tujuan') ? ' !border-red' : '' }}">
+                            <label class="form-label" for="tujuan">Tujuan Surat</label>
+                            <select class="ti-form-select rounded-sm !py-2 !px-3" id="tujuan" name="tujuan"
                                 required>
-                                @foreach ($jenis_surat as $item)
-                                    <option value={{ $item['id'] }}>{{ $item['jenis_surat'] }}</option>
+                                @foreach ($tujuan as $item)
+                                    <option value={{ $item['id'] }}>{{ $item['name'] }} 
+                                        @if ($item['jabatan'] !== null)
+                                            - {{ $item['jabatan']['nama_jabatan'] }}
+                                        @endif
+                                    </option>
                                 @endforeach
                             </select>
-                            @error('jenis_surat')
+                            @error('tujuan')
                                 <span class="text-red-500 text-xs hidden" style="display: block;">
                                     {{ $message }}
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('no_surat') ? ' !border-red' : '' }}">
-                            <label class="form-label" for="no_surat">No Surat</label>
-                            <input type="text" name="no_surat" id="no_surat" placeholder="Masukan nomor surat"
-                                class="form-control" required>
-                            @error('no_surat')
-                                <span class="text-red-500 text-xs hidden" style="display: block;">
-                                    {{ $message }}
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('perihal') ? ' !border-red' : '' }}">
-                            <label class="form-label" for="perihal">Perihal Masuk</label>
-                            <input type="text" name="perihal" id="perihal" placeholder="Masukan nomor surat"
-                                class="form-control" required>
-                            @error('perihal')
-                                <span class="text-red-500 text-xs hidden" style="display: block;">
-                                    {{ $message }}
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('tgl_diterima') ? ' !border-red' : '' }}">
-                            <label class="form-label" for="tgl_keluar">Tanggal Masuk</label>
-                            <input type="date" name="tgl_masuk" id="tgl_masuk"
+                        <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('tgl_disposisi') ? ' !border-red' : '' }}">
+                            <label class="form-label" for="tgl_disposisi">Tanggal Disposisi</label>
+                            <input type="date" name="tgl_disposisi" id="tgl_disposisi"
                                 placeholder="Masukan tanggal diterima" class="form-control">
-                            @error('tgl_masuk')
-                                <span class="text-red-500 text-xs hidden" style="display: block;">
-                                    {{ $message }}
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('tgl_surat') ? ' !border-red' : '' }}">
-                            <label class="form-label" for="tgl_surat">Tanggal Surat</label>
-                            <input type="date" name="tgl_surat" id="tgl_surat" placeholder="Masukan tanggal keluar"
-                                class="form-control">
-                            @error('tgl_surat')
-                                <span class="text-red-500 text-xs hidden" style="display: block;">
-                                    {{ $message }}
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('asal_surat') ? ' !border-red' : '' }}">
-                            <label class="form-label" for="asal_surat">Asal Surat</label>
-                            <input type="text" name="asal_surat" id="asal_surat" placeholder="Masukan tujuan surat"
-                                class="form-control">
-                            @error('asal_surat')
+                            @error('tgl_disposisi')
                                 <span class="text-red-500 text-xs hidden" style="display: block;">
                                     {{ $message }}
                                 </span>
@@ -130,10 +95,18 @@
                                 Maksimum ukuran file: 2MB.
                             </small>
                         </div>
-
+                        <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('keterangan') ? ' !border-red' : '' }}">
+                            <label class="form-label" for="keterangan">Keterangan Disposisi</label>
+                            <textarea name="keterangan" id="keterangan" cols="30" rows="10" class="form-control"></textarea>
+                            @error('keterangan')
+                                <span class="text-red-500 text-xs hidden" style="display: block;">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                        </div>
                         <div class="col-span-12">
                             <button type="submit" class="ti-btn ti-btn-primary-full !mb-0 mt-4">Simpan</button>
-                            <a href="{{ route('surat_keluar.index') }}"
+                            <a href="{{ route('surat_masuk.index') }}"
                                 class="hs-dropdown-toggle ti-btn ti-btn-secondary-full align-middle">Kembali</a>
                         </div>
                     </form>
