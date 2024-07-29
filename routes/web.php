@@ -10,6 +10,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', [App\Http\Controllers\LandingPageController::class,'index'])->name('landing');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
