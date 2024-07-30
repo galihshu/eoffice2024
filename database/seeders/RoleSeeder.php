@@ -109,6 +109,14 @@ class RoleSeeder extends Seeder
             $readProfile, $updateProfile,
         ]);
 
+        Role::create(['name' => 'penanggungjawab', 'guard_name' => 'web'])->givePermissionTo([
+            $readSuratMasuk,
+            $readDisposisi, $addDisposisi, $updateDisposisi, $deleteDisposisi,
+            $readLaporanSuratMasuk, $readMonitoringDisposisi,
+            $updateUsers,
+            $readProfile, $updateProfile,
+        ]);
+
         Role::create(['name' => 'pelaksana', 'guard_name' => 'web'])->givePermissionTo([
             $readSuratMasuk,
             $readDisposisi,
