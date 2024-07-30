@@ -44,7 +44,8 @@
             {{-- kasih keterangan anda terdaftar pada dan terakhir update --}}
                 <div class="flex justify-between mb-4">
                     <div class="text-[0.9rem] text-defaulttextcolor dark:text-white/50">
-                        Anda terdaftar pada {{ $user->created_at->format('d M Y') }}
+                        {{-- Anda terdaftar pada @formatDate($user->created_at) --}}
+                        Anda terdaftar pada @formatDate($user->created_at)
                     </div>
                 </div>
                 <form class="grid grid-cols-2 gap-6" method="POST" action="{{ route('profile.update', $user->id) }}">
@@ -75,7 +76,7 @@
                         </select>
                     </div>
                     {{-- note double click --}}
-                    <div class="text-[0.9rem] text-danger">note: double click pada bagian yang ingin diubah untuk mengubah</div>
+                    <small class="text-[0.9rem] !text-danger form-text text-muted">* Double click pada bagian yang ingin diubah untuk mengubah</small>
                     
                     <div class="form-group">
                         <button type="submit" class="ti-btn !text-white !bg-success ti-btn-wave !hidden">Perbarui</button>
