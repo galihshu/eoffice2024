@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -30,10 +31,8 @@ class UserProfileController extends Controller
             ->first();
 
         $jabatans = Jabatan::all();
-        
+
         return view('users.profile', compact('user', 'jabatans'));
-
-
     }
 
     /**
@@ -49,17 +48,33 @@ class UserProfileController extends Controller
         /*
         
         */
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->user()->id)],
-            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore(auth()->user()->id)],
-            'jabatan' => 'required|exists:jabatan,id',
-        ]);
+        $validated = $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->user()->id),],
+                'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore(auth()->user()->id),],
+                'jabatan' => 'required|exists:jabatan,id',
+            ],
+            [
+                'required' => ':attribute harus diisi.',
+                'string' => ':attribute harus berupa string.',
+                'email' => ':attribute harus berupa alamat email yang valid.',
+                'max' => ':attribute tidak boleh lebih dari :max karakter.',
+                'unique' => ':attribute sudah digunakan.',
+                'exists' => ':attribute tidak valid.',
+            ]
+        );
+
+        /*
+        check apakah validasi berhasil
+
+        */
+
+        if (!$validated) {
+            return redirect()->route('profile')->with('error', 'Update Profil Gagal');
+        }
 
         // Update the user profile
-        /*
-        
-        */
         $user = User::find(auth()->user()->id);
         $user->name = $validated['name'];
         $user->email = $validated['email'];
@@ -69,10 +84,8 @@ class UserProfileController extends Controller
 
         if (!$is_saved) {
             return redirect()->route('profile')->with('error', 'Update Profil Gagal');
-        }
-        else{
+        } else {
             return redirect()->route('profile')->with('success', 'Update Profil Berhasil');
         }
-
     }
 }
