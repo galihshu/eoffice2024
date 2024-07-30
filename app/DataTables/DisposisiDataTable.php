@@ -25,13 +25,24 @@ class DisposisiDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('action', function($row){
-                $btn = '<a href="' . route('surat_masuk.edit', $row->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
-                $btn .= '<a href="' . route('surat_masuk.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
-                $btn .= '<a href="' . route('surat_masuk.disposisi', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i></a> ';
+                $btn = '<a href="' . route('disposisi.edit', $row->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
+                $btn .= '<a href="' . route('disposisi.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
                 if ($row->file_upload) {
                     $btn .= '<a href="' . asset('storage/' . $row->file_upload) . '" class="ti-btn ti-btn-success-full !py-1 !px-2 ti-btn-wave" target="_blank"><i class="bx bx-folder-open"></i>Lihat File</a>';
                 }
                 return $btn;
+            })
+            ->filterColumn('no_surat', function($query, $keyword) {
+                $query->where('surat_masuk.no_surat', 'like', "%{$keyword}%");
+            })
+            ->filterColumn('nama_pengirim', function($query, $keyword) {
+                $query->where('pengirim.name', 'like', "%{$keyword}%");
+            })
+            ->filterColumn('nama_tujuan', function($query, $keyword) {
+                $query->where('tujuan.name', 'like', "%{$keyword}%");
+            })
+            ->filterColumn('jabatan_tujuan', function($query, $keyword) {
+                $query->where('jabatan.nama_jabatan', 'like', "%{$keyword}%");
             })
             ->editColumn('tgl_disposisi', function ($data) {
                 return Carbon::parse($data->tgl_disposisi)->format('d-m-Y');
@@ -44,9 +55,13 @@ class DisposisiDataTable extends DataTable
      */
     public function query(Disposisi $model): QueryBuilder
     {
-        return $model->newQuery()->with(['User', 'UserTujuan' => function ($q) {
-            $q->with(['Jabatan']);
-        }]);
+        return $model->newQuery()
+        ->select('Disposisi.*', 'surat_masuk.no_surat as no_surat' ,'pengirim.name as nama_pengirim', 'tujuan.name as nama_tujuan', 'jabatan.nama_jabatan as jabatan_tujuan')
+        ->where('user_id_pengirim', auth()->user()->id)
+        ->leftJoin('surat_masuk', 'disposisi.surat_masuk_id', '=', 'surat_masuk.id')
+        ->leftJoin('users as pengirim', 'disposisi.user_id_pengirim', '=', 'pengirim.id')
+        ->leftJoin('users as tujuan', 'disposisi.user_id_tujuan', '=', 'tujuan.id')
+        ->leftJoin('jabatan', 'tujuan.jabatan_id', '=', 'jabatan.id');
     }
 
     /**
@@ -80,9 +95,10 @@ class DisposisiDataTable extends DataTable
     {
         return [
             Column::make('id')->orderable(false)->addClass('border-b border-defaultborder'),
-            Column::make('user.name')->orderable(false)->title('Nama Pengirim')->addClass('border-b border-defaultborder'),
-            Column::make('user_tujuan.name')->orderable(false)->title('Nama Tujuan')->addClass('border-b border-defaultborder'),
-            Column::make('user_tujuan.jabatan.nama_jabatan')->orderable(false)->title('Jabatan Tujuan')->addClass('border-b border-defaultborder'),
+            Column::make('no_surat')->orderable(false)->title('No. Surat')->addClass('border-b border-defaultborder'),
+            Column::make('nama_pengirim')->orderable(false)->title('Pemberi Disposisi')->addClass('border-b border-defaultborder'),
+            Column::make('nama_tujuan')->orderable(false)->title('Nama Penerima')->addClass('border-b border-defaultborder'),
+            Column::make('jabatan_tujuan')->orderable(false)->title('Jabatan Penerima')->addClass('border-b border-defaultborder'),
             Column::make('tgl_disposisi')->orderable(false)->title('Tanggal Disposisi')->addClass('border-b border-defaultborder'),
             Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center border-b border-defaultborder'),
         ];
