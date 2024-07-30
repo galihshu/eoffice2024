@@ -3,6 +3,7 @@
 use App\Http\Controllers\DisposisiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\JenisSuratController;
+use App\Http\Controllers\MonitoringDisposisiController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DataTables\UserDataTableController;
@@ -34,6 +35,8 @@ Route::resource('surat_masuk', SuratMasukController::class);
 Route::get('surat_masuk/{surat_masuk}/disposisi', [SuratMasukController::class, 'disposisi'])->name('surat_masuk.disposisi');
 Route::post('surat_masuk/{surat_masuk}/disposisi', [SuratMasukController::class, 'store_disposisi'])->name('surat_masuk.disposisi.store');
 Route::resource('disposisi', DisposisiController::class);
+route::get('monitoring_disposisi', [MonitoringDisposisiController::class, 'index'])->name('monitoring_disposisi.index');
+route::post('monitoring_disposisi', [MonitoringDisposisiController::class, 'show'])->name('monitoring_disposisi.show');
 //get profile
 Route::get('profile', [UserProfileController::class, 'show'])->name('profile');
 // post profile.update
