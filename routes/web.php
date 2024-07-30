@@ -7,6 +7,9 @@ use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DataTables\UserDataTableController;
 use App\Http\Controllers\SuratMasukController;
+use App\Http\Controllers\UserProfileController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth; // Add this line
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,3 +34,7 @@ Route::resource('surat_masuk', SuratMasukController::class);
 Route::get('surat_masuk/{surat_masuk}/disposisi', [SuratMasukController::class, 'disposisi'])->name('surat_masuk.disposisi');
 Route::post('surat_masuk/{surat_masuk}/disposisi', [SuratMasukController::class, 'store_disposisi'])->name('surat_masuk.disposisi.store');
 Route::resource('disposisi', DisposisiController::class);
+//get profile
+Route::get('profile', [UserProfileController::class, 'show'])->name('profile');
+// post profile.update
+Route::post('profile/update', [UserProfileController::class, 'update'])->name('profile.update');
