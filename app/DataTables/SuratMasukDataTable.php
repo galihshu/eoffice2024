@@ -28,11 +28,16 @@ class SuratMasukDataTable extends DataTable
             ->addColumn('action', function($row){
                 $btn = '<a href="' . route('surat_masuk.edit', $row->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
                 $btn .= '<a href="' . route('surat_masuk.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
-                $btn .= '<a href="' . route('surat_masuk.disposisi', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Disposisi</a> ';
+                if ($row->status_surat !== 3) {
+                    $btn .= '<a href="' . route('surat_masuk.disposisi', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Disposisi</a> ';
+                }
                 if ($row->file_upload) {
                     $btn .= '<a href="' . asset('storage/' . $row->file_upload) . '" class="ti-btn ti-btn-success-full !py-1 !px-2 ti-btn-wave" target="_blank"><i class="bx bx-folder-open"></i>Lihat File</a>';
                 }
                 return $btn;
+            })
+            ->filterColumn('jenis_surat', function($query, $keyword) {
+                $query->where('jenis_surat', 'like', "%{$keyword}%");
             })
             ->editColumn('status_surat', function ($row) {
                 return $this->getStatusLabel($row->status_surat);
@@ -49,7 +54,8 @@ class SuratMasukDataTable extends DataTable
      */
     public function query(SuratMasuk $model): QueryBuilder
     {
-        return $model->newQuery()->with('user', 'Jenis');
+        return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')->where('user_id', auth()->user()->id)
+        ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
     }
 
     /**
@@ -85,11 +91,7 @@ class SuratMasukDataTable extends DataTable
             Column::make('id')->orderable(false)->addClass('border-b border-defaultborder'),
             Column::make('no_surat')->orderable(false)->title('No. Surat')->addClass('border-b border-defaultborder'),
             Column::make('asal_surat')->orderable(false)->title('Asal Surat')->addClass('border-b border-defaultborder'),
-            Column::make('jenis.jenis_surat', )->orderable(false)->title('Jenis Surat')->addClass('border-b border-defaultborder'),
-            // Column::make('status_surat')
-            //       ->title('Status')
-            //       ->orderable(false)
-            //       ->addClass('border-b border-defaultborder'),
+            Column::make('jenis_surat')->orderable(false)->title('Jenis Surat')->addClass('border-b border-defaultborder'),
             Column::make('status_surat')->orderable(false)->title('Status')->addClass('border-b border-defaultborder'),
             Column::make('tgl_masuk')->orderable(false)->title('Tgl Masuk')->addClass('border-b border-defaultborder'),
             Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center border-b border-defaultborder'),

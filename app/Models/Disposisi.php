@@ -20,6 +20,13 @@ class Disposisi extends Model
         'keterangan_disposisi'
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'tgl_disposisi' => 'date',
+        ];
+    }
+
     public function User()
     {
         return $this->belongsTo(User::class, 'user_id_pengirim');

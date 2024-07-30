@@ -50,10 +50,10 @@ class SuratMasukController extends Controller
             'surat_masuk_id' => $suratMasuk->id,
             'tgl_disposisi' => $request->tgl_disposisi,
             'file_upload' => $request->file_upload == null ? null : $file,
-            'keterangan' => $request->keterangan_disposisi
+            'keterangan_disposisi' => $request->keterangan
         ]);
 
-        return redirect()->route('disposisi.index')->withToastSuccess('Data Masuk keluar berhasil diupdate.');
+        return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
     }
 
     public function create()

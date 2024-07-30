@@ -22,6 +22,7 @@ class DisposisiRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
+            'surat_masuk' => 'nullable|exists:surat_masuk,id',
             'tujuan' => 'required|exists:users,id',
             'tgl_disposisi' => 'nullable|date',
             'keterangan' => 'nullable|string',
