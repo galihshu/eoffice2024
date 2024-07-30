@@ -45,7 +45,7 @@
                 <div class="flex justify-between mb-4">
                     <div class="text-[0.9rem] text-defaulttextcolor dark:text-white/50">
                         {{-- Anda terdaftar pada @formatDate($user->created_at) --}}
-                        Anda terdaftar pada @formatDate($user->created_at)
+                        Anda terdaftar pada @formatDateTime($user->created_at)
                     </div>
                 </div>
                 <form class="grid grid-cols-2 gap-6" method="POST" action="{{ route('profile.update', $user->id) }}">
