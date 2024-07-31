@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = User::create([
+        User::create([
             'name'       => 'Administrator',
             'username'   => 'admin',
             'email'      => 'admin@email.com',
@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
         ])->assignRole('admin');
 
         User::create([
-            'name'       => 'Operator',
+            'name'       => 'Staff TU',
             'username'   => 'operator',
             'email'      => 'operator@email.com',
             'password'   => bcrypt('operator123'),
@@ -30,11 +30,35 @@ class UserSeeder extends Seeder
         ])->assignRole('operator');
 
         User::create([
-            'name'       => 'Pemberi Disposisi',
-            'username'   => 'pemberidisposisi',
-            'email'      => 'pemberidisposisi@email.com',
+            'name'       => 'Kepala Kaban',
+            'username'   => 'Dr. Marindo Kurniawan',
+            'email'      => 'kaban@email.com',
             'password'   => bcrypt('pemberidisposisi123'),
             'jabatan_id' => 2
         ])->assignRole('pemberidisposisi');
+        
+        User::create([
+            'name'       => 'Mughni Emirhan, S.I.P., M.M.',
+            'username'   => 'anggaran',
+            'email'      => 'anggaran@email.com',
+            'password'   => bcrypt('anggaran123'),
+            'jabatan_id' => 3
+        ])->assignRole('penanggungjawab');
+        
+        User::create([
+            'name'       => 'Sri Wahyuni, S.Sos., M.M.',
+            'username'   => 'perbendaharaan',
+            'email'      => 'perbendaharaan@email.com',
+            'password'   => bcrypt('perbendaharaan123'),
+            'jabatan_id' => 4
+        ])->assignRole('penanggungjawab');
+
+        User::create([
+            'name'       => 'Weda Helmina, S.E., M.M.',
+            'username'   => 'pusdatin',
+            'email'      => 'pusdatin@email.com',
+            'password'   => bcrypt('pusdatin123'),
+            'jabatan_id' => 5
+        ])->assignRole('penanggungjawab');
     }
 }

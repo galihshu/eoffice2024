@@ -16,8 +16,9 @@ class JabatanSeeder extends Seeder
         $data = [
             ['nama_jabatan' => 'Staff Tata Usaha'],
             ['nama_jabatan' => 'Kepala Badan'],
-            ['nama_jabatan' => 'Kepala Bidang Anggaran'],
+            ['nama_jabatan' => 'Kepala Bidang Perencanaan Anggaran Daerah'],
             ['nama_jabatan' => 'Kepala Bidang Perbendaharaan'],
+            ['nama_jabatan' => 'UPTD Pusat Data & Informasi Keuangan'],
         ];
         
         DB::table('jabatan')->insert($data);

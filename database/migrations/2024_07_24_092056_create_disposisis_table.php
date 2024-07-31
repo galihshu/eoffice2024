@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('disposisi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('suratmasuk_id')->constrained('suratmasuk');
+            $table->foreignId('user_id_pengirim')->constrained('users');
+            $table->foreignId('user_id_tujuan')->constrained('users');
+            $table->foreignId('surat_masuk_id')->constrained('surat_masuk');
             $table->date('tgl_disposisi')->nullable();
-            $table->foreignId('jabatan_asal_id')->constrained('jabatan');
-            $table->foreignId('jabatan_tujuan_id')->constrained('jabatan');
             $table->string('file_upload')->nullable();
             $table->text('keterangan_disposisi')->nullable();
             $table->timestamps();

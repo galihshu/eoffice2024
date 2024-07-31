@@ -24,7 +24,7 @@ class SuratKeluarDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function($row){
+            ->addColumn('action', function ($row) {
                 $btn = '<a href="' . route('surat_keluar.edit', $row->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
                 $btn .= '<a href="' . route('surat_keluar.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
 
@@ -36,13 +36,14 @@ class SuratKeluarDataTable extends DataTable
             ->editColumn('status_surat', function ($row) {
                 return $this->getStatusLabel($row->status_surat);
             })
+            ->rawColumns(['status_surat', 'action'])
             ->editColumn('tgl_keluar', function ($data) {
                 return Carbon::parse($data->tgl_keluar)->format('d-m-Y');
             })
             ->editColumn('tgl_diterima', function ($data) {
                 return Carbon::parse($data->tgl_diterima)->format('d-m-Y');
             });
-            // ->rawColumns(['action']);
+        // ->rawColumns(['action']);
     }
 
     /**
@@ -50,7 +51,11 @@ class SuratKeluarDataTable extends DataTable
      */
     public function query(SuratKeluar $model): QueryBuilder
     {
-        return $model->newQuery()->with('user');
+
+        if (auth()->user()->hasRole('admin')) {
+            return $model->newQuery();
+        }
+        return $model->newQuery()->where('user_id', auth()->user()->id);
     }
 
     /**
@@ -59,22 +64,22 @@ class SuratKeluarDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('suratkeluar-table')
-                    ->addTableClass('table whitespace-nowrap ti-striped-table table-hover min-w-full ti-custom-table-hover')
-                    ->setTableHeadClass('bg-primary text-white')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('suratkeluar-table')
+            ->addTableClass('table whitespace-nowrap ti-striped-table table-hover min-w-full ti-custom-table-hover')
+            ->setTableHeadClass('bg-primary text-white')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -87,11 +92,11 @@ class SuratKeluarDataTable extends DataTable
             Column::make('kode_surat')->orderable(false)->title('Kode Surat')->addClass('border-b border-defaultborder'),
             Column::make('no_surat')->orderable(false)->title('No. Surat')->addClass('border-b border-defaultborder'),
             Column::make('nama_penerima')->orderable(false)->title('Nama Penerima')->addClass('border-b border-defaultborder'),
-            Column::make('status_surat')
-                  ->title('Status')
-                  ->orderable(false)
-                  ->addClass('border-b border-defaultborder'),
-            // Column::make('status_surat')->orderable(false)->title('Status')->addClass('border-b border-defaultborder'),
+            // Column::make('status_surat')
+            //       ->title('Status')
+            //       ->orderable(false)
+            //       ->addClass('border-b border-defaultborder'),
+            Column::make('status_surat')->orderable(false)->title('Status')->addClass('border-b border-defaultborder'),
             Column::make('tgl_keluar')->orderable(false)->title('Tgl Keluar')->addClass('border-b border-defaultborder'),
             Column::make('tgl_diterima')->orderable(false)->title('Tgl Diterima')->addClass('border-b border-defaultborder'),
             Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center border-b border-defaultborder')
@@ -101,9 +106,9 @@ class SuratKeluarDataTable extends DataTable
     private function getStatusLabel($status)
     {
         $statusLabels = [
-            1 => 'Draft',
-            2 => 'Terkirim',
-            3 => 'Selesai',
+            1 => '<span class="badge bg-success text-white">Draft</span>',
+            2 => '<span class="badge bg-info text-white">Terkirim</span>',
+            3 => '<span class="badge bg-primary text-white">Selesai</span>',
         ];
 
         return $statusLabels[$status] ?? 'Unknown';

@@ -44,6 +44,7 @@ class SuratKeluarController extends Controller
         $request->validate([
             'kode_surat' => 'required|string|max:255',
             'no_surat' => 'required|string|max:255',
+            'nama_penerima' => 'required|string|max:255',
             'status_surat' => 'required|in:1,2,3',
             'file_upload' => 'nullable|mimes:pdf|max:2048', // Validasi hanya menerima PDF
         ]);

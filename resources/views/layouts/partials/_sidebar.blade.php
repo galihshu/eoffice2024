@@ -66,9 +66,18 @@
 
             <!-- Start::slide -->
             <li class="slide">
-                <a href="#" class="side-menu__item">
+                <a href="{{ route('disposisi.index') }}" class="side-menu__item">
+                <i class="bx bx-archive side-menu__icon"></i>
+                    <span class="side-menu__label">Disposisi</span>
+                </a>
+            </li>
+            <!-- End::slide -->
+
+            <!-- Start::slide -->
+            <li class="slide">
+                <a href="{{route('monitoring_disposisi.index')}}" class="side-menu__item">
                 <i class="bx bx-desktop side-menu__icon"></i>
-                    <span class="side-menu__label">Monitoring Disposisi</span>
+                    <span class="side-menu__label">Tracking Disposisi</span>
                 </a>
             </li>
             <!-- End::slide -->
@@ -101,7 +110,7 @@
 
            <!-- Start::slide -->
            <li class="slide">
-               <a href="#" class="side-menu__item">
+               <a href="{{ route('profile') }}" class="side-menu__item">
                <i class="bx bx-user side-menu__icon"></i>
                    <span class="side-menu__label">Profil</span>
                </a>
@@ -117,16 +126,18 @@
            </li>
            <!-- End::slide -->
 
+           @if (auth()->user()->hasRole('admin'))
             <!-- Start::slide__category -->
             <li class="slide__category"><span class="category-name">Users</span></li>
             <!-- End::slide__category -->
 
+            
             <!-- Start::slide -->
             <li class="slide has-sub">
                 <a href="javascript:void(0);" class="side-menu__item">
                 <i class="bx bx-user side-menu__icon"></i>
                     <span class="side-menu__label">Users<span
-                            class="text-success text-[0.75em] badge !py-[0.25rem] !px-[0.45rem] rounded-sm bg-success/10 ms-2">20</span></span>
+                            class="text-success text-[0.75em] badge !py-[0.25rem] !px-[0.45rem] rounded-sm bg-success/10 ms-2">{{ $totalUser }}</span></span>
                     <i class="fe fe-chevron-right side-menu__angle"></i>
                 </a>
                 <ul class="slide-menu child1">
@@ -134,7 +145,7 @@
                         <a href="{{ route('jabatan.index') }}" class="side-menu__item">Jabatan Pengguna</a>
                     </li>
                     <li class="slide">
-                        <a href="#" class="side-menu__item">Pengguna</a>
+                        <a href="{{ route('user.index') }}" class="side-menu__item">Pengguna</a>
                     </li>
                     <li class="slide">
                         <a href="#" class="side-menu__item">Peran</a>
@@ -142,6 +153,7 @@
                 </ul>
             </li>
             <!-- End::slide -->
+            @endif
 
         <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24"
                 height="24" viewBox="0 0 24 24">
