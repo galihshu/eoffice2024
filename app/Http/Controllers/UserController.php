@@ -25,7 +25,7 @@ class UserController extends Controller
         $title = "Yakin ingin menghapus data ini?";
         $text = "Setelah dihapus, data tidak dapat dikembalikan";
         confirmDelete($title, $text);
-        return $dataTable->render('users.index');
+        return $dataTable->render('modules.users.index');
     }
 
     /**
@@ -34,7 +34,7 @@ class UserController extends Controller
     public function create()
     {
         $jabatans = Jabatan::all();
-        return view('users.create', compact('jabatans'));
+        return view('modules.users.create', compact('jabatans'));
     }
 
     /**
@@ -60,7 +60,7 @@ class UserController extends Controller
 
         // dd($request->jabatan_id);
 
-        return redirect()->route('user.index')->withToastSuccess('Pengguna Baru berhasil disimpan');
+        return redirect()->route('modules.user.index')->withToastSuccess('Pengguna Baru berhasil disimpan');
     }
 
     /**
@@ -78,7 +78,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $jabatans = Jabatan::all();
-        return view('users.edit', compact('user','jabatans'));
+        return view('modules.users.edit', compact('user','jabatans'));
     }
 
     /**

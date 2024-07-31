@@ -19,7 +19,7 @@ class UsersDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function ($user) {
                 $btn = '<a href="' . route('user.edit', $user->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
-                $btn .= '<a href="' . route('user.destroy', $user->id) . '" class="ti-btn ti-btn-icon ti-btn-sm ti-btn-danger" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a>';
+                $btn .= '<a href="' . route('user.destroy', $user->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a>';
 
                 return $btn;
             })

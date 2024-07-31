@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
             'name'       => 'Weda Helmina, S.E., M.M.',
             'username'   => 'pusdatin',
             'email'      => 'pusdatin@email.com',
-            'password'   => bcrypt('perbendaharaan123'),
+            'password'   => bcrypt('pusdatin123'),
             'jabatan_id' => 5
         ])->assignRole('penanggungjawab');
     }
