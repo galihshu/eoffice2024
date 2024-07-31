@@ -15,7 +15,7 @@
         <div>
             <h3
                 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">
-                Monitoring Disposisi</h3>
+                Tracking Disposisi</h3>
         </div>
         <ol class="flex items-center whitespace-nowrap min-w-0">
             <li class="text-[0.813rem] ps-[0.5rem]">
@@ -27,7 +27,7 @@
             </li>
             <li class="text-[0.813rem] text-defaulttextcolor font-semibold hover:text-primary dark:text-[#8c9097] dark:text-white/50 "
                 aria-current="page">
-                Monitoring Disposisi
+                Tracking Disposisi
             </li>
         </ol>
     </div>
@@ -36,7 +36,7 @@
             <div class="box custom-box">
                 <div class="box-header justify-between">
                     <div class="box-title">
-                        Monitoring Disposisi
+                        Tracking Disposisi
                     </div>
                 </div>
                 <div class="box-body">
@@ -46,12 +46,12 @@
                                 <div class="space-x-3 flex items-center bg-slate-800 ">
                                     <i class='bx bx-check-circle bx-sm'></i>
                                     <div class="">
-                                        <p class="text-lg">Didisposisikan ke {{ $item['user_tujuan']['name'] }}
+                                        <p class="text-lg">Didisposisikan kepada {{ $item['user_tujuan']['name'] }}
                                             @if ($item['user_tujuan']['jabatan'] !== null)
                                                 - {{ $item['user_tujuan']['jabatan']['nama_jabatan'] }}
                                             @endif
                                         </p>
-                                        <p class="">Disposisikan oleh {{ $item['user']['name'] }}
+                                        <p class="">Didisposisikan oleh {{ $item['user']['name'] }}
                                             @if ($item['user']['jabatan'] !== null)
                                                 - {{ $item['user']['jabatan']['nama_jabatan'] }}
                                             @endif
