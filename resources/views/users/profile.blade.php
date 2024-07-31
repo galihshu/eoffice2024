@@ -48,7 +48,7 @@
                         Anda terdaftar pada @formatDateTime($user->created_at)
                     </div>
                 </div>
-                <form class="grid grid-cols-2 gap-6" method="POST" action="{{ route('profile.update', $user->id) }}">
+                <form class="grid gap-6" method="POST" action="{{ route('profile.update', $user->id) }}">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ $user->jabatan_id }}">
                     <div class="form-group">
