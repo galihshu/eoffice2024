@@ -54,6 +54,7 @@ class DisposisiController extends Controller
 
         $suratMasuk->update([
            'status_surat' => 3, 
+           'tgl_selesai' => $request->tgl_disposisi
         ]);
         
         if($request->file_upload !== null){
