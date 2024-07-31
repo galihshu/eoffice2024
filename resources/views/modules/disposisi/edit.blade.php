@@ -15,7 +15,7 @@
         <div>
             <h3
                 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">
-                Edit Disposisi Surat Masuk</h3>
+                Edit Disposisi</h3>
         </div>
         <ol class="flex items-center whitespace-nowrap min-w-0">
             <li class="text-[0.813rem] ps-[0.5rem]">
@@ -28,15 +28,15 @@
             </li>
             <li class="text-[0.813rem] ps-[0.5rem]">
                 <a class="flex items-center text-primary hover:text-primary dark:text-primary truncate"
-                    href="{{ route('surat_keluar.index') }}">
-                    Surat Masuk
+                    href="{{ route('disposisi.index') }}">
+                    Disposisi
                     <i
                         class="ti ti-chevrons-right flex-shrink-0 text-[#8c9097] dark:text-white/50 px-[0.5rem] overflow-visible rtl:rotate-180"></i>
                 </a>
             </li>
             <li class="text-[0.813rem] text-defaulttextcolor font-semibold hover:text-primary dark:text-[#8c9097] dark:text-white/50 "
                 aria-current="page">
-                Edit Disposisi Surat Masuk
+                Edit Disposisi
             </li>
         </ol>
     </div>
@@ -45,7 +45,7 @@
             <div class="box custom-box">
                 <div class="box-header justify-between">
                     <div class="box-title">
-                        Form Edit Disposisi Surat Masuk
+                        Form Edit Disposisi
                     </div>
                 </div>
                 <div class="box-body">
@@ -55,7 +55,7 @@
                         @method('PUT')
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('surat_masuk') ? ' !border-red' : '' }}">
                             <label class="form-label" for="surat_masuk">Pilih Surat Masuk</label>
-                            <select class="ti-form-select rounded-sm !py-2 !px-3" id="surat_masuk" name="surat_masuk" value="{{ $disposisi->surat_masuk_id }}"
+                            <select disabled class="ti-form-select rounded-sm !py-2 !px-3" id="surat_masuk" name="surat_masuk" value="{{ $disposisi->surat_masuk_id }}"
                                 required>
                                 @foreach ($surat_masuk as $item)
                                     <option value={{ $item['id'] }}>{{ $item['no_surat'] }} </option>
@@ -120,7 +120,7 @@
                         </div>
                         <div class="col-span-12">
                             <button type="submit" class="ti-btn ti-btn-primary-full !mb-0 mt-4">Simpan</button>
-                            <a href="{{ route('surat_masuk.index') }}"
+                            <a href="{{ route('disposisi.index') }}"
                                 class="hs-dropdown-toggle ti-btn ti-btn-secondary-full align-middle">Kembali</a>
                         </div>
                     </form>

@@ -28,7 +28,7 @@ class SuratMasukDataTable extends DataTable
             ->addColumn('action', function($row){
                 $btn = '<a href="' . route('surat_masuk.edit', $row->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
                 $btn .= '<a href="' . route('surat_masuk.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
-                if ($row->status_surat !== 3) {
+                if ($row->status_surat !== '3') {
                     $btn .= '<a href="' . route('surat_masuk.disposisi', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Disposisi</a> ';
                 }
                 if ($row->file_upload) {
@@ -54,8 +54,12 @@ class SuratMasukDataTable extends DataTable
      */
     public function query(SuratMasuk $model): QueryBuilder
     {
+        if (auth()->user()->hasRole('admin')) {
+            return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')
+            ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
+        }
         return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')->where('user_id', auth()->user()->id)
-        ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
+            ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
     }
 
     /**

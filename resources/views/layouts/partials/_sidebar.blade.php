@@ -75,7 +75,7 @@
 
             <!-- Start::slide -->
             <li class="slide">
-                <a href="#" class="side-menu__item">
+                <a href="{{route('monitoring_disposisi.index')}}" class="side-menu__item">
                 <i class="bx bx-desktop side-menu__icon"></i>
                     <span class="side-menu__label">Monitoring Disposisi</span>
                 </a>
@@ -110,7 +110,7 @@
 
            <!-- Start::slide -->
            <li class="slide">
-               <a href="#" class="side-menu__item">
+               <a href="{{ route('profile') }}" class="side-menu__item">
                <i class="bx bx-user side-menu__icon"></i>
                    <span class="side-menu__label">Profil</span>
                </a>
@@ -126,10 +126,12 @@
            </li>
            <!-- End::slide -->
 
+           @if (auth()->user()->hasRole('admin'))
             <!-- Start::slide__category -->
             <li class="slide__category"><span class="category-name">Users</span></li>
             <!-- End::slide__category -->
 
+            
             <!-- Start::slide -->
             <li class="slide has-sub">
                 <a href="javascript:void(0);" class="side-menu__item">
@@ -151,6 +153,7 @@
                 </ul>
             </li>
             <!-- End::slide -->
+            @endif
 
         <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24"
                 height="24" viewBox="0 0 24 24">
