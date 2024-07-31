@@ -36,7 +36,7 @@
         <div class="box custom-box">
             <div class="box-header justify-between">
                 <div class="box-title">
-                    Form Tambah Baru
+                    Form Edit
                 </div>
 
             </div>

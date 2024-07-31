@@ -77,7 +77,7 @@
             <li class="slide">
                 <a href="{{route('monitoring_disposisi.index')}}" class="side-menu__item">
                 <i class="bx bx-desktop side-menu__icon"></i>
-                    <span class="side-menu__label">Monitoring Disposisi</span>
+                    <span class="side-menu__label">Tracking Disposisi</span>
                 </a>
             </li>
             <!-- End::slide -->

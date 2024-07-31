@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @push('styles')
-    <style>
+    {{-- <style>
     .dt-length {
         display: none;
     }
-    </style>
+    </style> --}}
 @endpush
  
 @section('content')
