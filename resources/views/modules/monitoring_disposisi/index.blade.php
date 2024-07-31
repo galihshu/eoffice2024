@@ -15,7 +15,7 @@
         <div>
             <h3
                 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">
-                Monitoring Disposisi</h3>
+                Tracking Disposisi</h3>
         </div>
         <ol class="flex items-center whitespace-nowrap min-w-0">
             <li class="text-[0.813rem] ps-[0.5rem]">
@@ -27,7 +27,7 @@
             </li>
             <li class="text-[0.813rem] text-defaulttextcolor font-semibold hover:text-primary dark:text-[#8c9097] dark:text-white/50 "
                 aria-current="page">
-                Monitoring Disposisi
+                Tracking Disposisi
             </li>
         </ol>
     </div>
