@@ -30,8 +30,8 @@ Route::group(['middleware' => ['web']], function() {
     Route::get('surat_keluar/laporan', [SuratKeluarController::class, 'laporan'])->name('surat_keluar.laporan');
     Route::get('surat_keluar/export', [SuratKeluarController::class, 'exportExcel'])->name('surat_keluar.export');
     Route::resource('surat_keluar', SuratKeluarController::class);
-    Route::get('surat_masuk/laporan', [SuratKeluarController::class, 'laporan'])->name('surat_masuk.laporan');
-    Route::get('surat_masuk/export', [SuratKeluarController::class, 'exportExcel'])->name('surat_masuk.export');
+    Route::get('surat_masuk/laporan', [SuratMasukController::class, 'laporan'])->name('surat_masuk.laporan');
+    Route::get('surat_masuk/export', [SuratMasukController::class, 'exportExcel'])->name('surat_masuk.export');
     Route::group(['middleware' => ['role:admin']], function() {
         Route::resource('user', UserController::class);
         Route::resource('role', RoleController::class);
