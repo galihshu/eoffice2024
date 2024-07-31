@@ -66,7 +66,7 @@
                     <div class="form-group">
                         <label for="jabatan" class="font-bold">Jabatan</label>
                         <input type="hidden" id="jabatan-input" name="jabatan" value="{{ $user->jabatan_id }}" class="form-control">
-                        <input type="text" id="jabatan-nama" name="nama-jabatan" value="{{ $user->nama_jabatan }}" readonly class="form-control editable">
+                        <input type="text" id="jabatan-nama" name="nama-jabatan" value="{{ $user->jabatan->nama_jabatan ?? '' }}" readonly class="form-control editable">
                         <select id="jabatan-select" name="jabatan select" class="form-control editable hidden">
                             @foreach($jabatans as $jabatan)
                             <option value="{{ $jabatan->id }}" {{ $user->jabatan_id == $jabatan->id ? 'selected' : '' }}>

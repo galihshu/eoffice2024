@@ -23,16 +23,12 @@ class UserProfileController extends Controller
         /* get user by id user get from session
        
         */
-        // user join jabatan
+        // user join jabatan using with
 
-        $user = User::join('jabatan', 'users.jabatan_id', '=', 'jabatan.id')
-            ->select('users.*', 'jabatan.nama_jabatan')
-            ->where('users.id', auth()->user()->id)
-            ->first();
-
+        $user = User::with('jabatan')->find(auth()->user()->id);
         $jabatans = Jabatan::all();
 
-        return view('users.profile', compact('user', 'jabatans'));
+        return view('modules.users.profile', compact('user', 'jabatans'));
     }
 
     /**
