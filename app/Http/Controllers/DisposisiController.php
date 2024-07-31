@@ -107,7 +107,7 @@ class DisposisiController extends Controller
 
         $disposisi->update([
             'user_id_tujuan' => $request->tujuan,
-            'surat_masuk_id' => $request->surat_masuk,
+            // 'surat_masuk_id' => $request->surat_masuk,
             'tgl_disposisi' => $request->tgl_disposisi,
             'file_upload' => $filePath == null ? $disposisi->file_upload : $filePath,
             'keterangan_disposisi' => $request->keterangan

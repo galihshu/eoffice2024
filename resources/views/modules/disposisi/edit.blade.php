@@ -55,7 +55,7 @@
                         @method('PUT')
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('surat_masuk') ? ' !border-red' : '' }}">
                             <label class="form-label" for="surat_masuk">Pilih Surat Masuk</label>
-                            <select class="ti-form-select rounded-sm !py-2 !px-3" id="surat_masuk" name="surat_masuk" value="{{ $disposisi->surat_masuk_id }}"
+                            <select disabled class="ti-form-select rounded-sm !py-2 !px-3" id="surat_masuk" name="surat_masuk" value="{{ $disposisi->surat_masuk_id }}"
                                 required>
                                 @foreach ($surat_masuk as $item)
                                     <option value={{ $item['id'] }}>{{ $item['no_surat'] }} </option>
