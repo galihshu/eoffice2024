@@ -24,7 +24,7 @@ class DisposisiDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function($row){
+            ->addColumn('action', function ($row) {
                 $btn = '<a href="' . route('disposisi.edit', $row->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
                 $btn .= '<a href="' . route('disposisi.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
                 if ($row->file_upload) {
@@ -32,22 +32,22 @@ class DisposisiDataTable extends DataTable
                 }
                 return $btn;
             })
-            ->filterColumn('no_surat', function($query, $keyword) {
+            ->filterColumn('no_surat', function ($query, $keyword) {
                 $query->where('surat_masuk.no_surat', 'like', "%{$keyword}%");
             })
-            ->filterColumn('nama_pengirim', function($query, $keyword) {
+            ->filterColumn('nama_pengirim', function ($query, $keyword) {
                 $query->where('pengirim.name', 'like', "%{$keyword}%");
             })
-            ->filterColumn('nama_tujuan', function($query, $keyword) {
+            ->filterColumn('nama_tujuan', function ($query, $keyword) {
                 $query->where('tujuan.name', 'like', "%{$keyword}%");
             })
-            ->filterColumn('jabatan_tujuan', function($query, $keyword) {
+            ->filterColumn('jabatan_tujuan', function ($query, $keyword) {
                 $query->where('jabatan.nama_jabatan', 'like', "%{$keyword}%");
             })
             ->editColumn('tgl_disposisi', function ($data) {
                 return Carbon::parse($data->tgl_disposisi)->format('d-m-Y');
             });
-            // ->rawColumns(['action']);
+        // ->rawColumns(['action']);
     }
 
     /**
@@ -55,13 +55,21 @@ class DisposisiDataTable extends DataTable
      */
     public function query(Disposisi $model): QueryBuilder
     {
+        if (auth()->user()->hasRole('admin')) {
+            return $model->newQuery()
+                ->select('Disposisi.*', 'surat_masuk.no_surat as no_surat', 'pengirim.name as nama_pengirim', 'tujuan.name as nama_tujuan', 'jabatan.nama_jabatan as jabatan_tujuan')
+                ->leftJoin('surat_masuk', 'disposisi.surat_masuk_id', '=', 'surat_masuk.id')
+                ->leftJoin('users as pengirim', 'disposisi.user_id_pengirim', '=', 'pengirim.id')
+                ->leftJoin('users as tujuan', 'disposisi.user_id_tujuan', '=', 'tujuan.id')
+                ->leftJoin('jabatan', 'tujuan.jabatan_id', '=', 'jabatan.id');
+        }
         return $model->newQuery()
-        ->select('Disposisi.*', 'surat_masuk.no_surat as no_surat' ,'pengirim.name as nama_pengirim', 'tujuan.name as nama_tujuan', 'jabatan.nama_jabatan as jabatan_tujuan')
-        ->where('user_id_pengirim', auth()->user()->id)
-        ->leftJoin('surat_masuk', 'disposisi.surat_masuk_id', '=', 'surat_masuk.id')
-        ->leftJoin('users as pengirim', 'disposisi.user_id_pengirim', '=', 'pengirim.id')
-        ->leftJoin('users as tujuan', 'disposisi.user_id_tujuan', '=', 'tujuan.id')
-        ->leftJoin('jabatan', 'tujuan.jabatan_id', '=', 'jabatan.id');
+            ->select('Disposisi.*', 'surat_masuk.no_surat as no_surat', 'pengirim.name as nama_pengirim', 'tujuan.name as nama_tujuan', 'jabatan.nama_jabatan as jabatan_tujuan')
+            ->where('user_id_pengirim', auth()->user()->id)
+            ->leftJoin('surat_masuk', 'disposisi.surat_masuk_id', '=', 'surat_masuk.id')
+            ->leftJoin('users as pengirim', 'disposisi.user_id_pengirim', '=', 'pengirim.id')
+            ->leftJoin('users as tujuan', 'disposisi.user_id_tujuan', '=', 'tujuan.id')
+            ->leftJoin('jabatan', 'tujuan.jabatan_id', '=', 'jabatan.id');
     }
 
     /**
@@ -70,22 +78,22 @@ class DisposisiDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('suratkeluar-table')
-                    ->addTableClass('table whitespace-nowrap ti-striped-table table-hover min-w-full ti-custom-table-hover')
-                    ->setTableHeadClass('bg-primary text-white')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('suratkeluar-table')
+            ->addTableClass('table whitespace-nowrap ti-striped-table table-hover min-w-full ti-custom-table-hover')
+            ->setTableHeadClass('bg-primary text-white')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**

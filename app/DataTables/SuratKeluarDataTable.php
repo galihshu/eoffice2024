@@ -24,7 +24,7 @@ class SuratKeluarDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function($row){
+            ->addColumn('action', function ($row) {
                 $btn = '<a href="' . route('surat_keluar.edit', $row->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
                 $btn .= '<a href="' . route('surat_keluar.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
 
@@ -36,14 +36,14 @@ class SuratKeluarDataTable extends DataTable
             ->editColumn('status_surat', function ($row) {
                 return $this->getStatusLabel($row->status_surat);
             })
-            ->rawColumns(['status_surat','action'])
+            ->rawColumns(['status_surat', 'action'])
             ->editColumn('tgl_keluar', function ($data) {
                 return Carbon::parse($data->tgl_keluar)->format('d-m-Y');
             })
             ->editColumn('tgl_diterima', function ($data) {
                 return Carbon::parse($data->tgl_diterima)->format('d-m-Y');
             });
-            // ->rawColumns(['action']);
+        // ->rawColumns(['action']);
     }
 
     /**
@@ -51,7 +51,11 @@ class SuratKeluarDataTable extends DataTable
      */
     public function query(SuratKeluar $model): QueryBuilder
     {
-        return $model->newQuery()->with('user');
+
+        if (auth()->user()->hasRole('admin')) {
+            return $model->newQuery();
+        }
+        return $model->newQuery()->where('user_id', auth()->user()->id);
     }
 
     /**
@@ -60,22 +64,22 @@ class SuratKeluarDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('suratkeluar-table')
-                    ->addTableClass('table whitespace-nowrap ti-striped-table table-hover min-w-full ti-custom-table-hover')
-                    ->setTableHeadClass('bg-primary text-white')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('suratkeluar-table')
+            ->addTableClass('table whitespace-nowrap ti-striped-table table-hover min-w-full ti-custom-table-hover')
+            ->setTableHeadClass('bg-primary text-white')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
