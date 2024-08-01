@@ -64,6 +64,7 @@
             </li>
             <!-- End::slide -->
 
+            @can('read-disposisi')
             <!-- Start::slide -->
             <li class="slide">
                 <a href="{{ route('disposisi.index') }}" class="side-menu__item">
@@ -72,7 +73,8 @@
                 </a>
             </li>
             <!-- End::slide -->
-
+            @endcan
+            
             <!-- Start::slide -->
             <li class="slide">
                 <a href="{{route('monitoring_disposisi.index')}}" class="side-menu__item">
