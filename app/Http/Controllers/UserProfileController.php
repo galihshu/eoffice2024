@@ -47,9 +47,6 @@ class UserProfileController extends Controller
         $validated = $request->validate(
             [
                 'name' => 'required|string|max:255',
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->user()->id),],
-                'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore(auth()->user()->id),],
-                'jabatan' => 'required|exists:jabatan,id',
             ],
             [
                 'required' => ':attribute harus diisi.',
@@ -73,9 +70,6 @@ class UserProfileController extends Controller
         // Update the user profile
         $user = User::find(auth()->user()->id);
         $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        $user->username = $validated['username'];
-        $user->jabatan_id = $validated['jabatan'];
         $is_saved = $user->save();
 
         if (!$is_saved) {
