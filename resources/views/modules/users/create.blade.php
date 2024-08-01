@@ -50,7 +50,7 @@
 
                         <!-- error message untuk name -->
                         @error('name')
-                        <div class="invalid-feedback" role="alert">
+                        <div class="invalid-feedback alert-danger" role="alert">
                             {{ $message }}
                         </div>
                         @enderror
@@ -63,7 +63,7 @@
 
                         <!-- error message untuk email -->
                         @error('email')
-                        <div class="invalid-feedback" role="alert">
+                        <div class="invalid-feedback alert-danger" role="alert">
                             {{ $message }}
                         </div>
                         @enderror
@@ -77,7 +77,22 @@
                             @endforeach
                          </select>
                         @error('jabatan_id')
-                        <div class="invalid-feedback" role="alert">
+                        <div class="invalid-feedback alert-danger" role="alert">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+
+                    {{-- peran --}}
+                    <div class="col-span-12 mb-4 sm:mb-0">        
+                        <label for="peran">Pilih Peran</label>
+                        <select class="form-control" id="peran" name="peran" required>
+                            @foreach ($roles as $role)
+                               <option value="{{ old('roles',$role->name) }}">{{ $role->name }}</option>
+                            @endforeach
+                         </select>
+                        @error('peran')
+                        <div class="invalid-feedback alert-danger" role="alert">
                             {{ $message }}
                         </div>
                         @enderror
@@ -90,7 +105,7 @@
 
                         <!-- error message untuk password -->
                         @error('password')
-                        <div class="invalid-feedback" role="alert">
+                        <div class="invalid-feedback alert-danger" role="alert">
                             {{ $message }}
                         </div>
                         @enderror

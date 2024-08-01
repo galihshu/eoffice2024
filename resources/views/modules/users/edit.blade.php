@@ -74,7 +74,7 @@
                         <label for="jabatan_id">Pilih Jabatan</label>
                         <select class="form-control" id="jabatan_id" name="jabatan_id">
                             @foreach ($jabatans as $jabatan)
-                               <option value="{{ old('jabatan_id',$jabatan->id) }}">{{ $jabatan->nama_jabatan }}</option>
+                               <option value="{{ old('jabatan_id',$jabatan->id) }}" @if($user->jabatan_id == $jabatan->id) selected @endif>{{ $jabatan->nama_jabatan }}</option>
                             @endforeach
                          </select>
                         @error('jabatan_id')
@@ -83,6 +83,25 @@
                         </div>
                         @enderror
                     </div>
+
+                    {{-- peran --}}
+                    {{-- if user.id same as session this part not appear --}}
+                    @if ($user->id != Auth::user()->id)
+                    <div class="col-span-12 mb-4 sm:mb-0">                        
+                        <label for="peran">Pilih Peran</label>
+                        <select class="form-control" id="peran" name="peran">
+                            @foreach ($roles as $role)
+                               <option value="{{ old('roles',$role->name) }}" @if($user->hasRole($role->name)) selected @endif>{{ $role->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('peran')
+                        <div class="invalid-feedback" role="alert">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    @endif
+                    {{-- end peran --}}
 
                     <div class="col-span-12">
                         <button type="submit" class="ti-btn ti-btn-primary-full !mb-0 mt-4">Simpan</button>

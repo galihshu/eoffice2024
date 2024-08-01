@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\DataTables\UsersDataTable;
 use App\Models\User;
 use App\Models\Jabatan;
+use App\Models\Roles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash; 
 
@@ -33,8 +34,12 @@ class UserController extends Controller
      */
     public function create()
     {
+        // join table peran
+        
         $jabatans = Jabatan::all();
-        return view('modules.users.create', compact('jabatans'));
+        $roles = Roles::all();
+        
+        return view('modules.users.create', compact('jabatans', 'roles'));
     }
 
     /**
@@ -48,7 +53,8 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'jabatan_id' => 'required'
+            'jabatan_id' => 'required',
+            'peran' => 'required'
         ]);
 
         User::create([
@@ -56,11 +62,11 @@ class UserController extends Controller
             'email' => $request->email,
             'jabatan_id' => $request->jabatan_id,
             'password' => Hash::make($request->password)
-        ]);
+        ])->assignRole($request->peran);
 
         // dd($request->jabatan_id);
 
-        return redirect()->route('modules.user.index')->withToastSuccess('Pengguna Baru berhasil disimpan');
+        return redirect()->route('user.index')->withToastSuccess('Pengguna Baru berhasil disimpan');
     }
 
     /**
@@ -76,9 +82,11 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::findOrFail($id);
+        // $user = User::findOrFail($id); get users and his roles
+        $user = User::with('roles')->findOrFail($id);
         $jabatans = Jabatan::all();
-        return view('modules.users.edit', compact('user','jabatans'));
+        $roles = Roles::all();
+        return view('modules.users.edit', compact('user','jabatans', 'roles'));
     }
 
     /**
@@ -89,12 +97,13 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
+            'jabatan_id' => 'required',
         ]);
 
         $user->name = $request->name;
         $user->email = $request->email;
         $user->jabatan_id = $request->jabatan_id;
-
+        $user->syncRoles([$request->peran]);
         if (! empty($request->get('password'))) {
             $user->password = Hash::make($request->password);
         }
