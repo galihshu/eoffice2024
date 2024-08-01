@@ -39,7 +39,7 @@
 
                         <div class="prism-toggle">
                             
-                            <a href="{{ route('jenissurat.create')}}" class="form-control ti-btn !text-white !bg-primary ti-btn-wave" data-hs-overlay="#data-modal"><i class="bx bx-plus"></i>Tambah</a>
+                            <a href="{{ route('jenis_surat.create')}}" class="form-control ti-btn !text-white !bg-primary ti-btn-wave" data-hs-overlay="#data-modal"><i class="bx bx-plus"></i>Tambah</a>
                             
                         </div>
                     </div>

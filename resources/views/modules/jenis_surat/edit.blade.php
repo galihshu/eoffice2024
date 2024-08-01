@@ -29,7 +29,7 @@
         </li>
         <li class="text-[0.813rem] ps-[0.5rem]">
             <a class="flex items-center text-primary hover:text-primary dark:text-primary truncate"
-                href="{{ route('jenissurat.index') }}">
+                href="{{ route('jenis_surat.index') }}">
                 Jenis Surat
                 <i
                     class="ti ti-chevrons-right flex-shrink-0 text-[#8c9097] dark:text-white/50 px-[0.5rem] overflow-visible rtl:rotate-180"></i>
@@ -52,7 +52,7 @@
 
                 </div>
                 <div class="box-body">
-                    <form action="{{ route('jenissurat.update', $jenissurat->id) }}" method="POST" class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4">
+                    <form action="{{ route('jenis_surat.update', $jenissurat->id) }}" method="POST" class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4">
                         @csrf
                         @method('PUT')
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('jenis_surat') ? ' !border-red' : '' }}">
@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-span-12">
                             <button type="submit" class="ti-btn ti-btn-primary-full !mb-0 mt-4">Simpan</button>
-                            <a href="{{ route('jenissurat.index') }}" class="hs-dropdown-toggle ti-btn ti-btn-secondary-full align-middle">Kembali</a>
+                            <a href="{{ route('jenis_surat.index') }}" class="hs-dropdown-toggle ti-btn ti-btn-secondary-full align-middle">Kembali</a>
                         </div>
                     </form>
                 </div>
