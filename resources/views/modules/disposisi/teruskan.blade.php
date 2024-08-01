@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Disposisi Surat Masuk')
+@section('title', 'Teruskan Disposisi')
 
 @push('styles')
     <style>
@@ -15,7 +15,7 @@
         <div>
             <h3
                 class="!text-defaulttextcolor dark:!text-defaulttextcolor/70 dark:text-white dark:hover:text-white text-[1.125rem] font-semibold">
-                Disposisi Surat Masuk</h3>
+                Teruskan Disposisi</h3>
         </div>
         <ol class="flex items-center whitespace-nowrap min-w-0">
             <li class="text-[0.813rem] ps-[0.5rem]">
@@ -28,15 +28,15 @@
             </li>
             <li class="text-[0.813rem] ps-[0.5rem]">
                 <a class="flex items-center text-primary hover:text-primary dark:text-primary truncate"
-                    href="{{ route('surat_keluar.index') }}">
-                    Surat Masuk
+                    href="{{ route('disposisi.index') }}">
+                    Disposisi
                     <i
                         class="ti ti-chevrons-right flex-shrink-0 text-[#8c9097] dark:text-white/50 px-[0.5rem] overflow-visible rtl:rotate-180"></i>
                 </a>
             </li>
             <li class="text-[0.813rem] text-defaulttextcolor font-semibold hover:text-primary dark:text-[#8c9097] dark:text-white/50 "
                 aria-current="page">
-                Disposisi Surat Masuk
+                Teruskan Disposisi
             </li>
         </ol>
     </div>
@@ -45,11 +45,11 @@
             <div class="box custom-box">
                 <div class="box-header justify-between">
                     <div class="box-title">
-                        Form Disposisi Surat Masuk
+                        Form Teruskan Disposisi
                     </div>
                 </div>
                 <div class="box-body">
-                    <form action="{{ route('surat_masuk.disposisi.store', $suratMasuk->id)}}" method="POST" enctype="multipart/form-data"
+                    <form action="{{ route('disposisi.teruskan.store', $disposisi->id)}}" method="POST" enctype="multipart/form-data"
                         class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4">
                         @method('POST')
                         @csrf
@@ -81,7 +81,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-span-12 mb-4 sm:mb-0">
+                        {{-- <div class="col-span-12 mb-4 sm:mb-0">
                             <label for="file_upload" class="sr-only">Upload File (PDF)</label>
 
                             <input type="file" id="file_upload" name="file_upload" accept=".pdf"
@@ -94,7 +94,7 @@
                                 * Hanya format PDF yang diperbolehkan.
                                 Maksimum ukuran file: 2MB.
                             </small>
-                        </div>
+                        </div> --}}
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('keterangan') ? ' !border-red' : '' }}">
                             <label class="form-label" for="keterangan">Keterangan Disposisi</label>
                             <textarea name="keterangan" id="keterangan" cols="30" rows="10" class="form-control"></textarea>

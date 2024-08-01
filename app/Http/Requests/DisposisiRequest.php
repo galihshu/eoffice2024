@@ -26,14 +26,8 @@ class DisposisiRequest extends FormRequest
             'tujuan' => 'required|exists:users,id',
             'tgl_disposisi' => 'nullable|date',
             'keterangan' => 'nullable|string',
+            'file_upload' => 'nullable|file|mimes:pdf|max:5120',
         ];
-
-        // Kondisi untuk metode POST, file_upload wajib
-        if ($this->isMethod('post')) {
-            $rules['file_upload'] = 'required|file|mimes:pdf|max:5120'; // 5MB = 5120KB
-        } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
-            $rules['file_upload'] = 'nullable|file|mimes:pdf|max:5120'; // 5MB = 5120KB
-        }
 
         return $rules;
     }

@@ -48,13 +48,8 @@ class DisposisiController extends Controller
         $request->validated();
         $suratMasuk = SuratMasuk::findOrFail($request->surat_masuk);
 
-        if($suratMasuk->status_surat == 3){
-            return back()->withToastError('Surat sudah di disposisi sebelumnya');
-        }
-
         $suratMasuk->update([
            'status_surat' => 3, 
-           'tgl_selesai' => $request->tgl_disposisi
         ]);
         
         if($request->file_upload !== null){
@@ -65,6 +60,7 @@ class DisposisiController extends Controller
             'user_id_pengirim' => Auth::id(),
             'user_id_tujuan' => $request->tujuan,
             'surat_masuk_id' => $suratMasuk->id,
+            'status_disposisi' => 2,
             'tgl_disposisi' => $request->tgl_disposisi,
             'file_upload' => $request->file_upload == null ? null : $file,
             'keterangan' => $request->keterangan_disposisi
@@ -135,4 +131,26 @@ class DisposisiController extends Controller
 
         return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil dihapus.');
     }
+
+    public function teruskan(Disposisi $disposisi){
+        $tujuan =  User::with('jabatan')->where('jabatan_id', '!=', null)->get()->toArray();
+        return view('modules.disposisi.teruskan', compact(['disposisi', 'tujuan']));
+    }
+
+    public function store_teruskan(Disposisi $disposisi, DisposisiRequest $request){
+        $request->validated();
+        
+        Disposisi::create([
+            'user_id_pengirim' => Auth::id(),
+            'user_id_tujuan' => $request->tujuan,
+            'surat_masuk_id' => $disposisi->surat_masuk_id,
+            'status_disposisi' => 3,
+            'tgl_disposisi' => $request->tgl_disposisi,
+            'file_upload' => $disposisi->file_upload,
+            'keterangan_disposisi' => $request->keterangan
+        ]);
+
+        return redirect()->route('disposisi.index')->withToastSuccess('Disposisi berhasil diteruskan.');
+    }
+
 }

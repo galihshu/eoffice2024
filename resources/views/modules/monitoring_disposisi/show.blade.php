@@ -45,18 +45,46 @@
                             <div>
                                 <div class="space-x-3 flex items-center bg-slate-800 ">
                                     <i class='bx bx-check-circle bx-sm'></i>
-                                    <div class="">
-                                        <p class="text-lg">Didisposisikan kepada {{ $item['user_tujuan']['name'] }}
-                                            @if ($item['user_tujuan']['jabatan'] !== null)
-                                                - {{ $item['user_tujuan']['jabatan']['nama_jabatan'] }}
-                                            @endif
-                                        </p>
-                                        <p class="">Didisposisikan oleh {{ $item['user']['name'] }}
-                                            @if ($item['user']['jabatan'] !== null)
-                                                - {{ $item['user']['jabatan']['nama_jabatan'] }}
-                                            @endif
-                                        </p>
-                                    </div>
+                                    @if ($item['user_tujuan'] !== null)
+                                        <div class="">
+                                            <p class="text-lg">
+                                                @if ($item['status_disposisi'] == 1)
+                                                Didistribusikan kepada 
+                                                @elseif($item['status_disposisi'] == 2)
+                                                Didisposisikan kepada 
+                                                @endif
+                                                {{ $item['user_tujuan']['name'] }}
+                                                @if ($item['user_tujuan']['jabatan'] !== null)
+                                                    - {{ $item['user_tujuan']['jabatan']['nama_jabatan'] }}
+                                                @endif
+                                            </p>
+                                            <p class="">Didisposisikan oleh {{ $item['user']['name'] }}
+                                                @if ($item['user']['jabatan'] !== null)
+                                                    - {{ $item['user']['jabatan']['nama_jabatan'] }}
+                                                @endif
+                                            </p>
+                                        </div>
+                                    @elseif ($item['status_disposisi'] == 5)
+                                        <div class="">
+                                            <p class="text-lg"> Surat Ditolak
+                                            </p>
+                                            <p class="">Ditolak oleh {{ $item['user']['name'] }}
+                                                @if ($item['user']['jabatan'] !== null)
+                                                    - {{ $item['user']['jabatan']['nama_jabatan'] }}
+                                                @endif
+                                            </p>
+                                        </div>
+                                    @elseif ($item['status_disposisi'] == 4)
+                                        <div class="">
+                                            <p class="text-lg"> Surat Ditandai Selesai
+                                            </p>
+                                            <p class="">Ditandai selesai oleh {{ $item['user']['name'] }}
+                                                @if ($item['user']['jabatan'] !== null)
+                                                    - {{ $item['user']['jabatan']['nama_jabatan'] }}
+                                                @endif
+                                            </p>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach

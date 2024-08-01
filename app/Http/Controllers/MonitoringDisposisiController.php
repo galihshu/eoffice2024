@@ -52,6 +52,7 @@ class MonitoringDisposisiController extends Controller
             $q->with(['Jabatan']);
         }
         ])->latest()->get()->toArray();
+        
         if($data ==  null) {
             return back()->withToastError('Nomor Surat Tidak Ditemukan');
         }

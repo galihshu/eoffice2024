@@ -11,6 +11,7 @@ use App\Models\Disposisi;
 use App\Models\JenisSurat;
 use App\Models\SuratMasuk;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -31,34 +32,6 @@ class SuratMasukController extends Controller
         return $dataTable->render('modules.surat_masuk.index');
     }
 
-    public function disposisi(SuratMasuk $suratMasuk){
-        $tujuan =  User::with('jabatan')->where('jabatan_id', '!=', null)->get()->toArray();
-        return view('modules.surat_masuk.disposisi', compact(['suratMasuk', 'tujuan']));
-    }
-
-    public function store_disposisi(SuratMasuk $suratMasuk, DisposisiRequest $request){
-        $request->validated();
-        $suratMasuk->update([
-           'status_surat' => 3, 
-           'tgl_selesai' => $request->tgl_disposisi
-        ]);
-        
-        if($request->file_upload !== null){
-            $file = $request->file('file_upload')->store('uploads', 'public');
-        }
-
-        Disposisi::create([
-            'user_id_pengirim' => Auth::id(),
-            'user_id_tujuan' => $request->tujuan,
-            'surat_masuk_id' => $suratMasuk->id,
-            'status_disposisi' => 2,
-            'tgl_disposisi' => $request->tgl_disposisi,
-            'file_upload' => $request->file_upload == null ? null : $file,
-            'keterangan_disposisi' => $request->keterangan
-        ]);
-
-        return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
-    }
 
     public function create()
     {
@@ -194,10 +167,33 @@ class SuratMasukController extends Controller
         return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
     }
 
-    public function tolak_surat(SuratMasuk $suratMasuk){
+    public function terima_surat(SuratMasuk $suratMasuk){
         $suratMasuk->update([
             'status_surat' => 4
         ]);
+
+        Disposisi::create([
+            'user_id_pengirim' => Auth::id(),
+            'surat_masuk_id' => $suratMasuk->id,
+            'status_disposisi' => 4,
+            'tgl_disposisi' => Carbon::now(),
+        ]);
+
+        return back()->withToastSuccess('Surat berhasil ditandai selesai');
+    }
+
+    public function tolak_surat(SuratMasuk $suratMasuk){
+        $suratMasuk->update([
+            'status_surat' => 5
+        ]);
+
+        Disposisi::create([
+            'user_id_pengirim' => Auth::id(),
+            'surat_masuk_id' => $suratMasuk->id,
+            'status_disposisi' => 5,
+            'tgl_disposisi' => Carbon::now(),
+        ]);
+
         return back()->withToastSuccess('Surat berhasil ditolak');
     }
 }

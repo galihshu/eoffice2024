@@ -27,6 +27,9 @@ class DisposisiDataTable extends DataTable
             ->addColumn('action', function ($row) {
                 $btn = '<a href="' . route('disposisi.edit', $row->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
                 $btn .= '<a href="' . route('disposisi.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
+                if ($row->status_disposisi == '2' &&  auth()->user()->can('teruskan-disposisi')) {
+                    $btn .= '<a href="' . route('disposisi.teruskan', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Teruskan</a> ';
+                }
                 if ($row->file_upload) {
                     $btn .= '<a href="' . asset('storage/' . $row->file_upload) . '" class="ti-btn ti-btn-success-full !py-1 !px-2 ti-btn-wave" target="_blank"><i class="bx bx-folder-open"></i>Lihat File</a>';
                 } elseif ($row->file_surat_masuk) {
@@ -53,7 +56,6 @@ class DisposisiDataTable extends DataTable
             ->editColumn('tgl_disposisi', function ($data) {
                 return Carbon::parse($data->tgl_disposisi)->format('d-m-Y');
             });
-        // ->rawColumns(['action']);
     }
 
     /**
@@ -61,6 +63,17 @@ class DisposisiDataTable extends DataTable
      */
     public function query(Disposisi $model): QueryBuilder
     {
+        if (auth()->user()->hasRole('penanggungjawab')) {
+            return $model->newQuery()
+                ->select('Disposisi.*', 'surat_masuk.no_surat as no_surat', 'pengirim.name as nama_pengirim', 'tujuan.name as nama_tujuan', 'jabatan.nama_jabatan as jabatan_tujuan', 'surat_masuk.file_upload as file_surat_masuk')
+                ->where('user_id_tujuan', auth()->user()->id)
+                ->orWhere('user_id_pengirim', auth()->user()->id)
+                ->leftJoin('surat_masuk', 'disposisi.surat_masuk_id', '=', 'surat_masuk.id')
+                ->leftJoin('users as pengirim', 'disposisi.user_id_pengirim', '=', 'pengirim.id')
+                ->leftJoin('users as tujuan', 'disposisi.user_id_tujuan', '=', 'tujuan.id')
+                ->leftJoin('jabatan', 'tujuan.jabatan_id', '=', 'jabatan.id');
+        }
+
         return $model->newQuery()
             ->select('Disposisi.*', 'surat_masuk.no_surat as no_surat', 'pengirim.name as nama_pengirim', 'tujuan.name as nama_tujuan', 'jabatan.nama_jabatan as jabatan_tujuan', 'surat_masuk.file_upload as file_surat_masuk')
             ->leftJoin('surat_masuk', 'disposisi.surat_masuk_id', '=', 'surat_masuk.id')
@@ -116,6 +129,8 @@ class DisposisiDataTable extends DataTable
             1 => '<span class="badge bg-success text-white">Ditribusi</span>',
             2 => '<span class="badge bg-warning text-dark">Disposisi</span>',
             3 => '<span class="badge bg-primary text-white">Diteruskan</span>',
+            4 => '<span class="badge bg-success text-white">Selesai</span>',
+            5 => '<span class="badge bg-danger text-white">Ditolak</span>',
         ];
 
         return $statusLabels[$status] ?? 'Unknown';
