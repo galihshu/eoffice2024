@@ -25,7 +25,7 @@ Route::group(['middleware' => ['web']], function() {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     // Route::get('/datauser', [UserDataTableController::class, 'index'])->name('users-datatable');
-    Route::resource('jenissurat', JenisSuratController::class);
+    Route::resource('jenis_surat', JenisSuratController::class);
     Route::get('surat_keluar/laporan', [SuratKeluarController::class, 'laporan'])->name('surat_keluar.laporan');
     Route::get('surat_keluar/export', [SuratKeluarController::class, 'exportExcel'])->name('surat_keluar.export');
     Route::resource('surat_keluar', SuratKeluarController::class);

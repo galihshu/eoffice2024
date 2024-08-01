@@ -39,7 +39,7 @@
 
             <!-- Start::slide -->
             <li class="slide">
-                <a href="{{ route('jenissurat.index') }}" class="side-menu__item">
+                <a href="{{ route('jenis_surat.index') }}" class="side-menu__item">
                 <i class="bx bx-notepad side-menu__icon"></i>
                     <span class="side-menu__label">Jenis Surat</span>
                 </a>

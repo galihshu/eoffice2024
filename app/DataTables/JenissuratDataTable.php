@@ -25,8 +25,8 @@ class JenissuratDataTable extends DataTable
         return datatables()
         ->eloquent($query)
         ->addColumn('action', function ($jenissurat) {
-            $ops = '<a href="' . route('jenissurat.edit', $jenissurat->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
-            $ops .= '<a href="' . route('jenissurat.destroy', $jenissurat->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a>';
+            $ops = '<a href="' . route('jenis_surat.edit', $jenissurat->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
+            $ops .= '<a href="' . route('jenis_surat.destroy', $jenissurat->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a>';
 
             return $ops;
         })
