@@ -2,8 +2,10 @@
 
 namespace App\DataTables;
 
-use App\Models\JenisSurat;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -13,7 +15,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class JenissuratDataTable extends DataTable
+class RolesDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,28 +24,33 @@ class JenissuratDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        return datatables()
-        ->eloquent($query)
-        ->addColumn('action', function ($jenissurat) {
-            $ops = '<a href="' . route('jenis_surat.edit', $jenissurat->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
-            $ops .= '<a href="' . route('jenis_surat.destroy', $jenissurat->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a>';
+        $dataTable = new EloquentDataTable($query);
 
-            return $ops;
-        })
-        ->editColumn('created_at', function ($jabatan) {
-            return Carbon::parse($jabatan->created_at)->format('d-m-Y H:i:s');
-        })
-        ->editColumn('updated_at', function ($jabatan) {
-            return Carbon::parse($jabatan->updated_at)->format('d-m-Y H:i:s');
-        });
+        return $dataTable
+            // ->addColumn('permissions', function (Role $role) {
+            //     return $role->permissions->pluck('name')->implode(', ');
+            // })
+            ->addColumn('actions', function ($role) {
+                $ops = '<a href="' . route('role.edit', $role->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
+                $ops .= '<a href="' . route('role.destroy', $role->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a>';
+
+                return $ops;
+            })
+            ->rawColumns(['actions'])
+            ->editColumn('created_at', function ($jabatan) {
+                return Carbon::parse($jabatan->created_at)->format('d-m-Y H:i:s');
+            })
+            ->editColumn('updated_at', function ($jabatan) {
+                return Carbon::parse($jabatan->updated_at)->format('d-m-Y H:i:s');
+            });
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Jenissurat $model): QueryBuilder
+    public function query(Role $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('permissions')->select('roles.*');
     }
 
     /**
@@ -52,7 +59,7 @@ class JenissuratDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('jenis_surat-table')
+                    ->setTableId('roles-table')
                     ->addTableClass('table whitespace-nowrap ti-striped-table table-hover min-w-full ti-custom-table-hover')
                     ->setTableHeadClass('bg-primary text-white')
                     ->columns($this->getColumns())
@@ -76,11 +83,15 @@ class JenissuratDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->orderable(false)->addClass('border-b border-defaultborder'),
-            Column::make('jenis_surat')->orderable(false)->title('Jenis Surat')->addClass('border-b border-defaultborder'),
+            Column::make('name')->title('Nama Peran')->orderable(false)->addClass('border-b border-defaultborder'),
+            Column::make('guard_name')->title('Nama Guard')->orderable(false)->addClass('border-b border-defaultborder'),
             Column::make('created_at')->orderable(false)->title('Dibuat Pada')->addClass('border-b border-defaultborder'),
             Column::make('updated_at')->orderable(false)->title('Diubah Pada')->addClass('border-b border-defaultborder'),
-            Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center border-b border-defaultborder')
+            Column::computed('actions')
+                  ->orderable(false)
+                  ->exportable(false)
+                  ->printable(false)
+                  ->addClass('text-center border-b border-defaultborder'),
         ];
     }
 
@@ -89,6 +100,6 @@ class JenissuratDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Jenissurat_' . date('YmdHis');
+        return 'Roles_' . date('YmdHis');
     }
 }
