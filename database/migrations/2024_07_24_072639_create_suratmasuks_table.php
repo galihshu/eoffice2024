@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('jenis_surat_id')->constrained('jenis_surat');
             $table->string('no_surat')->nullable();
             $table->string('perihal')->nullable();
-            // 1 = Baru, 2 = Diproses, 3 = Selesai, 
             $table->enum('status_surat', [1,2,3,4,5,6])->default(1)->comment('1 = Baru, 2 = Diproses, 3 = Disposisi, 4 = Selesai, 5 = Ditolak, 6 = Diarsipkan');
             $table->date('tgl_surat')->nullable();
             $table->date('tgl_masuk')->nullable();
