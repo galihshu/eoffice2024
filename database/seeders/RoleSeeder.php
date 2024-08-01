@@ -46,6 +46,7 @@ class RoleSeeder extends Seeder
         $addSuratMasuk    = Permission::create(['name' => 'add-surat-masuk', 'guard_name' => 'web']);
         $updateSuratMasuk = Permission::create(['name' => 'update-surat-masuk', 'guard_name' => 'web']);
         $deleteSuratMasuk = Permission::create(['name' => 'delete-surat-masuk', 'guard_name' => 'web']);
+        $gantiStatusSuratMasuk = Permission::create(['name' => 'ganti-status-surat', 'guard_name' => 'web']);
 
         $readSuratKeluar   = Permission::create(['name' => 'read-surat-keluar', 'guard_name' => 'web']);
         $addSuratKeluar    = Permission::create(['name' => 'add-surat-keluar', 'guard_name' => 'web']);
@@ -94,14 +95,13 @@ class RoleSeeder extends Seeder
 
         Role::create(['name' => 'operator', 'guard_name' => 'web'])->givePermissionTo([
             $readSuratMasuk, $addSuratMasuk, $updateSuratMasuk, $deleteSuratMasuk,
-            $readSuratKeluar, $addSuratKeluar, $updateSuratKeluar, $deleteSuratKeluar,
+            $readSuratKeluar, $addSuratKeluar, $updateSuratKeluar, $deleteSuratKeluar,            
             $readLaporanSuratMasuk, $readLaporanSuratKeluar, $readMonitoringDisposisi,
-            $updateUsers,
             $readProfile, $updateProfile,
         ]);
 
         Role::create(['name' => 'pemberidisposisi', 'guard_name' => 'web'])->givePermissionTo([
-            $readSuratMasuk,
+            $readSuratMasuk, $addSuratMasuk, $updateSuratMasuk, $deleteSuratMasuk,
             $readSuratKeluar,
             $readDisposisi, $addDisposisi, $updateDisposisi, $deleteDisposisi,
             $readLaporanSuratMasuk, $readLaporanSuratKeluar, $readMonitoringDisposisi,
