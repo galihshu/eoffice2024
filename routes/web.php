@@ -37,8 +37,8 @@ Route::group(['middleware' => ['web']], function() {
         Route::resource('role', RoleController::class);
     });
     Route::resource('surat_masuk', SuratMasukController::class);
-    // Route::get('surat_masuk/{surat_masuk}/disposisi', [SuratMasukController::class, 'disposisi'])->name('surat_masuk.disposisi');
-    // Route::post('surat_masuk/{surat_masuk}/disposisi', [SuratMasukController::class, 'store_disposisi'])->name('surat_masuk.disposisi.store');
+    Route::get('surat_masuk/{surat_masuk}/disposisi', [SuratMasukController::class, 'disposisi'])->name('surat_masuk.disposisi');
+    Route::post('surat_masuk/{surat_masuk}/disposisi', [SuratMasukController::class, 'store_disposisi'])->name('surat_masuk.disposisi.store');
     Route::get('surat_masuk/{surat_masuk}/tolak', [SuratMasukController::class, 'tolak_surat'])->name('surat_masuk.tolak');
     Route::get('surat_masuk/{surat_masuk}/terima', [SuratMasukController::class, 'terima_surat'])->name('surat_masuk.terima');
     Route::get('surat_masuk/{surat_masuk}/distribusi', [SuratMasukController::class, 'distribusi'])->name('surat_masuk.distribusi');

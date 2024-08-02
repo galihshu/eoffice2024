@@ -29,6 +29,12 @@ class SuratMasukController extends Controller
         $title = "Yakin ingin menghapus data ini?";
         $text = "Setelah dihapus, data tidak dapat dikembalikan";
         confirmDelete($title, $text);
+
+        // dd(SuratMasuk::query()->select('surat_masuk.*', 'jenis_surat.jenis_surat', 'disposisi.*', 'disposisi.id as disposisi_id')->whereNot('status_surat', 1)
+        // ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id')
+        // ->leftJoin('disposisi', 'surat_masuk.id', '=', 'disposisi.surat_masuk_id')
+        // ->where('disposisi.user_id_tujuan', Auth::id())
+        // ->get()->toArray());
         return $dataTable->render('modules.surat_masuk.index');
     }
 
@@ -142,6 +148,35 @@ class SuratMasukController extends Controller
 
         return Excel::download(new SuratMasukExport($startDate, $endDate), 'surat_masuk.xlsx');
     }
+
+    public function disposisi(SuratMasuk $suratMasuk){
+        $tujuan =  User::with('jabatan')->where('jabatan_id', '!=', null)->get()->toArray();
+        return view('modules.surat_masuk.disposisi', compact(['suratMasuk', 'tujuan']));
+    }
+
+    public function store_disposisi(SuratMasuk $suratMasuk, DisposisiRequest $request){
+        $request->validated();
+        $suratMasuk->update([
+            'status_surat' => 3, 
+         ]);
+         
+         if($request->file_upload !== null){
+             $file = $request->file('file_upload')->store('uploads', 'public');
+         }
+ 
+         Disposisi::create([
+             'user_id_pengirim' => Auth::id(),
+             'user_id_tujuan' => $request->tujuan,
+             'surat_masuk_id' => $suratMasuk->id,
+             'status_disposisi' => 2,
+             'tgl_disposisi' => $request->tgl_disposisi,
+             'file_upload' => $request->file_upload == null ? null : $file,
+             'keterangan' => $request->keterangan_disposisi
+         ]);
+
+        return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
+    }
+
 
     public function distribusi(SuratMasuk $suratMasuk){
         $tujuan =  User::with('jabatan')->where('jabatan_id', '!=', null)->get()->toArray();
