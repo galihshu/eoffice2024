@@ -41,7 +41,7 @@
 
             </div>
             <div class="box-body">
-                <form action="{{ route('user.update', $user->id) }}" method="POST" class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4">
+                <form action="{{ route('user.update', $user->id) }}" method="POST" class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                      <div class="col-span-12 mb-4 sm:mb-0">
@@ -51,7 +51,7 @@
 
                         <!-- error message untuk name -->
                         @error('name')
-                        <div class="invalid-feedback" role="alert">
+                        <div class="invalid-feedback alert-danger" role="alert">
                             {{ $message }}
                         </div>
                         @enderror
@@ -64,12 +64,37 @@
 
                         <!-- error message untuk email -->
                         @error('email')
-                        <div class="invalid-feedback" role="alert">
+                        <div class="invalid-feedback alert-danger" role="alert">
                             {{ $message }}
                         </div>
                         @enderror
                     </div>
 
+                    {{-- photo --}}
+                    <div class="col-span-12 mb-4 sm:mb-0">
+                        <label for="photo">Foto</label>
+                        <div class="flex items center">
+                        {{-- blade ternary check if http in $user->photo --}}
+                            <img src="{{ asset("$user->photo") }}" id="photo-preview" alt="photo" class="w-20 h-20 rounded-full">
+                        </div>
+                    </div>
+                    {{-- input photo --}}
+                    <div class="col-span-12 mb-4 sm:mb-0">
+                        <label for="photo">Ganti Foto</label>
+                        <input type="file" class="form-control"
+                            name="photo" id="photo" value="{{ old('photo', $user->photo) }}" accept="image/*">
+
+                        <!-- error message untuk photo -->
+                        @error('photo')
+                        <div class="invalid-feedback alert-danger" role="alert">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    {{-- end photo --}}
+                    
+                    {{-- if has role admin --}}
+                    @if (Auth::user()->hasRole('admin'))
                     <div class="col-span-12 mb-4 sm:mb-0">                        
                         <label for="jabatan_id">Pilih Jabatan</label>
                         <select class="form-control" id="jabatan_id" name="jabatan_id">
@@ -78,11 +103,13 @@
                             @endforeach
                          </select>
                         @error('jabatan_id')
-                        <div class="invalid-feedback" role="alert">
+                        <div class="invalid-feedback alert-danger" role="alert">
                             {{ $message }}
                         </div>
                         @enderror
                     </div>
+                    @endif
+                    {{-- end jabatan --}}
 
                     {{-- peran --}}
                     {{-- if user.id same as session this part not appear --}}
@@ -95,7 +122,7 @@
                             @endforeach
                         </select>
                         @error('peran')
-                        <div class="invalid-feedback" role="alert">
+                        <div class="invalid-feedback alert-danger" role="alert">
                             {{ $message }}
                         </div>
                         @enderror
@@ -113,3 +140,23 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // image preview
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#photo-preview').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#photo").change(function() {
+                readURL(this);
+            });
+        });
+    </script>
+@endpush

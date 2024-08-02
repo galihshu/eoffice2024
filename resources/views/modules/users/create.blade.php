@@ -41,7 +41,7 @@
 
             </div>
             <div class="box-body">
-                <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data" class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4">
+                <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data" class="sm:grid grid-cols-12 block gap-y-2 gap-x-4 items-center mb-4 gap-6">
                     @csrf
                      <div class="col-span-12 mb-4 sm:mb-0">
                         <label for="name">Nama Pengguna</label>
@@ -68,6 +68,23 @@
                         </div>
                         @enderror
                     </div>
+
+                    {{-- photo --}}
+                    <div class="col-span-12 mb-4 sm:mb-0">
+                        <label for="photo">Foto Pengguna</label>
+                        {{-- preview selected here no photo path online --}}
+                        <div class="flex items center">
+                            <img src="{{ asset("eofficeadmin/images/authentication/default.png") }}" id="photo-preview" alt="photo" class="w-20 h-20 rounded-full">
+                        </div>
+                        <input type="file" class="form-control @error('photo') is-invalid @enderror"
+                               name="photo" accept="image/*" id="photo">
+
+                        <!-- error message untuk photo -->
+                        @error('photo')
+                        <div class="invalid-feedback alert-danger" role="alert">
+                            {{ $message }}
+                        </div>
+                        @enderror
 
                     <div class="col-span-12 mb-4 sm:mb-0">        
                         <label for="jabatan_id">Pilih Jabatan</label>
@@ -127,3 +144,23 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // image preview
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#photo-preview').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#photo").change(function() {
+                readURL(this);
+            });
+        });
+    </script>
+@endpush

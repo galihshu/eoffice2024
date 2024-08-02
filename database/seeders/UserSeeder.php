@@ -14,11 +14,13 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // photo null 
         User::create([
             'name'       => 'Administrator',
             'username'   => 'admin',
             'email'      => 'admin@email.com',
             'password'   => bcrypt('admin123'),
+            "photo" => 'eofficeadmin/images/authentication/default.png',
         ])->assignRole('admin');
 
         User::create([
@@ -26,6 +28,7 @@ class UserSeeder extends Seeder
             'username'   => 'operator',
             'email'      => 'operator@email.com',
             'password'   => bcrypt('operator123'),
+            "photo" => 'eofficeadmin/images/authentication/default.png',
             'jabatan_id' => 1
         ])->assignRole('operator');
 
@@ -34,6 +37,7 @@ class UserSeeder extends Seeder
             'username'   => 'kaban',
             'email'      => 'kaban@email.com',
             'password'   => bcrypt('pemberidisposisi123'),
+            "photo" => 'eofficeadmin/images/authentication/default.png',
             'jabatan_id' => 2
         ])->assignRole('pemberidisposisi');
         
@@ -42,6 +46,7 @@ class UserSeeder extends Seeder
             'username'   => 'anggaran',
             'email'      => 'anggaran@email.com',
             'password'   => bcrypt('anggaran123'),
+            "photo" => 'eofficeadmin/images/authentication/default.png',
             'jabatan_id' => 3
         ])->assignRole('penanggungjawab');
         
@@ -50,6 +55,7 @@ class UserSeeder extends Seeder
             'username'   => 'perbendaharaan',
             'email'      => 'perbendaharaan@email.com',
             'password'   => bcrypt('perbendaharaan123'),
+            "photo" => 'eofficeadmin/images/authentication/default.png',
             'jabatan_id' => 4
         ])->assignRole('penanggungjawab');
 
@@ -58,6 +64,7 @@ class UserSeeder extends Seeder
             'username'   => 'pusdatin',
             'email'      => 'pusdatin@email.com',
             'password'   => bcrypt('pusdatin123'),
+            "photo" => 'eofficeadmin/images/authentication/default.png',
             'jabatan_id' => 5
         ])->assignRole('penanggungjawab');
 
