@@ -52,10 +52,18 @@ class HomeController extends Controller
         $totalSuratMasuk = $totalSuratMasukBaru + $totalSuratMasukDiproses + $totalSuratMasukDidisposisi + $totalSuratMasukSelesai;
 
         // Hitung persentase masing-masing status
-        $persentaseBaru = ($totalSuratMasukBaru / $totalSuratMasuk) * 100;
-        $persentaseDiproses = ($totalSuratMasukDiproses / $totalSuratMasuk) * 100;
-        $persentaseDidisposisi = ($totalSuratMasukDidisposisi / $totalSuratMasuk) * 100;
-        $persentaseSelesai = ($totalSuratMasukSelesai / $totalSuratMasuk) * 100;
+        // Hitung persentase masing-masing status dengan pengecekan pembagian nol
+        if ($totalSuratMasuk > 0) {
+            $persentaseBaru = ($totalSuratMasukBaru / $totalSuratMasuk) * 100;
+            $persentaseDiproses = ($totalSuratMasukDiproses / $totalSuratMasuk) * 100;
+            $persentaseDidisposisi = ($totalSuratMasukDidisposisi / $totalSuratMasuk) * 100;
+            $persentaseSelesai = ($totalSuratMasukSelesai / $totalSuratMasuk) * 100;
+        } else {
+            $persentaseBaru = 0;
+            $persentaseDiproses = 0;
+            $persentaseDidisposisi = 0;
+            $persentaseSelesai = 0;
+        }
 
         return view('modules.home.home', compact(
         'totalSuratMasukBaru', 
