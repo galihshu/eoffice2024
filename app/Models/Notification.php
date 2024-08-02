@@ -13,6 +13,7 @@ class Notification extends Model
 
     protected $fillable = [
         'surat_masuk_id',
+        'surat_tujuan_id',
         'pesan',
     ];
 
