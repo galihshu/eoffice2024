@@ -92,18 +92,27 @@
                                                     <div class="flex items-start">
                                                         <div class="pe-2">
                                                             <span
-                                                                class="inline-flex justify-center items-center !w-[2.5rem] !h-[2.5rem] !leading-[2.5rem] !text-[0.8rem]  {{$item->is_read ? 'bg-success/10 rounded-[50%] text-success' : 'bg-warning/10 rounded-[50%] text-warning'}}"><i
-                                                                    class="ti {{$item->is_read ? 'ti-clock' : 'ti-circle-check'}} text-[1.125rem]"></i></span>
+                                                                class="inline-flex justify-center items-center !w-[2.5rem] !h-[2.5rem] !leading-[2.5rem] !text-[0.8rem]  {{ $item->is_read ? 'bg-success/10 rounded-[50%] text-success' : 'bg-warning/10 rounded-[50%] text-warning' }}"><i
+                                                                    class="ti {{ $item->is_read ? 'ti-clock' : 'ti-circle-check' }} text-[1.125rem]"></i></span>
                                                         </div>
                                                         <div class="grow flex items-center justify-between">
                                                             <div>
                                                                 <p
                                                                     class="mb-0 text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50  text-[0.8125rem]  font-semibold">
                                                                     <a href="notifications.html">Surat Baru untuk
-                                                                        Disposisi <span class=" {{$item->is_read ? 'text-success':'text-warning'}}">No Surat:
-                                                                            #{{$item->no_surat}}</span></a></p>
+                                                                        Disposisi <span
+                                                                            class=" {{ $item->is_read ? 'text-success' : 'text-warning' }}">No
+                                                                            Surat:
+                                                                            #{{ $item->no_surat }}</span></a>
+                                                                </p>
                                                                 <span
-                                                                    class="text-[#8c9097] dark:text-white/50 font-normal text-[0.75rem] header-notification-text">{{$item->pesan}}</span>
+                                                                    class="text-[#8c9097] dark:text-white/50 font-normal text-[0.75rem] header-notification-text">{{ $item->pesan }}</span>
+                                                                <div class="row">
+
+                                                                    <span
+                                                                        class="text-[#8c9097] dark:text-white/50 font-normal text-[0.75rem] header-notification-text">{{ (new \Carbon\Carbon($item->created_at))->diffForHumans() }}</span>
+
+                                                                </div>
                                                             </div>
                                                             <div>
                                                                 <a aria-label="anchor" href="javascript:void(0);"
