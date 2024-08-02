@@ -40,7 +40,7 @@
                     Detail Profil
                 </div>
             </div>
-            <div class="box-body editable">
+            <div class="box-body">
             {{-- kasih keterangan anda terdaftar pada dan terakhir update --}}
                 <div class="flex justify-between mb-4">
                     <div class="text-[0.9rem] text-defaulttextcolor dark:text-white/50">
@@ -54,26 +54,6 @@
                     <div class="form-group">
                         <label for="name" class="font-bold">Nama</label>
                         <input type="text" id="name" name="name" value="{{ $user->name }}" readonly class="form-control editable">
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="font-bold">Email</label>
-                        <input type="email" id="email" name="email" value="{{ $user->email }}" readonly class="form-control editable">
-                    </div>
-                    <div class="form-group">
-                        <label for="username" class="font-bold">Username</label>
-                        <input type="text" id="username" name="username" value="{{ $user->username }}" readonly class="form-control editable">
-                    </div>
-                    <div class="form-group">
-                        <label for="jabatan" class="font-bold">Jabatan</label>
-                        <input type="hidden" id="jabatan-input" name="jabatan" value="{{ $user->jabatan_id }}" class="form-control">
-                        <input type="text" id="jabatan-nama" name="nama-jabatan" value="{{ $user->jabatan->nama_jabatan ?? '' }}" readonly class="form-control editable">
-                        <select id="jabatan-select" name="jabatan select" class="form-control editable hidden">
-                            @foreach($jabatans as $jabatan)
-                            <option value="{{ $jabatan->id }}" {{ $user->jabatan_id == $jabatan->id ? 'selected' : '' }}>
-                                {{ $jabatan->nama_jabatan }}
-                            </option>
-                            @endforeach
-                        </select>
                     </div>
                     {{-- note double click --}}
                     <small class="text-[0.9rem] !text-danger form-text text-muted">* Double click pada bagian yang ingin diubah untuk mengubah</small>
@@ -117,18 +97,19 @@
             $('.editable').removeClass('border border-primary');
             $('.editable').next().addClass('hidden');
             $('.editable').closest('form').find('button').addClass('!hidden');
-            $('#jabatan-nama').removeClass('hidden');
+            //$('#jabatan-nama').removeClass('hidden');
             
-            $('#jabatan-select').addClass('hidden');
-            $('.mode-edit').remove();
+            //$('#jabatan-select').addClass('hidden');
+            // $('.mode-edit').remove();
         });
     });
 
-    {{-- jabatan-select change --}}
+    /*{{-- jabatan-select change --}}
     $('#jabatan-select').change(function() {
         $('#jabatan-nama').val($(this).find('option:selected').text());
         $('#jabatan-input').val($(this).val());
     });
+    */
 
     
 
