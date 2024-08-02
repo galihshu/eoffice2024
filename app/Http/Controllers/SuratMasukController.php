@@ -30,11 +30,6 @@ class SuratMasukController extends Controller
         $text = "Setelah dihapus, data tidak dapat dikembalikan";
         confirmDelete($title, $text);
 
-        // dd(SuratMasuk::query()->select('surat_masuk.*', 'jenis_surat.jenis_surat', 'disposisi.*', 'disposisi.id as disposisi_id')->whereNot('status_surat', 1)
-        // ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id')
-        // ->leftJoin('disposisi', 'surat_masuk.id', '=', 'disposisi.surat_masuk_id')
-        // ->where('disposisi.user_id_tujuan', Auth::id())
-        // ->get()->toArray());
         return $dataTable->render('modules.surat_masuk.index');
     }
 
