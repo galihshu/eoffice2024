@@ -8,6 +8,7 @@ use App\Models\Jabatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\VarDumper\VarDumper;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class UserProfileController extends Controller
@@ -44,9 +45,10 @@ class UserProfileController extends Controller
         /*
         
         */
-        $validated = $request->validate(
+        $request->validate(
             [
                 'name' => 'required|string|max:255',
+                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ],
             [
                 'required' => ':attribute harus diisi.',
@@ -58,18 +60,26 @@ class UserProfileController extends Controller
             ]
         );
 
+        
         /*
         check apakah validasi berhasil
-
+        
         */
-
-        if (!$validated) {
-            return redirect()->route('profile')->with('error', 'Update Profil Gagal');
-        }
-
+        
+                
         // Update the user profile
         $user = User::find(auth()->user()->id);
-        $user->name = $validated['name'];
+        // if photo is uploaded
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $filename = uniqid() . '.' . $photo->getClientOriginalExtension();
+            $file_path = $photo->storeAs('images', $filename, 'public');
+            if ($user->photo) {
+                Storage::disk('public')->delete($user->photo);
+            }
+            $user->photo = "storage/$file_path";
+        }
+        $user->name = $request->name;
         $is_saved = $user->save();
 
         if (!$is_saved) {
