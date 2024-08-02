@@ -41,23 +41,31 @@
                 </div>
             </div>
             <div class="box-body">
-            {{-- kasih keterangan anda terdaftar pada dan terakhir update --}}
+                {{-- kasih keterangan anda terdaftar pada dan terakhir update --}}
                 <div class="flex justify-between mb-4">
                     <div class="text-[0.9rem] text-defaulttextcolor dark:text-white/50">
                         {{-- Anda terdaftar pada @formatDate($user->created_at) --}}
                         Anda terdaftar pada @formatDateTime($user->created_at)
                     </div>
                 </div>
-                <form class="grid gap-6" method="POST" action="{{ route('profile.update', $user->id) }}">
+                <form class="grid gap-6" method="POST" action="{{ route('profile.update', $user->id) }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ $user->jabatan_id }}">
                     <div class="form-group">
                         <label for="name" class="font-bold">Nama</label>
                         <input type="text" id="name" name="name" value="{{ $user->name }}" readonly class="form-control editable">
                     </div>
+                    <div class="form-group">
+                        {{-- photo --}}
+                        <label for="photo" class="font-bold">Foto</label>
+                        <div class="flex items center">
+                            <img src="{{ asset(Auth::user()->photo) }}" alt="photo" id="photo-preview" class="w-20 h-20 rounded-full editable">
+                        </div>
+                        <input type="file" id="photo" name="photo" class="form-control editable hidden" accept="image/*">
+                    </div>
                     {{-- note double click --}}
                     <small class="text-[0.9rem] !text-danger form-text text-muted">* Double click pada bagian yang ingin diubah untuk mengubah</small>
-                    
+
                     <div class="form-group">
                         <button type="submit" class="ti-btn !text-white !bg-success ti-btn-wave !hidden">Perbarui</button>
                         <button id="batal" type="button" class="ti-btn !text-white !bg-danger ti-btn-wave !hidden">Batal</button>
@@ -72,12 +80,28 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+
+        // image preview
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#photo-preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#photo").change(function() {
+            readURL(this);
+        });
         $('.editable').dblclick(function() {
             // jika select hapus disabled
             if ($(this).is('select')) {
                 $(this).prop('disabled', false);
-            }
-            else {
+            } else {
+                if ($('#photo').is('input')) {
+                    $('#photo').removeClass('hidden');
+                }
                 $(this).prop('readonly', false);
             }
             $(this).addClass('border border-primary');
@@ -89,7 +113,7 @@
             }
             // show button type submit
             $(this).closest('form').find('button').removeClass('!hidden');
-            
+
         });
         // batal clicked penanganan khusus jika select diubah select hidden input jabatan show
         $('#batal').click(function() {
@@ -98,7 +122,9 @@
             $('.editable').next().addClass('hidden');
             $('.editable').closest('form').find('button').addClass('!hidden');
             //$('#jabatan-nama').removeClass('hidden');
-            
+            // hide input photo
+            $('#photo').addClass('hidden');
+
             //$('#jabatan-select').addClass('hidden');
             // $('.mode-edit').remove();
         });
@@ -110,8 +136,6 @@
         $('#jabatan-input').val($(this).val());
     });
     */
-
-    
 
 </script>
 @endpush

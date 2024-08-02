@@ -8,7 +8,8 @@ use App\Models\User;
 use App\Models\Jabatan;
 use App\Models\Roles;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash; 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -54,17 +55,28 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'jabatan_id' => 'required',
+            'photo' => 'nullable|image|max:2512|mimes:jpeg,png',
             'peran' => 'required'
         ]);
+
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $filename = uniqid() . '.' . $photo->getClientOriginalExtension();
+            $filename = $request->file('photo')->storeAs('images', $filename, 'public');
+        } else {
+            $filename = 'eofficeadmin/images/authentication/default.png';
+        }
+
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'jabatan_id' => $request->jabatan_id,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'photo' => "storage/$filename"
         ])->assignRole($request->peran);
 
-        // dd($request->jabatan_id);
+        
 
         return redirect()->route('user.index')->withToastSuccess('Pengguna Baru berhasil disimpan');
     }
@@ -94,16 +106,48 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $request->validate([
+        $to_be_validate = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
             'jabatan_id' => 'required',
-        ]);
+            'photo' => 'image|max:2512|mimes:jpeg,png',
+        ];
+        $request->validate(
+            $to_be_validate,
+            [
+                'required' => ':attribute harus diisi',
+                'unique' => ':attribute sudah terdaftar',
+                'email' => ':attribute harus berupa email',
+                'max' => ':attribute maksimal :max karakter',
+                'image' => 'Upload hanya berupa gambar',
+                'mimes' => 'Format gambar tidak valid',
+                'max' => ':attribute maksimal :max KB'
+            ]);
 
         $user->name = $request->name;
         $user->email = $request->email;
         $user->jabatan_id = $request->jabatan_id;
-        $user->syncRoles([$request->peran]);
+        // if user change the photo remove old photo and upload new photo
+        if ($request->hasFile('photo')) {
+            // $request->file('file_upload')->store('uploads', 'public');
+            $photo = $request->file('photo');
+            $filename = uniqid() . '.' . $photo->getClientOriginalExtension();
+            // remove old photo
+            $file_path = $request->file('photo')->storeAs('images', $filename, 'public');
+            if ($user->photo != 'default.png') {
+                if ($user->photo) {
+                    Storage::disk('public')->delete($user->photo);
+                }
+            }
+            $user->photo = "storage/$file_path";
+        }
+        // if user change the role remove old role and assign new role
+        // if role logged user is admin don't do it
+        if ($user->hasRole('admin')) {
+            $user->syncRoles(['admin']);
+        } else {
+            $user->syncRoles([$request->peran]);
+        }
         if (! empty($request->get('password'))) {
             $user->password = Hash::make($request->password);
         }
@@ -120,7 +164,10 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
-        $user->delete();
+        $delete = $user->delete();
+        if ($user->photo != 'default.png') {
+            Storage::disk('public')->delete($user->photo);
+        }
         return redirect()
             ->route('user.index')->withToastSuccess('Data Pengguna berhasil dihapus.');
     }

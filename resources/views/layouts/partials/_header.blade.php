@@ -115,7 +115,10 @@
 
           <button id="dropdown-profile" type="button"
             class="hs-dropdown-toggle ti-dropdown-toggle !gap-2 !p-0 flex-shrink-0 sm:me-2 me-0 !rounded-full !shadow-none text-xs align-middle !border-0 !shadow-transparent ">
-            <img class="inline-block rounded-full " src="{{ asset('eofficeadmin/images/authentication/admin.png') }}"  width="32" height="32" alt="Image Description">
+            {{-- <img class="inline-block rounded-full " src="{{ asset('eofficeadmin/images/authentication/admin.png') }}"  width="32" height="32" alt="Image Description"> --}}
+            {{-- get image from session logged user --}}
+            {{-- if default in --}}
+            <img class="inline-block rounded-full " src="{{ asset(Auth::user()->photo) }}" width="32" height="32" alt="Image Description">
           </button>
           <div class="md:block hidden dropdown-profile">
             <p class="font-semibold mb-0 leading-none text-[#536485] text-[0.813rem] ">{{ Auth::user()->name }}</p>
