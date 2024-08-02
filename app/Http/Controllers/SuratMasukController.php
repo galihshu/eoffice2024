@@ -92,7 +92,7 @@ class SuratMasukController extends Controller
     public function update(SuratMasukRequest $request, SuratMasuk $suratMasuk)
     {
         $request->validated();
-        
+
         $filePath = $suratMasuk->file_upload;
         if ($request->hasFile('file_upload')) {
             if ($filePath) {
@@ -146,41 +146,53 @@ class SuratMasukController extends Controller
         return Excel::download(new SuratMasukExport($startDate, $endDate), 'surat_masuk.xlsx');
     }
 
-    public function disposisi(SuratMasuk $suratMasuk){
+    public function disposisi(SuratMasuk $suratMasuk)
+    {
         $tujuan =  User::with('jabatan')->where('jabatan_id', '!=', null)->get()->toArray();
         return view('modules.surat_masuk.disposisi', compact(['suratMasuk', 'tujuan']));
     }
 
-    public function store_disposisi(SuratMasuk $suratMasuk, DisposisiRequest $request){
+    public function store_disposisi(SuratMasuk $suratMasuk, DisposisiRequest $request)
+    {
         $request->validated();
-        $suratMasuk->update([
-            'status_surat' => 3, 
-         ]);
-         
-         if($request->file_upload !== null){
-             $file = $request->file('file_upload')->store('uploads', 'public');
-         }
- 
-         Disposisi::create([
-             'user_id_pengirim' => Auth::id(),
-             'user_id_tujuan' => $request->tujuan,
-             'surat_masuk_id' => $suratMasuk->id,
-             'status_disposisi' => 2,
-             'tgl_disposisi' => $request->tgl_disposisi,
-             'file_upload' => $request->file_upload == null ? null : $file,
-             'keterangan' => $request->keterangan_disposisi
-         ]);
+        DB::transaction(function () use ($request, $suratMasuk) {
 
-        return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
+            $suratMasuk->update([
+                'status_surat' => 3,
+            ]);
+
+            if ($request->file_upload !== null) {
+                $file = $request->file('file_upload')->store('uploads', 'public');
+            }
+
+            Disposisi::create([
+                'user_id_pengirim' => Auth::id(),
+                'user_id_tujuan' => $request->tujuan,
+                'surat_masuk_id' => $suratMasuk->id,
+                'status_disposisi' => 2,
+                'tgl_disposisi' => $request->tgl_disposisi,
+                'file_upload' => $request->file_upload == null ? null : $file,
+                'keterangan' => $request->keterangan_disposisi
+            ]);
+
+            Notification::create([
+                'surat_masuk_id' => $suratMasuk->id,
+                'surat_tujuan_id' => $request->tujuan,
+                'pesan' => $request->keterangan,
+            ]);
+            return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
+        });
     }
 
 
-    public function distribusi(SuratMasuk $suratMasuk){
+    public function distribusi(SuratMasuk $suratMasuk)
+    {
         $tujuan =  User::with('jabatan')->where('jabatan_id', '!=', null)->get()->toArray();
         return view('modules.surat_masuk.distribusi', compact(['tujuan', 'suratMasuk']));
     }
 
-    public function store_distribusi(SuratMasuk $suratMasuk, DistribusiRequest $request){
+    public function store_distribusi(SuratMasuk $suratMasuk, DistribusiRequest $request)
+    {
         $request->validated();
         DB::transaction(function () use ($request, $suratMasuk) {
             $suratMasuk->update([
@@ -205,10 +217,10 @@ class SuratMasukController extends Controller
         });
 
         return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
-       
     }
 
-    public function terima_surat(SuratMasuk $suratMasuk){
+    public function terima_surat(SuratMasuk $suratMasuk)
+    {
         $suratMasuk->update([
             'status_surat' => 4
         ]);
@@ -223,7 +235,8 @@ class SuratMasukController extends Controller
         return back()->withToastSuccess('Surat berhasil ditandai selesai');
     }
 
-    public function tolak_surat(SuratMasuk $suratMasuk){
+    public function tolak_surat(SuratMasuk $suratMasuk)
+    {
         $suratMasuk->update([
             'status_surat' => 5
         ]);
