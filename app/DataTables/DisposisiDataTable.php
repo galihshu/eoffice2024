@@ -27,9 +27,9 @@ class DisposisiDataTable extends DataTable
             ->addColumn('action', function ($row) {
                 $btn = '<a href="' . route('disposisi.edit', $row->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
                 $btn .= '<a href="' . route('disposisi.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
-                if ($row->status_disposisi == '2' &&  auth()->user()->can('teruskan-disposisi')) {
-                    $btn .= '<a href="' . route('disposisi.teruskan', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Teruskan</a> ';
-                }
+                // if ($row->status_disposisi == '2' &&  auth()->user()->can('teruskan-disposisi')) {
+                //     $btn .= '<a href="' . route('disposisi.teruskan', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Teruskan</a> ';
+                // }
                 if ($row->file_upload) {
                     $btn .= '<a href="' . asset('storage/' . $row->file_upload) . '" class="ti-btn ti-btn-success-full !py-1 !px-2 ti-btn-wave" target="_blank"><i class="bx bx-folder-open"></i>Lihat File</a>';
                 } elseif ($row->file_surat_masuk) {

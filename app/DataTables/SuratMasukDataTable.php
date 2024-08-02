@@ -33,8 +33,11 @@ class SuratMasukDataTable extends DataTable
                 if(auth()->user()->can('delete-surat-masuk')){
                     $btn .= '<a href="' . route('surat_masuk.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
                 }
-                if (auth()->user()->can('add-disposisi') && $row->status_surat !== '4' && $row->status_surat !== '5' && $row->status_surat !== '6') {
+                if (auth()->user()->can('add-disposisi') && $row->status_surat !== '4' && $row->status_surat !== '5' && $row->status_surat !== '6' && auth()->user()->hasRole('pemberidisposisi')) {
                     $btn .= '<a href="' . route('surat_masuk.disposisi', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Disposisi</a> ';
+                }
+                if (auth()->user()->can('teruskan-disposisi')) {
+                    $btn .= '<a href="' . route('disposisi.teruskan', $row->disposisi_id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Teruskan</a> ';
                 }
                 if ($row->status_surat == '1' && auth()->user()->can('add-distribusi')) {
                     $btn .= '<a href="' . route('surat_masuk.distribusi', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Distribusi</a> ';
@@ -42,7 +45,7 @@ class SuratMasukDataTable extends DataTable
                 if($row->status_surat == '2' && auth()->user()->can('tolak-surat-masuk')){
                     $btn .= '<a href="' . route('surat_masuk.tolak', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" ><i class="ri-close-circle-line"></i>Tolak</a> ';
                 }
-                if($row->status_surat == '3' && auth()->user()->can('selesai-surat-masuk')){
+                if($row->status_surat == '3' && auth()->user()->can('selesai-surat-masuk') && auth()->user()->hasRole('operator')){
                     $btn .= '<a href="' . route('surat_masuk.terima', $row->id) . '" class="ti-btn ti-btn-success-full !py-1 !px-2 ti-btn-wave"><i class="ri-checkbox-circle-line"></i>Tandai Selesai</a> ';
                 }
                 if ($row->file_upload) {
@@ -73,8 +76,10 @@ class SuratMasukDataTable extends DataTable
             ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
         }
         if (auth()->user()->hasRole('penanggungjawab')) {
-            return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')->where('status_surat', 3)->orWhere('status_surat', 4)
-            ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
+            return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat', 'disposisi.*', 'disposisi.id as disposisi_id')->whereNot('status_surat', 1)
+            ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id')
+            ->leftJoin('disposisi', 'surat_masuk.id', '=', 'disposisi.surat_masuk_id')
+            ->where('disposisi.user_id_tujuan', auth()->user()->id);
         }
         return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')->where('user_id', auth()->user()->id)
             ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
