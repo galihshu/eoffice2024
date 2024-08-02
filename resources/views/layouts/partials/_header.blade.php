@@ -172,8 +172,8 @@
 
                     <div class="p-4 empty-header-item1 border-t mt-2">
                         <div class="grid">
-                            <a href="notifications.html" class="ti-btn ti-btn-primary-full !m-0 w-full p-2">View
-                                All</a>
+                            <a href="{{ route('surat_masuk.index') }}" class="ti-btn ti-btn-primary-full !m-0 w-full p-2">Tampil
+                                Semua</a>
                         </div>
                     </div>
                     <div class="p-[3rem] empty-item1 hidden">

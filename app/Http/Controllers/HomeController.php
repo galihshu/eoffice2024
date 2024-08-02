@@ -44,12 +44,29 @@ class HomeController extends Controller
         // Menghitung jumlah surat masuk berdasarkan status
         $totalSuratMasukBaru = SuratMasuk::where('status_surat', '1')->count();
         $totalSuratMasukDiproses = SuratMasuk::where('status_surat', '2')->count();
-        $totalSuratMasukSelesai = SuratMasuk::where('status_surat', '3')->count();
+        $totalSuratMasukDidisposisi = SuratMasuk::where('status_surat', '3')->count();
+        $totalSuratMasukSelesai = SuratMasuk::where('status_surat', '4')->count();
+        $totalSuratMasukDitolak = SuratMasuk::where('status_surat', '5')->count();
+
+        // Hitung total semua surat masuk
+        $totalSuratMasuk = $totalSuratMasukBaru + $totalSuratMasukDiproses + $totalSuratMasukDidisposisi + $totalSuratMasukSelesai;
+
+        // Hitung persentase masing-masing status
+        $persentaseBaru = ($totalSuratMasukBaru / $totalSuratMasuk) * 100;
+        $persentaseDiproses = ($totalSuratMasukDiproses / $totalSuratMasuk) * 100;
+        $persentaseDidisposisi = ($totalSuratMasukDidisposisi / $totalSuratMasuk) * 100;
+        $persentaseSelesai = ($totalSuratMasukSelesai / $totalSuratMasuk) * 100;
 
         return view('modules.home.home', compact(
         'totalSuratMasukBaru', 
         'totalSuratMasukDiproses', 
-        'totalSuratMasukSelesai', 
+        'totalSuratMasukDidisposisi', 
+        'totalSuratMasukSelesai',
+        'persentaseBaru',
+        'persentaseDiproses',
+        'persentaseDidisposisi',
+        'persentaseSelesai', 
+        'totalSuratMasukDitolak',
         'totalSuratKeluar', 
         'totalDisposisi', 
         'totalUser',
@@ -80,8 +97,9 @@ class HomeController extends Controller
 
     private function getDisposisiPerQuarter($year)
     {
-        return Disposisi::selectRaw('QUARTER(created_at) as quarter, COUNT(*) as total')
-            ->whereYear('created_at', $year)
+        return SuratMasuk::selectRaw('QUARTER(tgl_masuk) as quarter, COUNT(*) as total')
+            ->whereYear('tgl_masuk', $year)
+            ->where('status_surat', 3)
             ->groupBy('quarter')
             ->orderBy('quarter')
             ->pluck('total', 'quarter')

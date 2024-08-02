@@ -34,7 +34,7 @@
                         <div class="flex items-start">
                             <div class="me-4 gap-0">
                                 <span class="avatar avatar-md p-2 bg-primary">
-                                    <svg class="svg-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.706 5.292-2.999-2.999A.996.996 0 0 0 18 2H6a.996.996 0 0 0-.707.293L2.294 5.292A.994.994 0 0 0 2 6v13c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6a.994.994 0 0 0-.294-.708zM6.414 4h11.172l1 1H5.414l1-1zM4 19V7h16l.002 12H4z"></path><path d="M14 9h-4v3H7l5 5 5-5h-3z"></path></svg>
+                                    <svg class="svg-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.1 3C16.0344 3.32311 16 3.65753 16 4C16 4.34247 16.0344 4.67689 16.1 5H4.51146L12.0619 11.662L17.1098 7.14141C17.5363 7.66888 18.0679 8.10787 18.6728 8.42652L12.0718 14.338L4 7.21594V19H20V8.89998C20.3231 8.96557 20.6575 9 21 9C21.3425 9 21.6769 8.96557 22 8.89998V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H16.1ZM21 1C22.6569 1 24 2.34315 24 4C24 5.65685 22.6569 7 21 7C19.3431 7 18 5.65685 18 4C18 2.34315 19.3431 1 21 1Z"></path></svg>
                             </div>
                             <div class="flex-grow">
                                 <div class="flex mb-1 items-start justify-between">
@@ -44,7 +44,7 @@
                                     <!-- <div class="text-danger font-semibold"><i
                                         class="ri-arrow-down-s-fill me-1 align-middle"></i>-1.05%</div> -->
                                 </div>
-                                <p class="mb-0 text-[0.625rem] opacity-[0.7] text-[#8c9097] dark:text-white/50 font-semibold">TOTAL SURAT BARU</p>
+                                <p class="mb-0 text-[0.625rem] opacity-[0.7] text-[#8c9097] dark:text-white/50 font-semibold">SURAT MASUK BARU</p>
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                         <div class="flex items-start">
                             <div class="me-4">
                                 <span class="avatar avatar-md p-2 bg-secondary">
-                                    <svg class="svg-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ><path d="m21.555 8.168-9-6a1 1 0 0 0-1.109 0l-9 6A1 1 0 0 0 2 9v11c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V9c0-.334-.167-.646-.445-.832zM12 4.202 19.197 9 12 13.798 4.803 9 12 4.202zM4 20v-9.131l7.445 4.963a1 1 0 0 0 1.11 0L20 10.869 19.997 20H4z"></path></svg>
+                                    <svg class="svg-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22 14H20V7.23792L12.0718 14.338L4 7.21594V19H14V21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H21C21.5523 3 22 3.44772 22 4V14ZM4.51146 5L12.0619 11.662L19.501 5H4.51146ZM19 22L15.4645 18.4645L16.8787 17.0503L19 19.1716L22.5355 15.636L23.9497 17.0503L19 22Z"></path></svg>
                                 </span>
                             </div>
                             <div class="flex-grow">
@@ -67,20 +67,45 @@
                                     <!-- <div class="text-success font-semibold"><i
                                         class="ri-arrow-up-s-fill me-1 align-middle"></i>+0.40%</div> -->
                                 </div>
-                                <p class="mb-0 text-[0.625rem] opacity-[0.7] text-[#8c9097] dark:text-white/50  font-semibold">TOTAL SURAT DIPROSES</p>
+                                <p class="mb-0 text-[0.625rem] opacity-[0.7] text-[#8c9097] dark:text-white/50  font-semibold">SURAT MASUK DIPROSES</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
+
             <div class="xxl:col-span-4 md:col-span-6 col-span-12">
                 <div class="box">
                     <div class="box-body !pb-[0.9rem]">
                         <div class="flex items-start">
                             <div class="me-3">
                                 <span class="avatar avatar-md p-2 bg-warning">
-                                    <svg class="svg-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ><path d="m21.706 5.291-2.999-2.998A.996.996 0 0 0 18 2H6a.996.996 0 0 0-.707.293L2.294 5.291A.994.994 0 0 0 2 5.999V19c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5.999a.994.994 0 0 0-.294-.708zM6.414 4h11.172l.999.999H5.415L6.414 4zM4 19V6.999h16L20.002 19H4z"></path><path d="M15 12H9v-2H7v4h10v-4h-2z"></path></svg>
+                                    <svg class="svg-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 3C21.5523 3 22 3.44772 22 4V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918C2.44405 21 2 20.5551 2 20.0066V19H20V7.3L12 14.5L2 5.5V4C2 3.44772 2.44772 3 3 3H21ZM8 15V17H0V15H8ZM5 10V12H0V10H5ZM19.5659 5H4.43414L12 11.8093L19.5659 5Z"></path></svg>
+                                </span>
+                            </div>
+                            <div class="flex-grow">
+                                <div class="flex mb-1 items-start justify-between">
+                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">
+                                    {{ $totalSuratMasukDidisposisi }}
+                                    </h5>
+                                    <!-- <div class="text-success font-semibold"><i
+                                        class="ri-arrow-up-s-fill me-1 align-middle"></i>+0.165%</div> -->
+                                </div>
+                                <p class="mb-0  text-[0.625rem] opacity-[0.7] text-[#8c9097] dark:text-white/50 font-semibold">SURAT MASUK DIDISPOSISIKAN</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xxl:col-span-4 md:col-span-6 col-span-12">
+                <div class="box">
+                    <div class="box-body !pb-[0.9rem]">
+                        <div class="flex items-start">
+                            <div class="me-3">
+                                <span class="avatar avatar-md p-2 bg-warning">
+                                    <svg class="svg-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3L22 7V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V7.00353L4 3H20ZM20 9H4V19H20V9ZM13 10V14H16L12 18L8 14H11V10H13ZM18.7639 5H5.23656L4.23744 7H19.7639L18.7639 5Z"></path></svg>
                                 </span>
                             </div>
                             <div class="flex-grow">
@@ -91,12 +116,36 @@
                                     <!-- <div class="text-success font-semibold"><i
                                         class="ri-arrow-up-s-fill me-1 align-middle"></i>+0.82%</div> -->
                                 </div>
-                                <p class="mb-0 text-[0.625rem] opacity-[0.7] text-[#8c9097] dark:text-white/50 font-semibold">TOTAL SURAT SELESAI</p>
+                                <p class="mb-0 text-[0.625rem] opacity-[0.7] text-[#8c9097] dark:text-white/50 font-semibold">SURAT MASUK SELESAI</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
+            </div>
+            
+            <div class="xxl:col-span-4 md:col-span-6 col-span-12">
+                <div class="box">
+                    <div class="box-body !pb-[0.9rem]">
+                        <div class="flex items-start">
+                            <div class="me-3">
+                                <span class="avatar avatar-md p-2 bg-danger">
+                                    <svg class="svg-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22 14H20V7.23792L12.0718 14.338L4 7.21594V19H15V21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H21C21.5523 3 22 3.44772 22 4V14ZM4.51146 5L12.0619 11.662L19.501 5H4.51146ZM21.4142 19L23.5355 21.1213L22.1213 22.5355L20 20.4142L17.8787 22.5355L16.4645 21.1213L18.5858 19L16.4645 16.8787L17.8787 15.4645L20 17.5858L22.1213 15.4645L23.5355 16.8787L21.4142 19Z"></path></svg>
+                                </span>
+                            </div>
+                            <div class="flex-grow">
+                                <div class="flex mb-1 items-start justify-between">
+                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">
+                                    {{ $totalSuratMasukDitolak }}
+                                    </h5>
+                                    <!-- <div class="text-success font-semibold"><i
+                                        class="ri-arrow-up-s-fill me-1 align-middle"></i>+0.21%</div> -->
+                                </div>
+                                <p class="mb-0 text-[0.625rem] opacity-[0.7] text-[#8c9097] dark:text-white/50 font-semibold">SURAT MASUK DITOLAK</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="xxl:col-span-4 md:col-span-6 col-span-12">
                 <div class="box">
@@ -104,7 +153,7 @@
                         <div class="flex items-start">
                             <div class="me-3">
                                 <span class="avatar avatar-md p-2 bg-success">
-                                    <svg class="svg-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m21.706 5.292-2.999-2.999A.996.996 0 0 0 18 2H6a.996.996 0 0 0-.707.293L2.294 5.292A.994.994 0 0 0 2 6v13c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6a.994.994 0 0 0-.294-.708zM6.414 4h11.172l1 1H5.414l1-1zM4 19V7h16l.002 12H4z"></path><path d="M7 14h3v3h4v-3h3l-5-5z"></path></svg>
+                                    <svg class="svg-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3L22 7V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V7.00353L4 3H20ZM20 9H4V19H20V9ZM12 10L16 14H13V18H11V14H8L12 10ZM18.764 5H5.236L4.237 7H19.764L18.764 5Z"></path></svg>
                                 </span>
                             </div>
                             <div class="flex-grow">
@@ -115,54 +164,7 @@
                                     <!-- <div class="text-success font-semibold"><i
                                         class="ri-arrow-up-s-fill me-1 align-middle"></i>+0.21%</div> -->
                                 </div>
-                                <p class="mb-0 text-[0.625rem] opacity-[0.7] text-[#8c9097] dark:text-white/50 font-semibold">TOTAL SURAT KELUAR</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="xxl:col-span-4 md:col-span-6 col-span-12">
-                <div class="box">
-                    <div class="box-body !pb-[0.9rem]">
-                        <div class="flex items-start">
-                            <div class="me-3">
-                                <span class="avatar avatar-md p-2 bg-pink">
-                                    <svg class="svg-white" xmlns="http://www.w3.org/2000/svg"><path d="M19 7a1 1 0 0 0-1-1h-8v2h7v5h-3l3.969 5L22 13h-3V7zM5 17a1 1 0 0 0 1 1h8v-2H7v-5h3L6 6l-4 5h3v6z"></path></svg>
-                                </span>
-                            </div>
-                            <div class="flex-grow">
-                                <div class="flex mb-1 items-start justify-between">
-                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">
-                                    {{ $totalDisposisi }}
-                                    </h5>
-                                    <!-- <div class="text-danger font-semibold"><i
-                                        class="ri-arrow-down-s-fill me-1 align-middle"></i>-0.153%</div> -->
-                                </div>
-                                <p class="mb-0 text-[0.625rem] opacity-[0.7] text-[#8c9097] dark:text-white/50 font-semibold">TOTAL DISPOSISI</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="xxl:col-span-4 md:col-span-6 col-span-12">
-                <div class="box">
-                    <div class="box-body !pb-[0.9rem]">
-                        <div class="flex items-start">
-                            <div class="me-3">
-                                <span class="avatar avatar-md p-2 bg-warning">
-                                    <svg class="svg-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path></svg>
-                                </span>
-                            </div>
-                            <div class="flex-grow">
-                                <div class="flex mb-1 items-start justify-between">
-                                    <h5 class="font-semibold mb-0 leading-none text-[1.25rem]">
-                                    {{ $totalUser }}
-                                    </h5>
-                                    <!-- <div class="text-success font-semibold"><i
-                                        class="ri-arrow-up-s-fill me-1 align-middle"></i>+0.165%</div> -->
-                                </div>
-                                <p class="mb-0  text-[0.625rem] opacity-[0.7] text-[#8c9097] dark:text-white/50 font-semibold">TOTAL USER</p>
+                                <p class="mb-0 text-[0.625rem] opacity-[0.7] text-[#8c9097] dark:text-white/50 font-semibold">SURAT KELUAR</p>
                             </div>
                         </div>
                     </div>
@@ -219,6 +221,18 @@
                         borderWidth: 1
                     },
                     {
+                        label: 'Surat Didisposisikan',
+                        data: [
+                            {{ $disposisiPerKuartal[1] ?? 0 }},
+                            {{ $disposisiPerKuartal[2] ?? 0 }},
+                            {{ $disposisiPerKuartal[3] ?? 0 }},
+                            {{ $disposisiPerKuartal[4] ?? 0 }},
+                        ],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
                         label: 'Surat Keluar',
                         data: [
                             {{ $suratKeluarPerKuartal[1] ?? 0 }},
@@ -228,18 +242,6 @@
                         ],
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Disposisi',
-                        data: [
-                            {{ $disposisiPerKuartal[1] ?? 0 }},
-                            {{ $disposisiPerKuartal[2] ?? 0 }},
-                            {{ $disposisiPerKuartal[3] ?? 0 }},
-                            {{ $disposisiPerKuartal[4] ?? 0 }},
-                        ],
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
                         borderWidth: 1
                     }
                 ]
@@ -254,11 +256,12 @@
         });
 
         // Data untuk Pie Chart
-        const statusLabels = ['Baru', 'Diproses', 'Selesai'];
+        const statusLabels = ['Baru', 'Diproses', 'Disposisi', 'Selesai'];
         const statusData = [
-            {{ $totalSuratMasukBaru }},
-            {{ $totalSuratMasukDiproses }},
-            {{ $totalSuratMasukSelesai }}
+            {{ $persentaseBaru }},
+            {{ $persentaseDiproses }},
+            {{ $persentaseDidisposisi }},
+            {{ $persentaseSelesai }}
         ];
 
         // Inisialisasi Pie Chart
@@ -272,12 +275,14 @@
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)'
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)'
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
                     ],
                     borderWidth: 1
                 }]
@@ -291,5 +296,6 @@
                 }
             }
         });
+
     </script>
 @endpush
