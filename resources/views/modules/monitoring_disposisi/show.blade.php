@@ -52,6 +52,8 @@
                                                 Didistribusikan kepada 
                                                 @elseif($item['status_disposisi'] == 2)
                                                 Didisposisikan kepada 
+                                                @elseif($item['status_disposisi'] == 3)
+                                                Diteruskan kepada 
                                                 @endif
                                                 {{ $item['user_tujuan']['name'] }}
                                                 @if ($item['user_tujuan']['jabatan'] !== null)
