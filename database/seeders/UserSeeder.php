@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         ])->assignRole('admin');
 
         User::create([
-            'name'       => 'Staff TU',
+            'name'       => 'Muhammad Herwan, S.E., M.M.',
             'username'   => 'operator',
             'email'      => 'operator@email.com',
             'password'   => bcrypt('operator123'),
@@ -33,8 +33,8 @@ class UserSeeder extends Seeder
         ])->assignRole('operator');
 
         User::create([
-            'name'       => 'Kepala Kaban',
-            'username'   => 'Dr. Marindo Kurniawan',
+            'name'       => 'Dr. Marindo Kurniawan',
+            'username'   => 'kaban',
             'email'      => 'kaban@email.com',
             'password'   => bcrypt('pemberidisposisi123'),
             "photo" => 'eofficeadmin/images/authentication/default.png',
@@ -67,5 +67,30 @@ class UserSeeder extends Seeder
             "photo" => 'eofficeadmin/images/authentication/default.png',
             'jabatan_id' => 5
         ])->assignRole('penanggungjawab');
+
+        User::create([
+            'name'       => 'M Nuruddin Adhitama Putra S.H., M.H.',
+            'username'   => 'kasubidit',
+            'email'      => 'kasubidit@email.com',
+            'password'   => bcrypt('kasubidit123'),
+            'jabatan_id' => 6
+        ])->assignRole('pelaksana');
+
+        User::create([
+            'name'       => 'Ari Ben Lahan',
+            'username'   => 'kasubiddata',
+            'email'      => 'kasubiddata@email.com',
+            'password'   => bcrypt('kasubiddata123'),
+            'jabatan_id' => 6
+        ])->assignRole('pelaksana');
+        
+        User::create([
+            'name'       => 'Ari Sartika, S.H., M.H',
+            'username'   => 'kasubidtu',
+            'email'      => 'kasubidtu@email.com',
+            'password'   => bcrypt('kasubidtu123'),
+            'jabatan_id' => 6
+        ])->assignRole('pelaksana');
+
     }
 }

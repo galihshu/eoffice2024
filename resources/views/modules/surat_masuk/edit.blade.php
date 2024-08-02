@@ -69,10 +69,13 @@
                         </div>
                         <div class="col-span-12 mb-4 sm:mb-0 {{ $errors->has('status') ? ' !border-red' : '' }}">
                             <label class="form-label" for="status">Status Surat</label>
-                            <select class="ti-form-select rounded-sm !py-2 !px-3" id="status" name="status"
-                                value="{{ $suratMasuk->status_id }}" required>
-                                <option value=2 >Diproses</option>
-                                <option value=3 >Selesai</option>
+                            <select class="ti-form-select rounded-sm !py-2 !px-3" id="status" name="status" required>
+                                <option value="1" {{ $suratMasuk->status_surat == '1' ? 'selected' : '' }}>Baru</option>
+                                <option value="2" {{ $suratMasuk->status_surat == '2' ? 'selected' : '' }}>Diproses</option>
+                                <option value="3" {{ $suratMasuk->status_surat == '3' ? 'selected' : '' }}>Disposisi</option>
+                                <option value="4" {{ $suratMasuk->status_surat == '4' ? 'selected' : '' }}>Selesai</option>
+                                <option value="5" {{ $suratMasuk->status_surat == '5' ? 'selected' : '' }}>Ditolak</option>
+                                <option value="6" {{ $suratMasuk->status_surat == '6' ? 'selected' : '' }}>Diarsipkan</option>
                             </select>
                             @error('status')
                                 <span class="text-red-500 text-xs hidden" style="display: block;">

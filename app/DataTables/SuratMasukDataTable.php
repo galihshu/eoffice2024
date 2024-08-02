@@ -135,10 +135,11 @@ class SuratMasukDataTable extends DataTable
     {
         $statusLabels = [
             1 => '<span class="badge bg-success text-white">Baru</span>',
-            2 => '<span class="badge bg-primary text-dark">Diproses</span>',
+            2 => '<span class="badge bg-primary text-white">Diproses</span>',
             3 => '<span class="badge bg-warning text-white">Disposisi</span>',
             4 => '<span class="badge bg-success text-white">Selesai</span>',
             5 => '<span class="badge bg-danger text-white">Ditolak</span>',
+            6 => '<span class="badge bg-info text-white">Diarsipkan</span>',
         ];
 
         return $statusLabels[$status] ?? 'Unknown';

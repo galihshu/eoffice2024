@@ -34,7 +34,7 @@ class SuratMasukRequest extends FormRequest
             $rules['file_upload'] = 'required|file|mimes:pdf|max:5120'; // 5MB = 5120KB
         } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
             $rules['file_upload'] = 'nullable|file|mimes:pdf|max:5120'; // 5MB = 5120KB
-            $rules['status'] = 'required|in:1,2,3';
+            $rules['status'] = 'required|in:1,2,3,4,5,6';
         }
 
         return $rules;

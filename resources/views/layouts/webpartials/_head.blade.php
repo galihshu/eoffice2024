@@ -6,7 +6,7 @@
 
 <title>@yield('title')</title>
 <!-- Favicon -->
-<link rel="icon" href="{{ asset('eofficeadmin/images/brand-logos/favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ asset('eofficeadmin/images/favicon.png') }}" type="image/x-icon">
 
 <!-- Style Css -->
 <link rel="stylesheet" href="{{ asset('eofficeadmin/css/style.css') }}">

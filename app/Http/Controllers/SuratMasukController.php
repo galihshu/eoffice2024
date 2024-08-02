@@ -155,33 +155,38 @@ class SuratMasukController extends Controller
     public function store_disposisi(SuratMasuk $suratMasuk, DisposisiRequest $request)
     {
         $request->validated();
-        DB::transaction(function () use ($request, $suratMasuk) {
+        $suratMasuk->update([
+            'status_surat' => 3, 
+         ]);
+         
+         if($request->file_upload !== null){
+             $file = $request->file('file_upload')->store('uploads', 'public');
+         }
+ 
+         Disposisi::create([
+             'user_id_pengirim' => Auth::id(),
+             'user_id_tujuan' => $request->tujuan,
+             'surat_masuk_id' => $suratMasuk->id,
+             'status_disposisi' => 2,
+             'tgl_disposisi' => $request->tgl_disposisi,
+             'file_upload' => $request->file_upload == null ? null : $file,
+             'keterangan_disposisi' => $request->keterangan
+         ]);
 
-            $suratMasuk->update([
-                'status_surat' => 3,
-            ]);
+        $suratMasuk->update([
+            'status_surat' => 3,
+        ]);
 
-            if ($request->file_upload !== null) {
-                $file = $request->file('file_upload')->store('uploads', 'public');
-            }
+        if ($request->file_upload !== null) {
+            $file = $request->file('file_upload')->store('uploads', 'public');
+        }
 
-            Disposisi::create([
-                'user_id_pengirim' => Auth::id(),
-                'user_id_tujuan' => $request->tujuan,
-                'surat_masuk_id' => $suratMasuk->id,
-                'status_disposisi' => 2,
-                'tgl_disposisi' => $request->tgl_disposisi,
-                'file_upload' => $request->file_upload == null ? null : $file,
-                'keterangan' => $request->keterangan_disposisi
-            ]);
-
-            Notification::create([
-                'surat_masuk_id' => $suratMasuk->id,
-                'surat_tujuan_id' => $request->tujuan,
-                'pesan' => $request->keterangan,
-            ]);
-            return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
-        });
+        Notification::create([
+            'surat_masuk_id' => $suratMasuk->id,
+            'surat_tujuan_id' => $request->tujuan,
+            'pesan' => $request->keterangan,
+        ]);
+        return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
     }
 
 

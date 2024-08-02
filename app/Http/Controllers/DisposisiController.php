@@ -55,26 +55,23 @@ class DisposisiController extends Controller
                 'status_surat' => 3,
             ]);
 
-            if ($request->file_upload !== null) {
-                $file = $request->file('file_upload')->store('uploads', 'public');
-            }
+        Disposisi::create([
+            'user_id_pengirim' => Auth::id(),
+            'user_id_tujuan' => $request->tujuan,
+            'surat_masuk_id' => $suratMasuk->id,
+            'status_disposisi' => 2,
+            'tgl_disposisi' => $request->tgl_disposisi,
+            'file_upload' => $request->file_upload == null ? null : $file,
+            'keterangan_disposisi' => $request->keterangan
+        ]);
 
-            Disposisi::create([
-                'user_id_pengirim' => Auth::id(),
-                'user_id_tujuan' => $request->tujuan,
-                'surat_masuk_id' => $suratMasuk->id,
-                'status_disposisi' => 2,
-                'tgl_disposisi' => $request->tgl_disposisi,
-                'file_upload' => $request->file_upload == null ? null : $file,
-                'keterangan' => $request->keterangan_disposisi
-            ]);
+        Notification::create([
+            'surat_masuk_id' => $suratMasuk->id,
+            'surat_tujuan_id' => $request->tujuan,
+            'pesan' => $request->keterangan,
+        ]);
 
-            Notification::create([
-                'surat_masuk_id' => $suratMasuk->id,
-                'surat_tujuan_id' => $request->tujuan,
-                'pesan' => $request->keterangan,
-            ]);
-            return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
+        return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
         });
     }
 
@@ -163,12 +160,11 @@ class DisposisiController extends Controller
             ]);
 
             Notification::create([
-                'surat_masuk_id' => $request->id,
+                'surat_masuk_id' => $disposisi->surat_masuk_id,
                 'surat_tujuan_id' => $request->tujuan,
                 'pesan' => $request->keterangan,
             ]);
-
-            return redirect()->route('disposisi.index')->withToastSuccess('Disposisi berhasil diteruskan.');
         });
+        return redirect()->route('disposisi.index')->withToastSuccess('Disposisi berhasil diteruskan.');
     }
 }
