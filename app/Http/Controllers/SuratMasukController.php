@@ -143,6 +143,36 @@ class SuratMasukController extends Controller
         return Excel::download(new SuratMasukExport($startDate, $endDate), 'surat_masuk.xlsx');
     }
 
+    public function disposisi(SuratMasuk $suratMasuk){
+        $jenis_surat = JenisSurat::all()->toArray();
+        $tujuan =  User::with('jabatan')->where('jabatan_id', '!=', null)->get()->toArray();
+        return view('modules.surat_masuk.disposisi', compact(['suratMasuk', 'tujuan']));
+    }
+
+    public function store_disposisi(SuratMasuk $suratMasuk, DisposisiRequest $request){
+        $request->validated();
+        $suratMasuk->update([
+           'status_surat' => 3, 
+           'tgl_selesai' => $request->tgl_disposisi
+        ]);
+        
+        if($request->file_upload !== null){
+            $file = $request->file('file_upload')->store('uploads', 'public');
+        }
+
+        Disposisi::create([
+            'user_id_pengirim' => Auth::id(),
+            'user_id_tujuan' => $request->tujuan,
+            'surat_masuk_id' => $suratMasuk->id,
+            'tgl_disposisi' => $request->tgl_disposisi,
+            'file_upload' => $request->file_upload == null ? null : $file,
+            'keterangan_disposisi' => $request->keterangan
+        ]);
+
+        return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
+    }
+
+
     public function distribusi(SuratMasuk $suratMasuk){
         $tujuan =  User::with('jabatan')->where('jabatan_id', '!=', null)->get()->toArray();
         return view('modules.surat_masuk.distribusi', compact(['tujuan', 'suratMasuk']));

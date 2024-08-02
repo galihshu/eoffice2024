@@ -33,6 +33,9 @@ class SuratMasukDataTable extends DataTable
                 if(auth()->user()->can('delete-surat-masuk')){
                     $btn .= '<a href="' . route('surat_masuk.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
                 }
+                if (auth()->user()->can('add-disposisi') && $row->status_surat !== '4' && $row->status_surat !== '5' && $row->status_surat !== '6') {
+                    $btn .= '<a href="' . route('surat_masuk.disposisi', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Disposisi</a> ';
+                }
                 if ($row->status_surat == '1' && auth()->user()->can('add-distribusi')) {
                     $btn .= '<a href="' . route('surat_masuk.distribusi', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Distribusi</a> ';
                 }
