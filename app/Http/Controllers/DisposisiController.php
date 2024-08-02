@@ -6,10 +6,12 @@ use App\DataTables\DisposisiDataTable;
 use App\Http\Requests\DisposisiRequest;
 use App\Models\Disposisi;
 use App\Models\JenisSurat;
+use App\Models\Notification;
 use App\Models\SuratMasuk;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class DisposisiController extends Controller
@@ -48,13 +50,10 @@ class DisposisiController extends Controller
         $request->validated();
         $suratMasuk = SuratMasuk::findOrFail($request->surat_masuk);
 
-        $suratMasuk->update([
-           'status_surat' => 3, 
-        ]);
-        
-        if($request->file_upload !== null){
-            $file = $request->file('file_upload')->store('uploads', 'public');
-        }
+        DB::transaction(function () use ($request, $suratMasuk) {
+            $suratMasuk->update([
+                'status_surat' => 3,
+            ]);
 
         Disposisi::create([
             'user_id_pengirim' => Auth::id(),
@@ -66,7 +65,14 @@ class DisposisiController extends Controller
             'keterangan_disposisi' => $request->keterangan
         ]);
 
+        Notification::create([
+            'surat_masuk_id' => $suratMasuk->id,
+            'surat_tujuan_id' => $request->tujuan,
+            'pesan' => $request->keterangan,
+        ]);
+
         return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
+        });
     }
 
     /**
@@ -132,25 +138,33 @@ class DisposisiController extends Controller
         return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil dihapus.');
     }
 
-    public function teruskan(Disposisi $disposisi){
+    public function teruskan(Disposisi $disposisi)
+    {
         $tujuan =  User::with('jabatan')->where('jabatan_id', '!=', null)->get()->toArray();
         return view('modules.disposisi.teruskan', compact(['disposisi', 'tujuan']));
     }
 
-    public function store_teruskan(Disposisi $disposisi, DisposisiRequest $request){
+    public function store_teruskan(Disposisi $disposisi, DisposisiRequest $request)
+    {
         $request->validated();
-        
-        Disposisi::create([
-            'user_id_pengirim' => Auth::id(),
-            'user_id_tujuan' => $request->tujuan,
-            'surat_masuk_id' => $disposisi->surat_masuk_id,
-            'status_disposisi' => 3,
-            'tgl_disposisi' => $request->tgl_disposisi,
-            'file_upload' => $disposisi->file_upload,
-            'keterangan_disposisi' => $request->keterangan
-        ]);
+        DB::transaction(function () use ($request, $disposisi) {
 
+            Disposisi::create([
+                'user_id_pengirim' => Auth::id(),
+                'user_id_tujuan' => $request->tujuan,
+                'surat_masuk_id' => $disposisi->surat_masuk_id,
+                'status_disposisi' => 3,
+                'tgl_disposisi' => $request->tgl_disposisi,
+                'file_upload' => $disposisi->file_upload,
+                'keterangan_disposisi' => $request->keterangan
+            ]);
+
+            Notification::create([
+                'surat_masuk_id' => $disposisi->surat_masuk_id,
+                'surat_tujuan_id' => $request->tujuan,
+                'pesan' => $request->keterangan,
+            ]);
+        });
         return redirect()->route('disposisi.index')->withToastSuccess('Disposisi berhasil diteruskan.');
     }
-
 }

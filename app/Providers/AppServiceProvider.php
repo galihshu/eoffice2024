@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.partials._header', function ($view) {
 
             $dataNotif = DB::table('notifications')
-            ->select('notifications.*', 'sm.no_surat')
+            ->select('notifications.*', 'sm.no_surat','sm.perihal','sm.asal_surat')
             ->join('surat_masuk as sm','sm.id','=','notifications.surat_masuk_id');
             // dd($dataNotif->get());
             $view->with([

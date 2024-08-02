@@ -41,7 +41,7 @@
 
                     <div class="prism-toggle">
 
-                        <a href="{{ route('disposisi.create') }}"
+                        <a href="{{ route('surat_masuk.index') }}"
                             class="form-control ti-btn !text-white !bg-primary ti-btn-wave" data-hs-overlay="#data-modal"><i
                                 class="bx bx-arrow-back"></i>Ke Surat Masuk</a>
 

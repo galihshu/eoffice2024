@@ -76,7 +76,14 @@ class UserSeeder extends Seeder
             'password'   => bcrypt('kasubiddata123'),
             'jabatan_id' => 6
         ])->assignRole('pelaksana');
-
+        
+        User::create([
+            'name'       => 'Ari Sartika, S.H., M.H',
+            'username'   => 'kasubidtu',
+            'email'      => 'kasubidtu@email.com',
+            'password'   => bcrypt('kasubidtu123'),
+            'jabatan_id' => 6
+        ])->assignRole('pelaksana');
 
     }
 }
