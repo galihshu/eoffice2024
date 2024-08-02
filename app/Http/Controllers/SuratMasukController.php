@@ -9,11 +9,13 @@ use App\Http\Requests\DistribusiRequest;
 use App\Http\Requests\SuratMasukRequest;
 use App\Models\Disposisi;
 use App\Models\JenisSurat;
+use App\Models\Notification;
 use App\Models\SuratMasuk;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -185,21 +187,30 @@ class SuratMasukController extends Controller
 
     public function store_distribusi(SuratMasuk $suratMasuk, DistribusiRequest $request){
         $request->validated();
-        $suratMasuk->update([
-           'status_surat' => 2, 
-           'tgl_selesai' => $request->tgl_disposisi
-        ]);
-        
-        Disposisi::create([
-            'user_id_pengirim' => Auth::id(),
-            'user_id_tujuan' => $request->tujuan,
-            'surat_masuk_id' => $suratMasuk->id,
-            'status_disposisi' => 1,
-            'tgl_disposisi' => $request->tgl_disposisi,
-            'keterangan_disposisi' => $request->keterangan
-        ]);
+        DB::transaction(function () use ($request, $suratMasuk) {
+            $suratMasuk->update([
+                'status_surat' => 2,
+                'tgl_selesai' => $request->tgl_disposisi
+            ]);
+
+            Disposisi::create([
+                'user_id_pengirim' => Auth::id(),
+                'user_id_tujuan' => $request->tujuan,
+                'surat_masuk_id' => $suratMasuk->id,
+                'status_disposisi' => 1,
+                'tgl_disposisi' => $request->tgl_disposisi,
+                'keterangan_disposisi' => $request->keterangan
+            ]);
+
+            Notification::create([
+                'surat_masuk_id' => $suratMasuk->id,
+                'surat_tujuan_id' => $request->tujuan,
+                'pesan' => $request->keterangan,
+            ]);
+        });
 
         return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
+       
     }
 
     public function terima_surat(SuratMasuk $suratMasuk){
