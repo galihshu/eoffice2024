@@ -106,7 +106,13 @@
                                                                             #{{ $item->no_surat }}</span></a>
                                                                 </p>
                                                                 <span
-                                                                    class="text-[#8c9097] dark:text-white/50 font-normal text-[0.75rem] header-notification-text">{{ $item->pesan }}</span>
+                                                                    class="mb-0 text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50  text-[0.8125rem]">Surat
+                                                                    Masuk Dari :{{ $item->asal_surat }}</span>
+                                                                <div class="row">
+
+                                                                    <span
+                                                                        class="text-[#8c9097] dark:text-white/50 font-normal text-[0.75rem] header-notification-text">{{ $item->perihal }}</span>
+                                                                </div>
                                                                 <div class="row">
 
                                                                     <span
