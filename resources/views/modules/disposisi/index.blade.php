@@ -3,11 +3,11 @@
 @section('title', 'Disposisi')
 
 @push('styles')
-    <style>
+    {{-- <style>
         .dt-length {
             display: none;
         }
-    </style>
+    </style> --}}
 @endpush
 
 @section('content')
@@ -36,14 +36,14 @@
             <div class="box custom-box">
                 <div class="box-header justify-between">
                     <div class="box-title">
-                        Manage Disposisi
+                        Data Disposisi
                     </div>
 
                     <div class="prism-toggle">
 
                         <a href="{{ route('disposisi.create') }}"
                             class="form-control ti-btn !text-white !bg-primary ti-btn-wave" data-hs-overlay="#data-modal"><i
-                                class="bx bx-plus"></i>Tambah</a>
+                                class="bx bx-arrow-back"></i>Ke Surat Masuk</a>
 
                     </div>
                 </div>

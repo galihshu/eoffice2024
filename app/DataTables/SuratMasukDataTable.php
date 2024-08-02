@@ -81,7 +81,7 @@ class SuratMasukDataTable extends DataTable
             ->leftJoin('disposisi', 'surat_masuk.id', '=', 'disposisi.surat_masuk_id')
             ->where('disposisi.user_id_tujuan', auth()->user()->id);
         }
-        return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')->where('user_id', auth()->user()->id)
+        return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')
             ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
     }
 
@@ -129,7 +129,7 @@ class SuratMasukDataTable extends DataTable
     {
         $statusLabels = [
             1 => '<span class="badge bg-success text-white">Baru</span>',
-            2 => '<span class="badge bg-primary text-dark">Diproses</span>',
+            2 => '<span class="badge bg-primary text-white">Diproses</span>',
             3 => '<span class="badge bg-warning text-white">Disposisi</span>',
             4 => '<span class="badge bg-success text-white">Selesai</span>',
             5 => '<span class="badge bg-danger text-white">Ditolak</span>',

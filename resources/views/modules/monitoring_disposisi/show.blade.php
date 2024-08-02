@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Disposisi')
+@section('title', 'Tracking Disposisi')
 
 @push('styles')
     <style>

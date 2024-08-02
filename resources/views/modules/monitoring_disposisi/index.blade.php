@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Disposisi')
+@section('title', 'Tracking Disposisi')
 
 @push('styles')
-    <style>
+    {{-- <style>
         .dt-length {
             display: none;
         }
-    </style>
+    </style> --}}
 @endpush
 
 @section('content')

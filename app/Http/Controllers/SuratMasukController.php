@@ -173,7 +173,7 @@ class SuratMasukController extends Controller
              'status_disposisi' => 2,
              'tgl_disposisi' => $request->tgl_disposisi,
              'file_upload' => $request->file_upload == null ? null : $file,
-             'keterangan' => $request->keterangan_disposisi
+             'keterangan_disposisi' => $request->keterangan
          ]);
 
         return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
