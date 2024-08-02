@@ -100,7 +100,14 @@ class RoleSeeder extends Seeder
         $updateProfile = Permission::create(['name' => 'update-profile', 'guard_name' => 'web']);
 
         // Role
-        Role::create(['name' => 'admin', 'guard_name' => 'web'])->givePermissionTo(Permission::all());
+        // Role::create(['name' => 'admin', 'guard_name' => 'web'])->givePermissionTo(Permission::all());
+        
+        // Buat role admin
+        $role = Role::create(['name' => 'admin', 'guard_name' => 'web']);
+        // Ambil semua permissions kecuali 'teruskan-disposisi'
+        $permissions = Permission::where('name', '!=', 'teruskan-disposisi')->get();
+        // Berikan permissions ke role admin
+        $role->givePermissionTo($permissions);
 
         Role::create(['name' => 'operator', 'guard_name' => 'web'])->givePermissionTo([
             $readSuratMasuk, $addSuratMasuk, $updateSuratMasuk, $deleteSuratMasuk,

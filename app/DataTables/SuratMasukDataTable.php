@@ -71,6 +71,14 @@ class SuratMasukDataTable extends DataTable
      */
     public function query(SuratMasuk $model): QueryBuilder
     {
+        if (auth()->user()->hasRole('admin')) {
+            return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')
+                ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
+        }
+        if (auth()->user()->hasRole('operator')) {
+            return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')
+                ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
+        }
         if (auth()->user()->hasRole('pemberidisposisi')) {
             return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')->whereNot('status_surat', 1)
                 ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
@@ -87,8 +95,6 @@ class SuratMasukDataTable extends DataTable
                 ->leftJoin('disposisi', 'surat_masuk.id', '=', 'disposisi.surat_masuk_id')
                 ->where('disposisi.user_id_tujuan', auth()->user()->id);
         }
-        return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')
-            ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
     }
 
     /**
@@ -137,9 +143,9 @@ class SuratMasukDataTable extends DataTable
             1 => '<span class="badge bg-success text-white">Baru</span>',
             2 => '<span class="badge bg-primary text-white">Diproses</span>',
             3 => '<span class="badge bg-warning text-white">Disposisi</span>',
-            4 => '<span class="badge bg-success text-white">Selesai</span>',
+            4 => '<span class="badge bg-info text-white">Selesai</span>',
             5 => '<span class="badge bg-danger text-white">Ditolak</span>',
-            6 => '<span class="badge bg-info text-white">Diarsipkan</span>',
+            6 => '<span class="badge bg-dark text-white">Diarsipkan</span>',
         ];
 
         return $statusLabels[$status] ?? 'Unknown';
