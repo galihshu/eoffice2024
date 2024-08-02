@@ -16,6 +16,7 @@ class Disposisi extends Model
         'user_id_tujuan',
         'surat_masuk_id',
         'tgl_disposisi',
+        'status_disposisi',
         'file_upload',
         'keterangan_disposisi'
     ];

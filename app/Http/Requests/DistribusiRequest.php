@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DisposisiRequest extends FormRequest
+class DistribusiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,9 @@ class DisposisiRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'surat_masuk' => 'nullable|exists:surat_masuk,id',
             'tujuan' => 'required|exists:users,id',
             'tgl_disposisi' => 'nullable|date',
             'keterangan' => 'nullable|string',
-            'file_upload' => 'nullable|file|mimes:pdf|max:5120',
         ];
 
         return $rules;
@@ -37,7 +35,6 @@ class DisposisiRequest extends FormRequest
         return [
             'tujuan' => 'User Tujuan',
             'tgl_disposisi' => 'Tgl. Disposisi',
-            'file_upload' => 'File Upload',
             'keterangan' => 'Ket. Disposisi',
         ];
     }
@@ -49,9 +46,6 @@ class DisposisiRequest extends FormRequest
             'string' => ':attribute harus berupa string.',
             'date' => ':attribute harus berupa tanggal.',
             'exists' => ':attribute tidak ditemukan.',
-            'max' => ':attribute tidak boleh lebih dari :max',
-            'mimes' => ':attribute harus berupa file dengan format: pdf.',
-            'file' => ':attribute harus berupa file.',
         ];
     }
 }

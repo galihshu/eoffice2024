@@ -42,6 +42,10 @@ class SuratMasuk extends Model
         return $this->belongsTo(JenisSurat::class, 'jenis_surat_id');
     }
 
+    public function Disposisi(){
+        return $this->hasMany(Disposisi::class, 'surat_masuk_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
