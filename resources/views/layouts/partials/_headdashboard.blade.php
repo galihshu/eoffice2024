@@ -8,7 +8,7 @@
 <meta name="keywords" content="">
 
 <!-- Favicon -->
-<link rel="shortcut icon" href="{{ asset('eofficeadmin/images/brand-logos/favicon.png') }}">
+<link rel="shortcut icon" href="{{ asset('eofficeadmin/images/favicon.png') }}">
 
 <!-- Main JS -->
 <script src="{{ asset('eofficeadmin/js/main.js') }}"></script>
