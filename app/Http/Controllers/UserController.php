@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Jabatan;
 use App\Models\Roles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -170,5 +171,38 @@ class UserController extends Controller
         }
         return redirect()
             ->route('user.index')->withToastSuccess('Data Pengguna berhasil dihapus.');
+    }
+
+ 
+    public function gantiPassword(Request $request)
+    {
+        return view('modules.users.ganti-password');
+    }
+ 
+    public function gantiPasswordSimpan(Request $request)
+    {
+        
+        $this->validate($request, [
+            'current_password' => 'required|string',
+            'new_password' => 'required|confirmed|min:8|string'
+        ]);
+        $auth = Auth::user();
+ 
+ // The passwords matches
+        if (!Hash::check($request->get('current_password'), $auth->password)) 
+        {
+            return back()->with('error', "Password Sebelumnya tidak Invalid");
+        }
+ 
+// Current password and new password same
+        if (strcmp($request->get('current_password'), $request->new_password) == 0) 
+        {
+            return redirect()->back()->with("error", "Masukan Password Sebelumnya Terlebih Dahulu.");
+        }
+ 
+        $user =  User::find($auth->id);
+        $user->password =  Hash::make($request->new_password);
+        $user->save();
+        return back()->with('success', "Password Berhasil Diubah");
     }
 }
