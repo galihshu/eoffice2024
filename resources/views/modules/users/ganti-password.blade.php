@@ -58,7 +58,7 @@
 
                     <div class="col-span-12">
                         <button type="submit" class="ti-btn ti-btn-primary-full !mb-0 mt-4">Simpan</button>
-                        <a href="{{ route('user.index') }}" class="hs-dropdown-toggle ti-btn ti-btn-secondary-full align-middle">Kembali</a>
+                        {{-- <a href="{{ route('user.index') }}" class="hs-dropdown-toggle ti-btn ti-btn-secondary-full align-middle">Kembali</a> --}}
                     </div>
                 </form>
             </div>

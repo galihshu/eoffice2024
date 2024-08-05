@@ -98,6 +98,7 @@ class RoleSeeder extends Seeder
 
         $readProfile   = Permission::create(['name' => 'read-profile', 'guard_name' => 'web']);
         $updateProfile = Permission::create(['name' => 'update-profile', 'guard_name' => 'web']);
+        $gantiPassword = Permission::create(['name' => 'ganti-password', 'guard_name' => 'web']);
 
         // Role
         // Role::create(['name' => 'admin', 'guard_name' => 'web'])->givePermissionTo(Permission::all());
@@ -115,7 +116,7 @@ class RoleSeeder extends Seeder
             $selesaiSuratMasuk,
             $readSuratKeluar, $addSuratKeluar, $updateSuratKeluar, $deleteSuratKeluar,            
             $readLaporanSuratMasuk, $readLaporanSuratKeluar, $readMonitoringDisposisi,
-            $readProfile, $updateProfile,
+            $readProfile, $updateProfile, $gantiPassword
         ]);
 
         Role::create(['name' => 'pemberidisposisi', 'guard_name' => 'web'])->givePermissionTo([
@@ -125,7 +126,7 @@ class RoleSeeder extends Seeder
             $readDisposisi, $addDisposisi, $updateDisposisi, $deleteDisposisi,
             $readLaporanSuratMasuk, $readLaporanSuratKeluar, $readMonitoringDisposisi,
             $updateUsers,
-            $readProfile, $updateProfile,
+            $readProfile, $updateProfile, $gantiPassword
         ]);
 
         Role::create(['name' => 'penanggungjawab', 'guard_name' => 'web'])->givePermissionTo([
@@ -134,7 +135,7 @@ class RoleSeeder extends Seeder
             $teruskanDisposisi,
             $readLaporanSuratMasuk, $readMonitoringDisposisi,
             $updateUsers,
-            $readProfile, $updateProfile,
+            $readProfile, $updateProfile, $gantiPassword
         ]);
 
         Role::create(['name' => 'pelaksana', 'guard_name' => 'web'])->givePermissionTo([
@@ -142,7 +143,7 @@ class RoleSeeder extends Seeder
             $readDisposisi,
             $readLaporanSuratMasuk, $readMonitoringDisposisi,
             $updateUsers,
-            $readProfile, $updateProfile,
+            $readProfile, $updateProfile, $gantiPassword
         ]);
     }
 }

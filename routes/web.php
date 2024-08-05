@@ -35,8 +35,6 @@ Route::group(['middleware' => ['web']], function() {
         Route::resource('jabatan', JabatanController::class);
         Route::resource('user', UserController::class);
         Route::resource('role', RoleController::class);
-        Route::get('/ganti-password', [UserController::class, 'gantiPassword'])->name('gantiPassword');
-        Route::post('/ganti-password', [UserController::class, 'gantiPasswordSimpan'])->name('simpangantiPassword');
     });
     Route::resource('surat_masuk', SuratMasukController::class);
     Route::get('surat_masuk/{surat_masuk}/disposisi', [SuratMasukController::class, 'disposisi'])->name('surat_masuk.disposisi');
@@ -56,4 +54,6 @@ Route::group(['middleware' => ['web']], function() {
     Route::get('profile', [UserProfileController::class, 'show'])->name('profile');
     // post profile.update
     Route::post('profile/update', [UserProfileController::class, 'update'])->name('profile.update');
+    Route::get('/ganti-password', [UserController::class, 'gantiPassword'])->name('gantiPassword');
+    Route::post('/ganti-password', [UserController::class, 'gantiPasswordSimpan'])->name('simpangantiPassword');
 });
