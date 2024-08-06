@@ -119,13 +119,19 @@ class SuratMasukController extends Controller
      */
     public function destroy(SuratMasuk $suratMasuk)
     {
+
+        if ($suratMasuk->disposisi()->exists()) {
+            // Jika ada relasi dengan disposisi, kirim notifikasi error
+            return redirect()->back()->with('error', 'Tidak bisa menghapus data surat masuk yang berelasi dengan data disposisi.');
+        }
+
         if ($suratMasuk->file_upload) {
             Storage::disk('public')->delete($suratMasuk->file_upload);
         }
 
         $suratMasuk->delete();
 
-        return redirect()->route('surat_keluar.index')->withToastSuccess('Data Surat Masuk berhasil dihapus.');
+        return redirect()->route('surat_masuk.index')->withToastSuccess('Data Surat Masuk berhasil dihapus.');
     }
 
     public function laporan()
@@ -253,6 +259,6 @@ class SuratMasukController extends Controller
             'tgl_disposisi' => Carbon::now(),
         ]);
 
-        return back()->withToastSuccess('Surat berhasil ditolak');
+        return redirect()->back()->with('error', 'Surat berhasil ditolak');
     }
 }
