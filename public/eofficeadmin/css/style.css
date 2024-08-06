@@ -57954,13 +57954,13 @@ select {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
-.avatar.online:before {
+/* .avatar.online:before {
   background-color: rgb(var(--success));
 }
 .avatar.offline:before {
   --tw-bg-opacity: 1;
   background-color: rgb(148 158 183 / var(--tw-bg-opacity));
-}
+} */
 .avatar.avatar-xs {
   height: 1.25rem;
   width: 1.25rem;
@@ -58018,12 +58018,12 @@ select {
   font-size: 0.65rem !important;
   line-height: 1.2rem !important;
 }
-.avatar.avatar-md.online::before,
+/* .avatar.avatar-md.online::before,
 .avatar.avatar-md.offline::before {
   height: 0.75rem;
   content: var(--tw-content);
   width: 0.75rem;
-}
+} */
 .avatar.avatar-md svg {
   height: 1.5rem;
   width: 1.5rem;

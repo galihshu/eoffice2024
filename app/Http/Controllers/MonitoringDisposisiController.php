@@ -56,7 +56,8 @@ class MonitoringDisposisiController extends Controller
         if($data ==  null) {
             return back()->withToastError('Nomor Surat Tidak Ditemukan');
         }
-        return view('modules.monitoring_disposisi.show', compact('data'));
+        $no_surat = $request->monitoring_disposisi;
+        return view('modules.monitoring_disposisi.show', compact('data','no_surat'));
     }
 
     /**
