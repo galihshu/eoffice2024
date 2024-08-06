@@ -114,7 +114,7 @@
                                             <div class="sm:mt-0 mt-2">
                                                 <p class="mb-0 text-[.875rem] font-semibold"> Surat Ditandai Selesai
                                                 </p>
-                                                <p class="">Ditandai selesai oleh: {{ $item['user']['name'] }}
+                                                <p class="mb-0 text-[#8c9097] dark:text-white/50">Ditandai selesai oleh: {{ $item['user']['name'] }}
                                                     @if ($item['user']['jabatan'] !== null)
                                                         - {{ $item['user']['jabatan']['nama_jabatan'] }}
                                                     @endif
