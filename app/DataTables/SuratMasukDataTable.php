@@ -31,7 +31,7 @@ class SuratMasukDataTable extends DataTable
                     $btn .= '<a href="' . route('surat_masuk.edit', $row->id) . '" class="ti-btn ti-btn-info-full !py-1 !px-2 ti-btn-wave"><i class="ri-edit-line"></i></a> ';
                 }
                 if (auth()->user()->can('delete-surat-masuk')) {
-                    $btn .= '<a href="' . route('surat_masuk.destroy', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
+                    $btn .= '<a href="' . route('surat_masuk.destroy', $row->id) . '" class="btn-delete ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-delete="true"><i class="ri-delete-bin-line"></i></a> ';
                 }
                 if (auth()->user()->can('add-disposisi') && $row->status_surat !== '4' && $row->status_surat !== '5' && $row->status_surat !== '6') {
                     $btn .= '<a href="' . route('surat_masuk.disposisi', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Disposisi</a> ';
@@ -43,7 +43,7 @@ class SuratMasukDataTable extends DataTable
                     $btn .= '<a href="' . route('surat_masuk.distribusi', $row->id) . '" class="ti-btn ti-btn-secondary-full !py-1 !px-2 ti-btn-wave"><i class="ri-mail-send-line"></i>Distribusi</a> ';
                 }
                 if ($row->status_surat == '2' && auth()->user()->can('tolak-surat-masuk')) {
-                    $btn .= '<a href="' . route('surat_masuk.tolak', $row->id) . '" class="ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" ><i class="ri-close-circle-line"></i>Tolak</a> ';
+                    $btn .= '<a href="' . route('surat_masuk.tolak', $row->id) . '" class="btn-tolak ti-btn ti-btn-danger-full !py-1 !px-2 ti-btn-wave" data-confirm-tolak="true"><i class="ri-close-circle-line"></i>Tolak</a> ';
                 }
                 if ($row->status_surat == '3' && auth()->user()->can('selesai-surat-masuk')) {
                     $btn .= '<a href="' . route('surat_masuk.terima', $row->id) . '" class="ti-btn ti-btn-success-full !py-1 !px-2 ti-btn-wave"><i class="ri-checkbox-circle-line"></i>Tandai Selesai</a> ';

@@ -65,22 +65,25 @@ class DisposisiDataTable extends DataTable
     {
         if (auth()->user()->hasRole('penanggungjawab')) {
             return $model->newQuery()
-                ->select('Disposisi.*', 'surat_masuk.no_surat as no_surat', 'pengirim.name as nama_pengirim', 'tujuan.name as nama_tujuan', 'jabatan.nama_jabatan as jabatan_tujuan', 'surat_masuk.file_upload as file_surat_masuk')
+                ->select('disposisi.*', 'surat_masuk.no_surat as no_surat', 'pengirim.name as nama_pengirim', 'tujuan.name as nama_tujuan', 'jabatan.nama_jabatan as jabatan_tujuan', 'surat_masuk.file_upload as file_surat_masuk')
                 ->where('user_id_tujuan', auth()->user()->id)
                 ->orWhere('user_id_pengirim', auth()->user()->id)
                 ->leftJoin('surat_masuk', 'disposisi.surat_masuk_id', '=', 'surat_masuk.id')
                 ->leftJoin('users as pengirim', 'disposisi.user_id_pengirim', '=', 'pengirim.id')
                 ->leftJoin('users as tujuan', 'disposisi.user_id_tujuan', '=', 'tujuan.id')
-                ->leftJoin('jabatan', 'tujuan.jabatan_id', '=', 'jabatan.id');
+                ->leftJoin('jabatan', 'tujuan.jabatan_id', '=', 'jabatan.id')
+                ->orderBy('disposisi.created_at', 'desc'); // Urutan berdasarkan created_at, dari yang terbaru
         }
-
+    
         return $model->newQuery()
-            ->select('Disposisi.*', 'surat_masuk.no_surat as no_surat', 'pengirim.name as nama_pengirim', 'tujuan.name as nama_tujuan', 'jabatan.nama_jabatan as jabatan_tujuan', 'surat_masuk.file_upload as file_surat_masuk')
+            ->select('disposisi.*', 'surat_masuk.no_surat as no_surat', 'pengirim.name as nama_pengirim', 'tujuan.name as nama_tujuan', 'jabatan.nama_jabatan as jabatan_tujuan', 'surat_masuk.file_upload as file_surat_masuk')
             ->leftJoin('surat_masuk', 'disposisi.surat_masuk_id', '=', 'surat_masuk.id')
             ->leftJoin('users as pengirim', 'disposisi.user_id_pengirim', '=', 'pengirim.id')
             ->leftJoin('users as tujuan', 'disposisi.user_id_tujuan', '=', 'tujuan.id')
-            ->leftJoin('jabatan', 'tujuan.jabatan_id', '=', 'jabatan.id');
+            ->leftJoin('jabatan', 'tujuan.jabatan_id', '=', 'jabatan.id')
+            ->orderBy('disposisi.created_at', 'desc'); // Urutan berdasarkan created_at, dari yang terbaru
     }
+    
 
     /**
      * Optional method if you want to use the html builder.
