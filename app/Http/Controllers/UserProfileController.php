@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Symfony\Component\VarDumper\VarDumper;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\VarDumper\VarDumper;
 
 class UserProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display the user profile.
      *

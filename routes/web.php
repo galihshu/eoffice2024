@@ -1,18 +1,18 @@
 <?php
 
-use App\Http\Controllers\DisposisiController;
-use App\Http\Controllers\JabatanController;
-use App\Http\Controllers\JenisSuratController;
-use App\Http\Controllers\MonitoringDisposisiController;
-use App\Http\Controllers\SuratKeluarController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\DataTables\UserDataTableController;
-use App\Http\Controllers\SuratMasukController;
-use App\Http\Controllers\UserProfileController;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth; // Add this line
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\DisposisiController;
+use App\Http\Controllers\JenisSuratController;
+use App\Http\Controllers\SuratMasukController;
+use App\Http\Controllers\SuratKeluarController;
+use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\MonitoringDisposisiController; // Add this line
+use App\Http\Controllers\DataTables\UserDataTableController;
 
 // Route::get('/', function () {
 //     return view('welcome');

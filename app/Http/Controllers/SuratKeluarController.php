@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\SuratKeluarDataTable;
 use App\Models\SuratKeluar;
-use App\Exports\SuratKeluarExport;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use App\Exports\SuratKeluarExport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use App\DataTables\SuratKeluarDataTable;
 
 class SuratKeluarController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
