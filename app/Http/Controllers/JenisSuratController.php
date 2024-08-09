@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\JenisSuratDataTable;
-use App\Http\Requests\JenisSurat\StoreRequest;
-use App\Http\Requests\JenisSurat\UpdateRequest;
 use App\Models\JenisSurat;
 use Illuminate\Http\Request;
+use App\DataTables\JenisSuratDataTable;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\JenisSurat\StoreRequest;
+use App\Http\Requests\JenisSurat\UpdateRequest;
 
 class JenisSuratController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
