@@ -9,6 +9,5 @@ XAMPP, username: root, password: (kosongkan)).
 8. php artisan migrate
 9. php artisan db:seed
 10. php artisan storage:link
-// untuk akses lokal
 11. php artisan serve
 12. Buka Browser, ketik localhost:8000
