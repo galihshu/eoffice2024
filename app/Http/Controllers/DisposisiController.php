@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\FonnteService;
 use App\DataTables\DisposisiDataTable;
 use App\Http\Requests\DisposisiRequest;
 use App\Models\Disposisi;
@@ -144,10 +145,10 @@ class DisposisiController extends Controller
         return view('modules.disposisi.teruskan', compact(['disposisi', 'tujuan']));
     }
 
-    public function store_teruskan(Disposisi $disposisi, DisposisiRequest $request)
+    public function store_teruskan(Disposisi $disposisi, DisposisiRequest $request, FonnteService $fonnte)
     {
         $request->validated();
-        DB::transaction(function () use ($request, $disposisi) {
+        DB::transaction(function () use ($request, $disposisi, $fonnte) {
 
             Disposisi::create([
                 'user_id_pengirim' => Auth::id(),
@@ -164,7 +165,30 @@ class DisposisiController extends Controller
                 'surat_tujuan_id' => $request->tujuan,
                 'pesan' => $request->keterangan,
             ]);
+
+            // Asumsikan $user berisi data pengguna yang akan menerima pesan
+            $user = User::find($request->tujuan);
+
+            $this->kirimPesanWhatsApp(
+                $fonnte, 
+                $request->tujuan, 
+                "Yth. Bapak/Ibu " . $user->name . ",\n\n" . 
+                "Kami informasikan bahwa disposisi terkait surat dengan nomor: " . 
+                $disposisi->SuratMasuk->no_surat . " dan perihal '{$disposisi->SuratMasuk->perihal}' telah diteruskan.\n\n" . 
+                "Mohon untuk segera dilakukan tindak lanjut sesuai dengan prosedur yang berlaku.\n\n" . 
+                "Terima kasih atas perhatian dan kerjasamanya.\n\n" . 
+                "E-Office BPKAD Prov Lampung"
+            );
+            
         });
         return redirect()->route('disposisi.index')->withToastSuccess('Disposisi berhasil diteruskan.');
+    }
+
+    private function kirimPesanWhatsApp(FonnteService $fonnte, $userId, $message)
+    {
+        $user = User::find($userId);
+        if ($user && $user->phone) {
+            $fonnte->sendMessage($user->phone, $message);
+        }
     }
 }

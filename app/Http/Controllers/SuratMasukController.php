@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\FonnteService;
 use App\DataTables\SuratMasukDataTable;
 use App\Exports\SuratMasukExport;
 use App\Http\Requests\DisposisiRequest;
@@ -158,59 +159,74 @@ class SuratMasukController extends Controller
         return view('modules.surat_masuk.disposisi', compact(['suratMasuk', 'tujuan']));
     }
 
-    public function store_disposisi(SuratMasuk $suratMasuk, DisposisiRequest $request)
+    public function store_disposisi(SuratMasuk $suratMasuk, DisposisiRequest $request, FonnteService $fonnte)
     {
         $request->validated();
-        $suratMasuk->update([
-            'status_surat' => 3, 
-         ]);
-         
-         if($request->file_upload !== null){
-             $file = $request->file('file_upload')->store('uploads', 'public');
-         }
- 
-         Disposisi::create([
-             'user_id_pengirim' => Auth::id(),
-             'user_id_tujuan' => $request->tujuan,
-             'surat_masuk_id' => $suratMasuk->id,
-             'status_disposisi' => 2,
-             'tgl_disposisi' => $request->tgl_disposisi,
-             'file_upload' => $request->file_upload == null ? null : $file,
-             'keterangan_disposisi' => $request->keterangan
-         ]);
-
-        $suratMasuk->update([
-            'status_surat' => 3,
-        ]);
-
+        $suratMasuk->update(['status_surat' => 3]);
+    
         if ($request->file_upload !== null) {
             $file = $request->file('file_upload')->store('uploads', 'public');
         }
-
+    
+        Disposisi::create([
+            'user_id_pengirim' => Auth::id(),
+            'user_id_tujuan' => $request->tujuan,
+            'surat_masuk_id' => $suratMasuk->id,
+            'status_disposisi' => 2,
+            'tgl_disposisi' => $request->tgl_disposisi,
+            'file_upload' => $request->file_upload == null ? null : $file,
+            'keterangan_disposisi' => $request->keterangan
+        ]);
+    
         Notification::create([
             'surat_masuk_id' => $suratMasuk->id,
             'surat_tujuan_id' => $request->tujuan,
             'pesan' => $request->keterangan,
         ]);
+
+        
+    
+        $user = User::find($request->tujuan);
+
+        $this->kirimPesanWhatsApp(
+            $fonnte, 
+            $request->tujuan, 
+            "Yth. Bapak/Ibu " . $user->name . ",\n\n" . 
+            "Dengan hormat, \n\n" . 
+            "Anda telah menerima disposisi terkait surat dengan nomor: " . 
+            $suratMasuk->no_surat . " dan perihal: '" . $suratMasuk->perihal . "'.\n\n" . 
+            "Kami mohon untuk dapat segera menindaklanjuti surat tersebut sesuai dengan prosedur yang berlaku.\n\n" . 
+            "Terima kasih atas perhatian dan kerjasamanya.\n\n" . 
+            "E-Office BPKAD Prov Lampung"
+        );
+        
+    
         return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
     }
-
+    
+    private function kirimPesanWhatsApp(FonnteService $fonnte, $userId, $message)
+    {
+        $user = User::find($userId);
+        if ($user && $user->phone) {
+            $fonnte->sendMessage($user->phone, $message);
+        }
+    }
 
     public function distribusi(SuratMasuk $suratMasuk)
     {
         $tujuan =  User::with('jabatan')->where('jabatan_id', '!=', null)->get()->toArray();
         return view('modules.surat_masuk.distribusi', compact(['tujuan', 'suratMasuk']));
-    }
+    }    
 
-    public function store_distribusi(SuratMasuk $suratMasuk, DistribusiRequest $request)
+    public function store_distribusi(SuratMasuk $suratMasuk, DistribusiRequest $request, FonnteService $fonnte)
     {
         $request->validated();
-        DB::transaction(function () use ($request, $suratMasuk) {
+        DB::transaction(function () use ($request, $suratMasuk, $fonnte) {
             $suratMasuk->update([
                 'status_surat' => 2,
                 'tgl_selesai' => $request->tgl_disposisi
             ]);
-
+    
             Disposisi::create([
                 'user_id_pengirim' => Auth::id(),
                 'user_id_tujuan' => $request->tujuan,
@@ -219,46 +235,64 @@ class SuratMasukController extends Controller
                 'tgl_disposisi' => $request->tgl_disposisi,
                 'keterangan_disposisi' => $request->keterangan
             ]);
-
+    
             Notification::create([
                 'surat_masuk_id' => $suratMasuk->id,
                 'surat_tujuan_id' => $request->tujuan,
                 'pesan' => $request->keterangan,
             ]);
-        });
+    
+            // Asumsikan $user berisi data pengguna yang akan menerima pesan
+            $user = User::find($request->tujuan);
 
+            $this->kirimPesanWhatsApp(
+                $fonnte, 
+                $request->tujuan, 
+                "Yth. Bapak/Ibu " . $user->name . ",\n\n" . 
+                "Kami informasikan bahwa surat dengan dengan nomor: " . 
+                $suratMasuk->no_surat . " dan perihal '{$suratMasuk->perihal}' telah didistribusikan.\n\n" . 
+                "Mohon untuk segera dilakukan tindak lanjut sesuai dengan prosedur yang berlaku.\n\n" . 
+                "Terima kasih atas perhatian dan kerjasamanya.\n\n" . 
+                "E-Office BPKAD Prov Lampung"
+            );
+
+        });
+    
         return redirect()->route('disposisi.index')->withToastSuccess('Disposisi Surat berhasil ditambahkan.');
     }
-
-    public function terima_surat(SuratMasuk $suratMasuk)
+    
+    public function terima_surat(SuratMasuk $suratMasuk, FonnteService $fonnte)
     {
-        $suratMasuk->update([
-            'status_surat' => 4
-        ]);
-
+        $suratMasuk->update(['status_surat' => 4]);
+    
         Disposisi::create([
             'user_id_pengirim' => Auth::id(),
             'surat_masuk_id' => $suratMasuk->id,
             'status_disposisi' => 4,
             'tgl_disposisi' => Carbon::now(),
         ]);
-
+    
+        $this->kirimPesanWhatsApp($fonnte, Auth::id(), "Surat dengan dengan nomor: " . 
+            $suratMasuk->no_surat . "dan perihal '{$suratMasuk->perihal}' telah diterima dan ditandai selesai.");
+    
         return back()->withToastSuccess('Surat berhasil ditandai selesai');
     }
+    
 
-    public function tolak_surat(SuratMasuk $suratMasuk)
+    public function tolak_surat(SuratMasuk $suratMasuk, FonnteService $fonnte)
     {
-        $suratMasuk->update([
-            'status_surat' => 5
-        ]);
-
+        $suratMasuk->update(['status_surat' => 5]);
+    
         Disposisi::create([
             'user_id_pengirim' => Auth::id(),
             'surat_masuk_id' => $suratMasuk->id,
             'status_disposisi' => 5,
             'tgl_disposisi' => Carbon::now(),
         ]);
-
+    
+        $this->kirimPesanWhatsApp($fonnte, Auth::id(), "Surat dengan dengan nomor: " . 
+            $suratMasuk->no_surat . " dan perihal '{$suratMasuk->perihal}' telah ditolak.");
+    
         return redirect()->back()->with('error', 'Surat berhasil ditolak');
-    }
+    }        
 }

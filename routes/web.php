@@ -14,8 +14,24 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\MonitoringDisposisiController; // Add this line
 use App\Http\Controllers\DataTables\UserDataTableController;
 
+
 // Route::get('/', function () {
 //     return view('welcome');
+// });
+
+// use App\Services\FonnteService;
+
+// Route::get('/test-fonnte', function(FonnteService $fonnte) {
+//     $phone = '6285715540848'; // Ganti dengan nomor tujuan yang valid
+//     $message = 'Ini adalah pesan tes dari FonnteService ya.';
+
+//     $result = $fonnte->sendMessage($phone, $message);
+
+//     if ($result) {
+//         return 'Pesan berhasil dikirim!';
+//     } else {
+//         return 'Gagal mengirim pesan.';
+//     }
 // });
 
 Route::get('/', [App\Http\Controllers\LandingPageController::class,'index'])->name('landing');
