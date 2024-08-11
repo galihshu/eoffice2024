@@ -72,29 +72,78 @@ class SuratMasukDataTable extends DataTable
     public function query(SuratMasuk $model): QueryBuilder
     {
         if (auth()->user()->hasRole('admin')) {
-            return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')
-                ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
+            return $model->newQuery()->select('surat_masuk.*','surat_masuk.id as surat_masuk_id', 'jenis_surat.jenis_surat')
+                ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id')
+                ->orderBy('surat_masuk.created_at', 'desc');
         }
         if (auth()->user()->hasRole('operator')) {
-            return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')
-                ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
+            return $model->newQuery()->select('surat_masuk.*','surat_masuk.id as surat_masuk_id', 'jenis_surat.jenis_surat')
+                ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id')
+                ->orderBy('surat_masuk.created_at', 'desc');
         }
         if (auth()->user()->hasRole('pemberidisposisi')) {
-            return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat')->whereNot('status_surat', 1)
-                ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id');
+            return $model->newQuery()->select('surat_masuk.*','surat_masuk.id as surat_masuk_id', 'jenis_surat.jenis_surat')->whereNot('status_surat', 1)
+                ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id')
+                ->orderBy('surat_masuk.created_at', 'desc');
         }
         if (auth()->user()->hasRole('penanggungjawab')) {
-            return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat', 'disposisi.*', 'disposisi.id as disposisi_id')->whereNot('status_surat', 1)
+            return $model->newQuery()
+                ->select([
+                    'surat_masuk.id as surat_masuk_id',          // Alias untuk id dari surat_masuk
+                    'surat_masuk.user_id',                       // ID user pengirim surat
+                    'surat_masuk.jenis_surat_id',                // ID jenis surat
+                    'jenis_surat.jenis_surat as jenis_surat',    // Nama jenis surat dari tabel jenis_surat
+                    'surat_masuk.no_surat',                      // Nomor surat
+                    'surat_masuk.perihal',                       // Perihal surat
+                    'surat_masuk.status_surat',                  // Status surat (Baru, Diproses, Disposisi, Selesai, Ditolak, Diarsipkan)
+                    'surat_masuk.tgl_surat',                     // Tanggal surat
+                    'surat_masuk.tgl_masuk',                     // Tanggal masuk surat
+                    'surat_masuk.tgl_selesai',                   // Tanggal selesai surat
+                    'surat_masuk.asal_surat',                    // Asal surat
+                    'surat_masuk.file_upload as surat_file_upload',   // File upload surat
+                    'disposisi.id as disposisi_id',              // Alias untuk id dari disposisi
+                    'disposisi.user_id_pengirim',                // ID user pengirim disposisi
+                    'disposisi.user_id_tujuan',                  // ID user tujuan disposisi
+                    'disposisi.status_disposisi',                // Status disposisi (Distribusi, Disposisi, Diteruskan, Selesai, Ditolak)
+                    'disposisi.tgl_disposisi',                   // Tanggal disposisi
+                    'disposisi.file_upload as disposisi_file_upload',  // File upload disposisi
+                    'disposisi.keterangan_disposisi'             // Keterangan disposisi
+                ])
+                ->whereNot('surat_masuk.status_surat', 1) // Filter surat_masuk dengan status_surat bukan 1 (Baru)
                 ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id')
                 ->leftJoin('disposisi', 'surat_masuk.id', '=', 'disposisi.surat_masuk_id')
-                ->where('disposisi.user_id_tujuan', auth()->user()->id);
-        }
+                ->where('disposisi.user_id_tujuan', auth()->user()->id)
+                ->orderBy('surat_masuk.created_at', 'desc');
+        }                      
         if (auth()->user()->hasRole('pelaksana')) {
-            return $model->newQuery()->select('surat_masuk.*', 'jenis_surat.jenis_surat', 'disposisi.*', 'disposisi.id as disposisi_id')->whereNot('status_surat', 1)
+            return $model->newQuery()
+                ->select([
+                    'surat_masuk.id as surat_masuk_id',          // Alias untuk id dari surat_masuk
+                    'surat_masuk.user_id',                       // ID user pengirim surat
+                    'surat_masuk.jenis_surat_id',                // ID jenis surat
+                    'jenis_surat.jenis_surat as jenis_surat',    // Nama jenis surat dari tabel jenis_surat
+                    'surat_masuk.no_surat',                      // Nomor surat
+                    'surat_masuk.perihal',                       // Perihal surat
+                    'surat_masuk.status_surat',                  // Status surat (Baru, Diproses, Disposisi, Selesai, Ditolak, Diarsipkan)
+                    'surat_masuk.tgl_surat',                     // Tanggal surat
+                    'surat_masuk.tgl_masuk',                     // Tanggal masuk surat
+                    'surat_masuk.tgl_selesai',                   // Tanggal selesai surat
+                    'surat_masuk.asal_surat',                    // Asal surat
+                    'surat_masuk.file_upload as surat_file_upload',   // File upload surat
+                    'disposisi.id as disposisi_id',              // Alias untuk id dari disposisi
+                    'disposisi.user_id_pengirim',                // ID user pengirim disposisi
+                    'disposisi.user_id_tujuan',                  // ID user tujuan disposisi
+                    'disposisi.status_disposisi',                // Status disposisi (Distribusi, Disposisi, Diteruskan, Selesai, Ditolak)
+                    'disposisi.tgl_disposisi',                   // Tanggal disposisi
+                    'disposisi.file_upload as disposisi_file_upload',  // File upload disposisi
+                    'disposisi.keterangan_disposisi'             // Keterangan disposisi
+                ])
+                ->whereNot('surat_masuk.status_surat', 1) // Filter surat_masuk dengan status_surat bukan 1 (Baru)
                 ->leftJoin('jenis_surat', 'surat_masuk.jenis_surat_id', '=', 'jenis_surat.id')
                 ->leftJoin('disposisi', 'surat_masuk.id', '=', 'disposisi.surat_masuk_id')
-                ->where('disposisi.user_id_tujuan', auth()->user()->id);
-        }
+                ->where('disposisi.user_id_tujuan', auth()->user()->id)
+                ->orderBy('surat_masuk.created_at', 'desc');
+        }   
     }
 
     /**
@@ -127,7 +176,7 @@ class SuratMasukDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->orderable(false)->addClass('border-b border-defaultborder'),
+            Column::make('surat_masuk_id')->orderable(false)->title('ID')->addClass('border-b border-defaultborder'),
             Column::make('no_surat')->orderable(false)->title('No. Surat')->addClass('border-b border-defaultborder'),
             Column::make('asal_surat')->orderable(false)->title('Asal Surat')->addClass('border-b border-defaultborder'),
             Column::make('jenis_surat')->orderable(false)->title('Jenis Surat')->addClass('border-b border-defaultborder'),
