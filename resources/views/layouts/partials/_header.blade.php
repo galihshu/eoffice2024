@@ -74,7 +74,7 @@
                             Notifikasi</p>
                         <span
                             class="text-[0.75em] py-[0.25rem/2] px-[0.45rem] font-[600] rounded-sm bg-secondary/10 text-secondary"
-                            id="notifiation-data">{{ $countNotif }} Belum Dibaca</span>
+                            id="notifiation-data">{{ $countNotif }} Surat Masuk</span>
                     </div>
                     <div class="dropdown-divider"></div>
                     <ul class="list-none !m-0 !p-0 end-0" id="header-notification-scroll" data-simplebar="init">
