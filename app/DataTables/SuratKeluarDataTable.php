@@ -53,9 +53,11 @@ class SuratKeluarDataTable extends DataTable
     {
 
         if (auth()->user()->hasRole('admin')) {
-            return $model->newQuery();
+            return $model->newQuery()
+            ->orderBy('created_at', 'desc');
         }
-        return $model->newQuery()->where('user_id', auth()->user()->id);
+        return $model->newQuery()->where('user_id', auth()->user()->id)
+        ->orderBy('created_at', 'desc');
     }
 
     /**
