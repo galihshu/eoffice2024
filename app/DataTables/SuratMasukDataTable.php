@@ -176,7 +176,7 @@ class SuratMasukDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('surat_masuk_id')->orderable(false)->title('ID')->addClass('border-b border-defaultborder'),
+            // Column::make('surat_masuk.id')->orderable(false)->title('ID')->addClass('border-b border-defaultborder'),
             Column::make('no_surat')->orderable(false)->title('No. Surat')->addClass('border-b border-defaultborder'),
             Column::make('asal_surat')->orderable(false)->title('Asal Surat')->addClass('border-b border-defaultborder'),
             Column::make('jenis_surat')->orderable(false)->title('Jenis Surat')->addClass('border-b border-defaultborder'),

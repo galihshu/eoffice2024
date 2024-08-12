@@ -90,7 +90,7 @@ class SuratKeluarDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->orderable(false)->addClass('border-b border-defaultborder'),
+            // Column::make('id')->orderable(false)->addClass('border-b border-defaultborder'),
             Column::make('kode_surat')->orderable(false)->title('Kode Surat')->addClass('border-b border-defaultborder'),
             Column::make('no_surat')->orderable(false)->title('No. Surat')->addClass('border-b border-defaultborder'),
             Column::make('nama_penerima')->orderable(false)->title('Nama Penerima')->addClass('border-b border-defaultborder'),
