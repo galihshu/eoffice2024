@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
+use Carbon\Carbon;
 
 class SuratKeluarExport implements FromQuery, WithHeadings, WithMapping, WithStyles, WithEvents
 {
@@ -59,8 +60,8 @@ class SuratKeluarExport implements FromQuery, WithHeadings, WithMapping, WithSty
             $suratKeluar->kode_surat,
             $suratKeluar->no_surat,
             $suratKeluar->perihal,
-            $suratKeluar->tgl_keluar,
-            $suratKeluar->tgl_diterima,
+            Carbon::parse($suratKeluar->tgl_keluar)->format('d-m-Y'),
+            Carbon::parse($suratKeluar->tgl_diterima)->format('d-m-Y'),
             $this->getStatusText($suratKeluar->status_surat),
             $suratKeluar->tujuan_surat,
             $suratKeluar->file_upload,
@@ -95,6 +96,7 @@ class SuratKeluarExport implements FromQuery, WithHeadings, WithMapping, WithSty
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
+                // Menambahkan border tebal untuk heading
                 $event->sheet->getStyle('A1:M1')->applyFromArray([
                     'borders' => [
                         'outline' => [
@@ -104,6 +106,7 @@ class SuratKeluarExport implements FromQuery, WithHeadings, WithMapping, WithSty
                     ],
                 ]);
 
+                // Menambahkan border tipis untuk semua data
                 $event->sheet->getStyle('A2:M' . $event->sheet->getHighestRow())->applyFromArray([
                     'borders' => [
                         'allBorders' => [
@@ -112,7 +115,13 @@ class SuratKeluarExport implements FromQuery, WithHeadings, WithMapping, WithSty
                         ],
                     ],
                 ]);
+
+                // Mengatur auto-size untuk setiap kolom dari A hingga M
+                foreach (range('A', 'M') as $column) {
+                    $event->sheet->getDelegate()->getColumnDimension($column)->setAutoSize(true);
+                }
             },
         ];
     }
+
 }

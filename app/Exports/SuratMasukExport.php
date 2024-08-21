@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Events\AfterSheet;
+use Carbon\Carbon;
 
 class SuratMasukExport implements FromQuery, WithHeadings, WithMapping, WithStyles, WithEvents
 {
@@ -35,17 +36,14 @@ class SuratMasukExport implements FromQuery, WithHeadings, WithMapping, WithStyl
     {
         return [
             'ID',
-            'User ID',
-            'Nama Penerima',
-            'Jenis Surat ID',
-            'Jenis Surat',
             'No Surat',
+            'Pengirim',
+            'Jenis Surat',
             'Perihal',
             'Status Surat',
             'Tanggal Surat',
             'Tanggal Masuk',
             'Tanggal Selesai',
-            'Asal Surat',
             'File Upload',
             'Created At',
             'Updated At',
@@ -56,17 +54,15 @@ class SuratMasukExport implements FromQuery, WithHeadings, WithMapping, WithStyl
     {
         return [
             $suratMasuk->id,
-            $suratMasuk->user_id,
-            $suratMasuk->user->name,
-            $suratMasuk->jenis_surat_id,
-            $suratMasuk->jenis->jenis_surat,
             $suratMasuk->no_surat,
+            $suratMasuk->asal_surat,
+            $suratMasuk->jenis->jenis_surat,
             $suratMasuk->perihal,
             $this->getStatusText($suratMasuk->status_surat),
-            $suratMasuk->tgl_surat,
-            $suratMasuk->tgl_masuk,
-            $suratMasuk->tgl_selesai,
-            $suratMasuk->asal_surat,
+            // Menggunakan format Y-m-d untuk menampilkan hanya tanggal
+            Carbon::parse($suratMasuk->tgl_surat)->format('d-m-Y'),
+            Carbon::parse($suratMasuk->tgl_masuk)->format('d-m-Y'),
+            Carbon::parse($suratMasuk->tgl_selesai)->format('d-m-Y'),
             $suratMasuk->file_upload,
             $suratMasuk->created_at,
             $suratMasuk->updated_at,
@@ -81,7 +77,13 @@ class SuratMasukExport implements FromQuery, WithHeadings, WithMapping, WithStyl
             case '2':
                 return 'Diproses';
             case '3':
+                return 'Disposisi';
+            case '4':
                 return 'Selesai';
+            case '5':
+                return 'Ditolak';
+            case '6':
+                return 'Diarsipkan';    
             default:
                 return 'Unknown';
         }
@@ -99,7 +101,8 @@ class SuratMasukExport implements FromQuery, WithHeadings, WithMapping, WithStyl
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getStyle('A1:O1')->applyFromArray([
+                // Menambahkan border tebal untuk heading
+                $event->sheet->getStyle('A1:L1')->applyFromArray([
                     'borders' => [
                         'outline' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
@@ -108,7 +111,8 @@ class SuratMasukExport implements FromQuery, WithHeadings, WithMapping, WithStyl
                     ],
                 ]);
 
-                $event->sheet->getStyle('A2:O' . $event->sheet->getHighestRow())->applyFromArray([
+                // Menambahkan border tipis untuk semua data
+                $event->sheet->getStyle('A2:L' . $event->sheet->getHighestRow())->applyFromArray([
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -116,7 +120,13 @@ class SuratMasukExport implements FromQuery, WithHeadings, WithMapping, WithStyl
                         ],
                     ],
                 ]);
+
+                // Mengatur auto-size untuk setiap kolom dari A hingga L
+                foreach (range('A', 'L') as $column) {
+                    $event->sheet->getDelegate()->getColumnDimension($column)->setAutoSize(true);
+                }
             },
         ];
     }
+
 }
